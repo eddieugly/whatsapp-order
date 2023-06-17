@@ -22,9 +22,9 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['sometimes', 'required', 'string', 'max:455'],
-            'thumbnail' => ['sometimes', 'required', 'image', 'mimes:png,jpg,jpeg'],
+            'name' => ['required', 'string', 'max:50', 'exists:categories,name'],
+            'description' => ['sometimes', 'required', 'string', 'max:255'],
+            'thumbnail' => ['sometimes', 'required', 'mimes:png,jpg,jpeg,webp'],
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -26,8 +27,21 @@ Route::get('/', function () {
     ]);
 });
 
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dashboard', function () {
+            return Inertia::render('Admin/Mydashboard');
+        })->name('dashboard');
+
+        Route::resource('category', AdminCategoryController::class);
+        
+    });
+    
+});
+
 Route::get('/dashboard', function () {
-    return Inertia::render('Mydashboard');
+    return Inertia::render('Admin/Mydashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {

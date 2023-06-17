@@ -7,6 +7,7 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import DashnavVue from '@/Components/Dashnav.vue';
 import SiderbarVue from '@/Components/Siderbar.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -16,13 +17,16 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="min-h-screen bg-gray-100">
             <DashnavVue />
+            
 
             <SiderbarVue />
 
             <!-- Page Content -->
             <main>
+                
                 <slot />
             </main>
+            
         </div>
     </div>
 </template>

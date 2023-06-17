@@ -9,10 +9,7 @@ onMounted(() => {
 })
 
 const props = defineProps({
-    href: {
-        type: String,
-        required: true,
-    },
+    
     active: {
         type: Boolean,
     },
@@ -41,7 +38,7 @@ const classes = computed(() =>
                             </path>
                         </svg>
                     </button>
-                    <Link :href="route('dashboard')" class="flex ml-2 md:mr-24">
+                    <Link :href="route('admin.dashboard')" class="flex ml-2 md:mr-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
@@ -70,7 +67,7 @@ const classes = computed(() =>
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
-                                    <DropLink :href="route('dashboard')">Dashboard</DropLink>
+                                    <DropLink :href="route('admin.dashboard')">Dashboard</DropLink>
                                 </li>
                                 <li>
                                     <DropLink :href="route('profile.edit')">Profile</DropLink>

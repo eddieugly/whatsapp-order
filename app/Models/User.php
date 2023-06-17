@@ -55,4 +55,14 @@ class User extends Authenticatable
             $user->ulid = (string) Str::ulid();
         });
     }
+
+    public function hasRole($role)
+    {
+        return $this->roles->contains('name', $role);
+    }
+
+    public function canRole($role)
+    {
+        return $this->roles->contains('name', $role);
+    }
 }
