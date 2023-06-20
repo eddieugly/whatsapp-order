@@ -9,6 +9,37 @@ import DashnavVue from '@/Components/Dashnav.vue';
 import SiderbarVue from '@/Components/Siderbar.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import { Link } from '@inertiajs/vue3';
+import Toast from '@/Components/Toast.vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed, watch } from 'vue';
+
+const { errors, flashMessage } = usePage().props;
+
+watch(
+  errors,
+  (newErrors) => {
+    if (newErrors.length) {
+      newErrors.forEach((error) => {
+        showToast(error, 'error', 3000);
+      });
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  flashMessage,
+  (newFlashMessage) => {
+    if (newFlashMessage) {
+      if (newFlashMessage.type === 'success') {
+        showToast(newFlashMessage.message, 'success', 3000);
+      } else {
+        showToast(newFlashMessage.message, 'error', 3000);
+      }
+    }
+  },
+  { immediate: true },
+);
 
 const showingNavigationDropdown = ref(false);
 </script>

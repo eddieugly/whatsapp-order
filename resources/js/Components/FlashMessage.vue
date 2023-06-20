@@ -4,7 +4,10 @@ import { computed, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import useAlerts from '@/Composables/alert';
 
-const alert = computed(() => usePage().props.value.flash.alert);
+const alert = computed(() => usePage().props.value.flash.error);
+const success = computed(() => usePage().props.value.flash.success);
+const error = computed(() => usePage().props.value.flash.success);
+
 const {addAlert, alerts} = useAlerts();
 
 watch(alert, (newVal) => {

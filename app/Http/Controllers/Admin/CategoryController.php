@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Request;
 
 class CategoryController extends Controller
 {
@@ -17,7 +19,23 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/MenuCategory/Index');
+        $menuCategories = Category::query()
+            ->when(Request::input('search'), function ($query, $search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        return Inertia::render('Admin/MenuCategory/Index', [
+            'filters' => Request::only(['search']),
+            'menuCategories' => $menuCategories->map(fn ($menuCategory) => [
+                'id' => $menuCategory->ulid,
+                'name' => $menuCategory->name,
+                'description' => $menuCategory->description,
+                'thumbnail' => $menuCategory->thumbnail,
+            ]),
+            
+        ]);
     }
 
     /**
@@ -31,7 +49,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
         $filename = '';
         $path = imagePath()['categoryThumbnail']['path'];
@@ -39,13 +57,10 @@ class CategoryController extends Controller
         
         if ($request->hasFile('thumbnail')) {
             try {
-                $filename = uploadImage($request->file('thumbnail'), $path, $size);
+                $filename = uploadImage($request->thumbnail, $path, $size);
             } catch (\Exception $exp) {
-                $notify[] = [
-                    'type' => 'error',
-                    'message' => 'Could Not Upload Image'
-                ];
-                return Redirect::back()->with('alerte', 'Category Added Successfully');
+                
+                return Redirect::back()->with('error', 'Could Not Upload Image');
             }
         }
 
@@ -59,11 +74,7 @@ class CategoryController extends Controller
             'thumbnail' => $filename
         ]);
 
-        $notify[] = [
-            'type' => 'success',
-            'message' => 'Category Added Successfully'
-        ];
-        return to_route('admin.category.index')->with('alerte', 'Category Added Successfully');
+        return Redirect::route('admin.category.index')->with('success', 'Category Added Successfully');
     }
 
     /**
@@ -79,15 +90,44 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Admin/MenuCategory/Edit', [
+            'menuCategory' => [
+                'id' => $category->ulid,
+                'name' => $category->name,
+                'description' => $category->description,
+                'thumbnail' => $category->thumbnail
+            ]
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        
+        $filename = $category->thumbnail;
+        $path = imagePath()['categoryThumbnail']['path'];
+        $size = imagePath()['categoryThumbnail']['size'];
+        
+        if ($request->hasFile('thumbnail')) {
+            try {
+                $filename = uploadImage($request->thumbnail, $path, $size);
+            } catch (\Exception $exp) {
+                
+                return Redirect::back()->with('error', 'Could Not Upload Image');
+            }
+        }
+        
+        $data = $request->validated();
+        
+        $category->update([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'thumbnail' => $filename
+        ]);
+
+        return redirect('/admin/category')->with('success', 'Category Updated Successfully');
     }
 
     /**
@@ -95,6 +135,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return Redirect::back()->with('success', 'Category Deleted Successfully');
     }
 }

@@ -25,4 +25,9 @@ class Category extends Model
             $category->ulid = (string) Str::ulid();
         });
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'ulid';
+    }
 }
