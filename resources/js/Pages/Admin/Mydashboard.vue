@@ -1,7 +1,6 @@
 <script setup>
 import AuthenticatesLayout from '@/Layouts/AuthenticatesLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import FlashMessage from '@/Components/FlashMessage.vue';
 </script>
 
 <template>

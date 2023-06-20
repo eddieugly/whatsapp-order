@@ -15,7 +15,7 @@ let props = defineProps({
 const form = useForm({
     name: props.menuCategory.name,
     description: props.menuCategory.description,
-    thumbnail: props.menuCategory.thumbnail,
+    thumbnail: null,
 });
 
 const submit = () => {

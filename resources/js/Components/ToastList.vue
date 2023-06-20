@@ -14,16 +14,24 @@
 <script setup>
 import { usePage, router } from '@inertiajs/vue3';
 import { ref, computed, onUnmounted } from 'vue';
-import ToastListItem from './ToastListItem';
+import ToastListItem from '@/Components/ToastListItem.vue';
 
-import toast from '../Stores/toast'
+import toast from '@/Composables/toast';
 
 const page = computed(() => usePage().props);
+const successe = computed(() => usePage().props.flash.success);
+const errore = computed(() => usePage().props.flash.error);
 
 let removeFinishEventListener = router.on('finish', () => {
-  if (page.value.toast) {
+  if (successe) {
     toast.add({
-      message: page.value.toast
+      message: successe
+    });
+  }
+
+  if (errore) {
+    toast.add({
+      message: errore
     });
   }
 });

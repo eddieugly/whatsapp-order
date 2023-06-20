@@ -5,86 +5,103 @@
 
     <AuthenticatesLayout>
 
-        <div class="p-4 sm:ml-64">
-            <div class="p-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
-                <div class="items-center sm:p-8 lg:p-10 mx-auto max-w-4xl rounded bg-gray-50 dark:bg-gray-800">
-                    <div class="lg:flex items-center justify-between pb-4 my-7">
-                        <div>
+        <section class="mt-10 p-3 sm:p-5 sm:ml-64">
+            <div class="mx-auto max-w-screen-xl mt-10 px-4 lg:px-12">
+                <!-- Start coding here -->
+                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                    <div
+                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                        <div class="w-full md:w-1/2">
+                            <div class="flex items-center">
+                                <label for="simple-search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <input v-model="search" type="text" id="simple-search"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Search Category" name="search">
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                             <Link
-                                class=" items-center text-blue-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 hover:underline"
+                                class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                                 as="button" :href="'/admin/category/create'">
+                            <svg class="h-5 w-6 mr-2" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clip-rule="evenodd" fill-rule="evenodd"
+                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                            </svg>
                             Add New Category
                             </Link>
                         </div>
-                        <label for="table-search" class="sr-only">Search</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <input v-model="search" type="text" id="table-search"
-                                class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Search Category" name="search">
-                        </div>
                     </div>
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 shadow-md border border-rounded dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Category Name
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Description
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Thumbnail
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    <span class="sr-only">Edit</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="menuCategory in menuCategories" :key="menuCategory.id"
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
-
-                                <td class="px-6 py-4">
-                                    {{ menuCategory.name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ menuCategory.description }}
-                                </td>
-                                <td class="px-6 w-10 py-4">
-                                    <img :src="`/assets/img/categoryThumbnail/${menuCategory.thumbnail}`" :width="75"
-                                        alt="Category Thumbnail">
-                                    {{ menuCategory.thumbnail }}
-                                </td>
-                                <td class="px-6 py-4 text-right gap-4">
-                                    <div class="flex justify-end gap-4">
-                                        <Link class="text-blue-600 dark:text-blue-500 hover:underline" as="button"
-                                            :href="'/admin/category/' + menuCategory.id + '/edit'">
-                                        Edit
-                                        </Link>
-                                        <Link class="text-red-600 dark:text-red-500 hover:underline" method="delete"
-                                            as="button" :href="'/admin/category/' + menuCategory.id + '/destroy'">
-                                        Delete
-                                        </Link>
-                                    </div>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Category Name</th>
+                                    <th scope="col" class="px-4 py-3">Description</th>
+                                    <th scope="col" class="px-4 py-3">Thumbnail</th>
+                                    <th scope="col" class="px-4 py-3">
+                                        <span class="sr-only">Actions</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="menuCategory in menuCategories" :key="menuCategory.id"
+                                    class="border-b dark:border-gray-700">
+                                    <td class="px-4 py-3">{{ menuCategory.name }}</td>
+                                    <td class="px-4 py-3">{{ menuCategory.description }}</td>
+                                    <td class="px-4 py-3"><img
+                                            :src="`/assets/img/categoryThumbnail/${menuCategory.thumbnail}`" :width="75"
+                                            alt="Category Thumbnail"></td>
+                                    <td class="px-4 py-3 flex items-center justify-end">
+                                        <button id="apple-imac-27-dropdown-button"
+                                            data-dropdown-toggle="apple-imac-27-dropdown"
+                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                            type="button">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                            </svg>
+                                        </button>
+                                        <div id="apple-imac-27-dropdown"
+                                            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="apple-imac-27-dropdown-button">
+                                                <li>
+                                                    <Link as="button" :href="'/admin/category/' + menuCategory.id + '/edit'"
+                                                        class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                    Edit
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                            <div class="py-1">
+                                                <Link method="delete" as="button"
+                                                    :href="'/admin/category/' + menuCategory.id + '/destroy'"
+                                                    class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                Delete
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    
+                    <Pagination :link="menuCategories.links" />
                 </div>
             </div>
-        </div>
+        </section>
     </AuthenticatesLayout>
 </template>
 <script setup>
@@ -94,6 +111,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
 import debounce from 'lodash/debounce';
+import Pagination from '@/Components/Pagination.vue';
 
 let props = defineProps({
     menuCategories: {

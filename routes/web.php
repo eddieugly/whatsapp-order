@@ -34,6 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return Inertia::render('Admin/Mydashboard');
         })->name('dashboard');
 
+        Route::get('testing', [AdminCategoryController::class, 'testing'])->name('testing');
+
         Route::resource('category', AdminCategoryController::class);
         
     });

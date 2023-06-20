@@ -1,45 +1,18 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import DashnavVue from '@/Components/Dashnav.vue';
 import SiderbarVue from '@/Components/Siderbar.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
-import { Link } from '@inertiajs/vue3';
-import Toast from '@/Components/Toast.vue';
 import { usePage } from '@inertiajs/vue3';
-import { computed, watch } from 'vue';
+import { computed, watch, onMounted } from 'vue';
+import { initFlowbite } from 'flowbite';
+import { Toast } from 'flowbite-vue';
+import ToastList from '@/Components/ToastList.vue';
 
-const { errors, flashMessage } = usePage().props;
 
-watch(
-  errors,
-  (newErrors) => {
-    if (newErrors.length) {
-      newErrors.forEach((error) => {
-        showToast(error, 'error', 3000);
-      });
-    }
-  },
-  { immediate: true },
-);
+onMounted(() => {
+  initFlowbite();
+})
 
-watch(
-  flashMessage,
-  (newFlashMessage) => {
-    if (newFlashMessage) {
-      if (newFlashMessage.type === 'success') {
-        showToast(newFlashMessage.message, 'success', 3000);
-      } else {
-        showToast(newFlashMessage.message, 'error', 3000);
-      }
-    }
-  },
-  { immediate: true },
-);
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -57,6 +30,7 @@ const showingNavigationDropdown = ref(false);
                 
                 <slot />
             </main>
+            <ToastList/>
             
         </div>
     </div>

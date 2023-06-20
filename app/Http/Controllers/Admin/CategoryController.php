@@ -24,16 +24,19 @@ class CategoryController extends Controller
                 $query->where('name', 'like', '%' . $search . '%');
             })
             ->orderByDesc('created_at')
-            ->paginate(10);
-
-        return Inertia::render('Admin/MenuCategory/Index', [
-            'filters' => Request::only(['search']),
-            'menuCategories' => $menuCategories->map(fn ($menuCategory) => [
+            ->paginate(10)
+            ->through(fn ($menuCategory) => [
                 'id' => $menuCategory->ulid,
                 'name' => $menuCategory->name,
                 'description' => $menuCategory->description,
                 'thumbnail' => $menuCategory->thumbnail,
-            ]),
+            ]);
+
+            $filteredMenuCategories = $menuCategories->all();
+
+        return Inertia::render('Admin/MenuCategory/Index', [
+            'filters' => Request::only(['search']),
+            'menuCategories' => $filteredMenuCategories,
             
         ]);
     }
@@ -44,6 +47,11 @@ class CategoryController extends Controller
     public function create()
     {
         return Inertia::render('Admin/MenuCategory/Create');
+    }
+
+    public function testing()
+    {
+        return redirect()->back()->with('success', 'IT iS Working');
     }
 
     /**
