@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Menu;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateMenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +24,10 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', 'unique:categories,name'],
+            'name' => ['required', 'string', 'max:50', Rule::unique(Menu::class, 'name')->ignore($this->route('menu'), 'ulid')],
             'description' => ['sometimes', 'string', 'max:255'],
+            'status' => ['required', 'numeric', 'in:0,1'],
+            'price' => ['required', 'numeric', 'gt:0'],
             'thumbnail' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
         ];
     }
