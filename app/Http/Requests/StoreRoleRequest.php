@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Menu;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
-class StoreMenuRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class StoreMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique(Menu::class, 'name')],
-            'description' => ['sometimes', 'string', 'max:255'],
-            'status' => ['required', 'numeric', 'in:0,1'],
-            'price' => ['required', 'numeric', 'gt:0'],
-            'thumbnail' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'name' => ['required', 'string', 'max:50', Rule::unique(Role::class, 'name')],
         ];
     }
 }

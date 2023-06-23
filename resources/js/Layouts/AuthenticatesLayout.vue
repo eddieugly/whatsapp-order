@@ -1,20 +1,15 @@
 <script setup>
-import { ref } from 'vue';
 import DashnavVue from '@/Components/Dashnav.vue';
 import SiderbarVue from '@/Components/Siderbar.vue';
-import { usePage } from '@inertiajs/vue3';
-import { computed, watch, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { initFlowbite } from 'flowbite';
-import { Toast } from 'flowbite-vue';
 import ToastList from '@/Components/ToastList.vue';
+import Alert from '@/Components/Alert.vue';
 
 
 onMounted(() => {
   initFlowbite();
 })
-
-
-const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -30,7 +25,7 @@ const showingNavigationDropdown = ref(false);
                 
                 <slot />
             </main>
-            <ToastList/>
+            <Alert />
             
         </div>
     </div>

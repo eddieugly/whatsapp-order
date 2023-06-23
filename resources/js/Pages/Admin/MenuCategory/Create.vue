@@ -32,7 +32,7 @@ const submit = () => {
                     <div class="mb-4">
                         <Input v-model="form.name" name="name" id="name" placeholder="Enter Category Name" label="Category Name">
                             <template #helper v-if="form.errors.name" class="text-red-500">
-                                {{ form.errors.name }}
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.name }}</p>
                             </template>
                         </Input>
                     </div>
@@ -41,7 +41,7 @@ const submit = () => {
                     <div class="mb-4">
                         <Input v-model="form.description" name="description" id="description" placeholder="Enter Category Description" label="Category Description">
                             <template #helper v-if="form.errors.description" class="text-red-500">
-                                {{ form.errors.description }}
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.description }}</p>
                             </template>
                         </Input>
                     </div>
@@ -51,7 +51,7 @@ const submit = () => {
                     <div class="mb-4">
                         <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail" id="thumbnail" label="Category Thumbnail">
                             <template #helper v-if="form.errors.thumbnail" class="text-red-500">
-                                {{ form.errors.thumbnail }}
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
                             </template>
                         </Input>
                     </div>
