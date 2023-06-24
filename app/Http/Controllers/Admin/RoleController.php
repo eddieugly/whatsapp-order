@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreRoleRequest;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,13 +19,18 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::select([
+        $roles = Role::query()
+        ->select([
             'id',
             'name',
             'created_at',
-        ])->latest('id')->paginate();
+        ])->when(Request::input('search'), function ($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        })->latest('id')
+        ->paginate(10);
 
         return Inertia::render('Admin/Roles/Index', [
+            'filters' => Request::only(['search']),
             'roles' => RoleResource::collection($roles),
             'headers' => [
                 [

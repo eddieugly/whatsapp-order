@@ -5,103 +5,58 @@
 
     <AuthenticatesLayout>
 
-        <section class="mt-10 p-3 sm:p-5 sm:ml-64">
-            <div class="mx-auto max-w-screen-xl mt-10 px-4 lg:px-12">
-                <!-- Start coding here -->
-                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                        <div class="w-full md:w-1/2">
-                            <div class="flex items-center">
-                                <label for="simple-search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input v-model="search" type="text" id="simple-search"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Search Category" name="search">
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <Link
-                                class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                as="button" :href="'/admin/category/create'">
-                            <svg class="h-5 w-6 mr-2" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                            Add New Category
-                            </Link>
-                        </div>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3">Category Name</th>
-                                    <th scope="col" class="px-4 py-3">Description</th>
-                                    <th scope="col" class="px-4 py-3">Thumbnail</th>
-                                    <th scope="col" class="px-4 py-3">
-                                        <span class="sr-only">Actions</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="menuCategory in menuCategories" :key="menuCategory.id"
-                                    class="border-b dark:border-gray-700">
-                                    <td class="px-4 py-3">{{ menuCategory.name }}</td>
-                                    <td class="px-4 py-3">{{ menuCategory.description }}</td>
-                                    <td class="px-4 py-3"><img
-                                            :src="`/assets/img/categoryThumbnail/${menuCategory.thumbnail}`" :width="75"
-                                            alt="Category Thumbnail"></td>
-                                    <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="apple-imac-27-dropdown-button"
-                                            data-dropdown-toggle="apple-imac-27-dropdown"
-                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                            type="button">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        <div id="apple-imac-27-dropdown"
-                                            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="apple-imac-27-dropdown-button">
-                                                <li>
-                                                    <Link as="button" :href="'/admin/category/' + menuCategory.id + '/edit'"
-                                                        class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    Edit
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                            <div class="py-1">
-                                                <Link method="delete" as="button"
-                                                    :href="'/admin/category/' + menuCategory.id + '/destroy'"
-                                                    class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                                Delete
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <Pagination :link="menuCategories.links" />
+        <Section>
+            <Card>
+
+                <SearchAddButton :href="route('admin.category.create')" :search-link="route('admin.category.index')">
+                    Add Category
+                </SearchAddButton>
+
+                <Table :headers="headers" :items="menuCategories">
+                    <template v-slot="{ item }">
+                        <Td>
+                            {{ item.name }}
+                        </Td>
+
+                        <Td>
+                            {{ item.description }}
+                        </Td>
+                        <Td>
+                            {{ item.thumbnail }}
+                        </Td>
+                        <Td class="">
+                            <Actions @deleteClicked="showModal(item)"
+                                :edit-link="route('admin.category.edit', { id: item.id })" :drop-key="item.id" />
+                        </Td>
+                    </template>
+                </Table>
+            </Card>
+
+        </Section>
+
+        <Modal :size="size" v-if="isShowModal" @close="closeModal">
+            <template #header>
+                <div class="flex items-center text-lg">
+                    Delete Role - {{ itemToDelete.name }}
                 </div>
-            </div>
-        </section>
+            </template>
+            <template #body>
+                <p class="text-base leading-relaxed text-red-500 dark:text-red-400">
+                    Are You Sure You Want To Delete This Category?
+                </p>
+            </template>
+            <template #footer>
+                <div class="flex justify-between">
+                    <Button @click="closeModal" color="light">Cancel</Button>
+                    <Button @click="handleDeleteItem" color="red" :disabled="isDeleting">
+                        <span v-if="isDeleting">Deleting..</span>
+                        <span v-else>Delete</span>
+                    </Button>
+                </div>
+            </template>
+        </Modal>
+
+        
     </AuthenticatesLayout>
 </template>
 <script setup>
@@ -112,19 +67,53 @@ import { ref, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
 import debounce from 'lodash/debounce';
 import Pagination from '@/Components/Pagination.vue';
+import SearchAddButton from '@/Components/Table/SearchAddButton.vue';
+import Section from '@/Components/Section.vue';
+import Card from '@/Components/Card/Card.vue';
+import Table from '@/Components/Table/Table.vue';
+import Td from '@/Components/Table/Td.vue';
+import Actions from '@/Components/Table/Actions.vue';
+import { Modal, Button } from 'flowbite-vue';
 
 let props = defineProps({
     menuCategories: {
         type: Object,
+        default: () => ({}),
     },
-    filters: Object,
+    headers: {
+        type: Object,
+        default: () => [],
+    },
 });
 
-let search = ref(props.filters.search);
 
-watch(search, debounce(function (value) {
-    router.get('/admin/category', { search: value }, { preserveState: true, replace: true })
-}, 500));
+const deleteModal = ref(false);
+const itemToDelete = ref({});
+const isDeleting = ref(false);
+
+function handleDeleteItem() {
+    router.delete(route('admin.category.destroy', {id: itemToDelete.value.id}), {
+        onBefore: () => {
+            isDeleting.value = true;
+        },
+        onSuccess: () => {
+            isShowModal.value = false;
+            itemToDelete.value = {};
+        },
+        onFinish: () => {
+            isDeleting.value = false;
+        }
+    })
+}
+
+const isShowModal = ref(false)
+function closeModal() {
+    isShowModal.value = false
+}
+function showModal(item) {
+    isShowModal.value = true;
+    itemToDelete.value = item;
+}
 
 
 </script>

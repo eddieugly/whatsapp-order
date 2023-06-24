@@ -7,9 +7,9 @@
 
         <Section>
             <Card>
-                <Addbutton :href="route('admin.roles.create')">
+                <SearchAddButton :href="route('admin.roles.create')" :search-link="route('admin.roles.index')">
                     Add Roles
-                </Addbutton>
+                </SearchAddButton>
 
                 <Table :headers="headers" :items="roles">
                     <template v-slot="{ item }">
@@ -67,9 +67,9 @@ import Card from '@/Components/Card/Card.vue'
 import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
-import Addbutton from '@/Components/Table/Addbutton.vue';
 import { Button, Modal } from 'flowbite-vue';
 import { router } from '@inertiajs/vue3';
+import SearchAddButton from '@/Components/Table/SearchAddButton.vue'
 
 defineProps({
     roles: {

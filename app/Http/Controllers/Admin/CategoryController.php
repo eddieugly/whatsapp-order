@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Request;
 
 class CategoryController extends Controller
@@ -20,23 +21,37 @@ class CategoryController extends Controller
     public function index()
     {
         $menuCategories = Category::query()
-            ->when(Request::input('search'), function ($query, $search) {
+        ->select([
+            'ulid',
+            'name',
+            'description',
+            'thumbnail',
+        ])->when(Request::input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%');
-            })
-            ->orderByDesc('created_at')
-            ->paginate(10)
-            ->through(fn ($menuCategory) => [
-                'id' => $menuCategory->ulid,
-                'name' => $menuCategory->name,
-                'description' => $menuCategory->description,
-                'thumbnail' => $menuCategory->thumbnail,
-            ]);
-
-            $filteredMenuCategories = $menuCategories->all();
+            })->latest('id')
+            ->paginate(10);
 
         return Inertia::render('Admin/MenuCategory/Index', [
             'filters' => Request::only(['search']),
-            'menuCategories' => $filteredMenuCategories,
+            'menuCategories' => CategoryResource::collection($menuCategories),
+            'headers' => [
+                [
+                    'label' => 'Category Name',
+                    'name' => 'name'
+                ],
+                [
+                    'label' => 'Description',
+                    'name' => 'description'
+                ],
+                [
+                    'label' => 'Thumbnail',
+                    'name' => 'thumbnail'
+                ],
+                [
+                    'label' => 'Action',
+                    'name' => 'action'
+                ]
+            ]
             
         ]);
     }
