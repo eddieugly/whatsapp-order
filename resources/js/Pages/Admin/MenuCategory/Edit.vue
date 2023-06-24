@@ -2,9 +2,7 @@
 import AuthenticatesLayout from '@/Layouts/AuthenticatesLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { Input, Button } from 'flowbite-vue';
-import { reactive } from 'vue';
-import { useForm } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
+import { useForm, router } from '@inertiajs/vue3';
 
 let props = defineProps({
     menuCategory: {

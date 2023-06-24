@@ -99,6 +99,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return back()->with('success', 'Role Deleted Successfully');
+        return redirect()->back()->with('success', 'Role Deleted Successfully');
     }
 }
