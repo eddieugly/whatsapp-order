@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Request;
 
 class CategoryController extends Controller
 {
+    private string $routeResourceName = 'category';
+    
     /**
      * Display a listing of the resource.
      */
@@ -32,8 +34,9 @@ class CategoryController extends Controller
             ->paginate(10);
 
         return Inertia::render('Admin/MenuCategory/Index', [
+            'title' => 'Category',
             'filters' => Request::only(['search']),
-            'menuCategories' => CategoryResource::collection($menuCategories),
+            'items' => CategoryResource::collection($menuCategories),
             'headers' => [
                 [
                     'label' => 'Category Name',
@@ -51,7 +54,8 @@ class CategoryController extends Controller
                     'label' => 'Action',
                     'name' => 'action'
                 ]
-            ]
+            ],
+            'routeResourceName' => $this->routeResourceName,
             
         ]);
     }

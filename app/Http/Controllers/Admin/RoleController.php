@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class RoleController extends Controller
 {
+    private string $routeResourceName = 'roles';
+    
     /**
      * Display a listing of the resource.
      */
@@ -30,8 +32,9 @@ class RoleController extends Controller
         ->paginate(10);
 
         return Inertia::render('Admin/Roles/Index', [
+            'title' => 'Roles',
             'filters' => Request::only(['search']),
-            'roles' => RoleResource::collection($roles),
+            'items' => RoleResource::collection($roles),
             'headers' => [
                 [
                     'label' => 'Name',
@@ -45,7 +48,8 @@ class RoleController extends Controller
                     'label' => 'Action',
                     'name' => 'action'
                 ]
-            ]
+            ],
+            'routeResourceName' => $this->routeResourceName,
             
         ]);
     }

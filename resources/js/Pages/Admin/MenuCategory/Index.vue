@@ -1,23 +1,21 @@
-
-
 <template>
-    <Head title="Menu Category List" />
+    <Head :title="title" />
 
     <AuthenticatesLayout>
 
         <Section>
             <Card>
 
-                <SearchAddButton :href="route('admin.category.create')" :search-link="route('admin.category.index')">
+                <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
+                    :search-link="route(`admin.${routeResourceName}.index`)">
                     Add Category
                 </SearchAddButton>
 
-                <Table :headers="headers" :items="menuCategories">
+                <Table :headers="headers" :items="items">
                     <template v-slot="{ item }">
                         <Td>
                             {{ item.name }}
                         </Td>
-
                         <Td>
                             {{ item.description }}
                         </Td>
@@ -26,7 +24,8 @@
                         </Td>
                         <Td class="">
                             <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route('admin.category.edit', { id: item.id })" :drop-key="item.id" />
+                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })"
+                                :drop-key="item.id" />
                         </Td>
                     </template>
                 </Table>
@@ -34,7 +33,7 @@
 
         </Section>
 
-        <Modal :size="size" v-if="isShowModal" @close="closeModal">
+        <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>
                 <div class="flex items-center text-lg">
                     Delete Role - {{ itemToDelete.name }}
@@ -56,17 +55,12 @@
             </template>
         </Modal>
 
-        
+
     </AuthenticatesLayout>
 </template>
 <script setup>
 import AuthenticatesLayout from '@/Layouts/AuthenticatesLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
-
-import { ref, watch } from 'vue';
-import { router } from '@inertiajs/vue3';
-import debounce from 'lodash/debounce';
-import Pagination from '@/Components/Pagination.vue';
+import { Head } from '@inertiajs/vue3';
 import SearchAddButton from '@/Components/Table/SearchAddButton.vue';
 import Section from '@/Components/Section.vue';
 import Card from '@/Components/Card/Card.vue';
@@ -75,8 +69,18 @@ import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
 import { Modal, Button } from 'flowbite-vue';
 
+import useDeleteItem from '@/Composables/useDeleteItem';
+
 let props = defineProps({
-    menuCategories: {
+    routeResourceName: {
+        type: String,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    items: {
         type: Object,
         default: () => ({}),
     },
@@ -86,34 +90,14 @@ let props = defineProps({
     },
 });
 
-
-const deleteModal = ref(false);
-const itemToDelete = ref({});
-const isDeleting = ref(false);
-
-function handleDeleteItem() {
-    router.delete(route('admin.category.destroy', {id: itemToDelete.value.id}), {
-        onBefore: () => {
-            isDeleting.value = true;
-        },
-        onSuccess: () => {
-            isShowModal.value = false;
-            itemToDelete.value = {};
-        },
-        onFinish: () => {
-            isDeleting.value = false;
-        }
-    })
-}
-
-const isShowModal = ref(false)
-function closeModal() {
-    isShowModal.value = false
-}
-function showModal(item) {
-    isShowModal.value = true;
-    itemToDelete.value = item;
-}
-
-
+const {
+    itemToDelete,
+    isDeleting,
+    isShowModal,
+    closeModal,
+    showModal,
+    handleDeleteItem,
+} = useDeleteItem({
+    routeResourceName: props.routeResourceName,
+});
 </script>
