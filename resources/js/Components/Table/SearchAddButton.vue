@@ -58,7 +58,7 @@ const props = defineProps({
 let search = ref(props.filters.search);
 
 watch(search, debounce(function (value) {
-  router.get(props.searchLink, { search: value }, { preserveState: true, replace: true })
+  router.get(props.searchLink, { search: value }, { preserveState: true, preserveScroll: true, replace: true })
 }, 300));
 
 </script>

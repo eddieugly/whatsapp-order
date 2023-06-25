@@ -13,6 +13,11 @@
         <tr v-for="item in items.data" :key="item.id" class="border-b dark:border-gray-700">
           <slot :item="item"></slot>
         </tr>
+        <tr v-if="items.data.length === 0">
+          <Td :colspan="headers.length">
+            No Records Available
+          </Td>
+        </tr>
       </tbody>
     </table>
   </div>
