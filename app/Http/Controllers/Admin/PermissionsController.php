@@ -3,25 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\StoreRoleRequest;
 use Illuminate\Support\Facades\Request;
-use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Permission;
+use App\Http\Resources\PermissionsResource;
+use App\Http\Requests\StorePermissionsRequest;
+use App\Http\Requests\UpdatePermissionsRequest;
 
-class RoleController extends Controller
+
+class PermissionsController extends Controller
 {
-    private string $routeResourceName = 'roles';
-    
+    private string $routeResourceName = 'permissions';
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::query()
+        $permissions = Permission::query()
         ->select([
             'id',
             'name',
@@ -31,10 +32,10 @@ class RoleController extends Controller
         })->latest('id')
         ->paginate(10);
 
-        return Inertia::render('Admin/Roles/Index', [
-            'title' => 'Roles',
+        return Inertia::render('Admin/Permissions/Index', [
+            'title' => 'Permissionss',
             'filters' => Request::only(['search']),
-            'items' => RoleResource::collection($roles),
+            'items' => PermissionsResource::collection($permissions),
             'headers' => [
                 [
                     'label' => 'Name',
@@ -59,8 +60,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Roles/Create', [
-            'title' => 'Add Role',
+        return Inertia::render('Admin/Permissions/Create', [
+            'title' => 'Add Permission',
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
@@ -68,11 +69,11 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRoleRequest $request): RedirectResponse
+    public function store(StorePermissionsRequest $request): RedirectResponse
     {
-        Role::create($request->validated());
+        Permission::create($request->validated());
         
-        return Redirect::route('admin.roles.index')->with('success', 'Role Added Successfully');
+        return Redirect::route('admin.permissions.index')->with('success', 'Permissions Added Successfully');
     }
 
     /**
@@ -86,12 +87,12 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(Permission $permissions)
     {
-        return Inertia::render('Admin/Roles/Edit', [
-            'title' => 'Edit Role',
+        return Inertia::render('Admin/Permissions/Edit', [
+            'title' => 'Edit Permission',
             'edit' => true,
-            'item' => new RoleResource($role),
+            'item' => new PermissionsResource($permissions),
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
@@ -99,20 +100,20 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
+    public function update(UpdatePermissionsRequest $request, Permission $permissions): RedirectResponse
     {
-        $role->update($request->validated());
+        $permissions->update($request->validated());
 
-        return Redirect::route('admin.roles.index')->with('success', 'Role Updated Successfully');
+        return Redirect::route('admin.permissions.index')->with('success', 'Permissions Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(Permission $permissions)
     {
-        $role->delete();
+        $permissions->delete();
 
-        return redirect()->back()->with('success', 'Role Deleted Successfully');
+        return redirect()->back()->with('success', 'Permissions Deleted Successfully');
     }
 }

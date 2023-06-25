@@ -65,12 +65,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/MenuCategory/Create');
-    }
-
-    public function testing()
-    {
-        return redirect()->back()->with('success', 'IT iS Working');
+        return Inertia::render('Admin/MenuCategory/Create', [
+            'title' => 'Add Category',
+            'routeResourceName' => $this->routeResourceName,
+        ]);
     }
 
     /**
@@ -118,12 +116,9 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         return Inertia::render('Admin/MenuCategory/Edit', [
-            'menuCategory' => [
-                'id' => $category->ulid,
-                'name' => $category->name,
-                'description' => $category->description,
-                'thumbnail' => $category->thumbnail
-            ]
+            'title' => 'Edit Category',
+            'item' => new CategoryResource($category),
+            'routeResourceName' => $this->routeResourceName,
         ]);
     }
 

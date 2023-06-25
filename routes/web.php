@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
@@ -37,9 +38,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('roles', AdminRoleController::class);
 
-        Route::get('testing', [AdminCategoryController::class, 'testing'])->name('testing');
-
         Route::resource('category', AdminCategoryController::class);
+
+        Route::resource('permissions', AdminPermissionsController::class);
         
     });
     

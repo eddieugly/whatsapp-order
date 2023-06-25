@@ -2,7 +2,6 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-
         <Section>
             <Card>
                 <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
@@ -35,7 +34,7 @@
             </template>
             <template #body>
                 <p class="text-base leading-relaxed text-red-500 dark:text-red-400">
-                    Are You Sure You Want To Delete - {{ itemToDelete.name }}?
+                    Are You Sure You Want To Delete This - {{ itemToDelete.name }}?
                 </p>
             </template>
             <template #footer>
@@ -48,8 +47,6 @@
                 </div>
             </template>
         </Modal>
-
-
     </AuthenticatesLayout>
 </template>
 <script setup>

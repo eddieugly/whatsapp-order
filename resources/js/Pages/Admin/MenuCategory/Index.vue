@@ -2,12 +2,10 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-
         <Section>
             <Card>
-
-                <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
-                    :search-link="route(`admin.${routeResourceName}.index`)">
+                <SearchAddButton :href="route(`admin.${props.routeResourceName}.create`)"
+                    :search-link="route(`admin.${props.routeResourceName}.index`)">
                     Add Category
                 </SearchAddButton>
 
@@ -24,24 +22,22 @@
                         </Td>
                         <Td class="">
                             <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })"
-                                :drop-key="item.id" />
+                                :edit-link="route(`admin.${props.routeResourceName}.edit`, { id: item.id })" />
                         </Td>
                     </template>
                 </Table>
             </Card>
-
         </Section>
 
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>
                 <div class="flex items-center text-lg">
-                    Delete Role - {{ itemToDelete.name }}
+                    Delete - {{ itemToDelete.name }}
                 </div>
             </template>
             <template #body>
                 <p class="text-base leading-relaxed text-red-500 dark:text-red-400">
-                    Are You Sure You Want To Delete This Category?
+                    Are You Sure You Want To Delete This - {{ itemToDelete.name }}?
                 </p>
             </template>
             <template #footer>

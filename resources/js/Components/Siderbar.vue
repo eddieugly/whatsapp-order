@@ -16,93 +16,36 @@
           </Sidelink>
         </li>
         <li>
-          <button type="button"
-            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-            <svg aria-hidden="true"
-              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Menu Category</span>
-            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </button>
-          <ul id="dropdown-example" class="hidden py-2 space-y-2">
-            <li>
-              <Sidesublink :href="route('admin.category.index')" :active="route().current('admin.category.index')">
-
-                Menu Category List
-              </Sidesublink>
-            </li>
-            <li>
-              <Sidesublink :href="route('admin.category.create')" :active="route().current('admin.category.create')">
-
-                Add Menu Category
-              </Sidesublink>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <button type="button"
-            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            aria-controls="dropdown-example-1" data-collapse-toggle="dropdown-example-1">
-            <svg aria-hidden="true"
-              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Roles</span>
-            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </button>
-          <ul id="dropdown-example-1" class="hidden py-2 space-y-2">
-            <li>
-              <Sidesublink :href="route('admin.roles.index')" :active="route().current('admin.roles.index')">
-
-                Roles List
-              </Sidesublink>
-            </li>
-            <li>
-              <Sidesublink :href="route('admin.roles.create')" :active="route().current('admin.roles.create')">
-
-                Add Roles
-              </Sidesublink>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <Sidelink :href="route('admin.category.create')" :active="route().current('admin.category.create')">
+          <Sidelink :href="route('admin.roles.index')" :active="route().current('admin.roles*')">
             <svg aria-hidden="true"
               class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
               <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
             </svg>
-            <span class="ml-3">Add Category</span>
+            <span class="ml-3">Roles</span>
           </Sidelink>
         </li>
         <li>
-          <Sidelink :href="route('admin.testing')" :active="route().current('admin.testing')">
+          <Sidelink :href="route('admin.permissions.index')" :active="route().current('admin.permissions*')">
             <svg aria-hidden="true"
               class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
               <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
             </svg>
-            <span class="ml-3">Testing</span>
+            <span class="ml-3">Permissions</span>
+          </Sidelink>
+        </li>
+        <li>
+          <Sidelink :href="route('admin.category.index')" :active="route().current('admin.category*')">
+            <svg aria-hidden="true"
+              class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+            </svg>
+            <span class="ml-3">Category</span>
           </Sidelink>
         </li>
       </ul>

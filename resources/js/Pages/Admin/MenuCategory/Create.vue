@@ -6,6 +6,21 @@ import { reactive } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
 
+let props = defineProps({
+    routeResourceName: {
+        type: String,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    create: {
+        type: Boolean,
+        default: false,
+    },
+})
+
 const form = useForm({
     name: null,
     description: null,
@@ -13,22 +28,20 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post('/admin/category', {
+    form.post(route(`admin.${props.routeResourceName}.store`), {
         forceFormData: true,
 });
 };
 </script>
 
 <template>
-    <Head title="Add Menu Category" />
+    <Head :title="title" />
 
     <AuthenticatesLayout>
-
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
                 <div class="items-center sm:p-8 lg:p-10 mx-auto max-w-2xl rounded bg-gray-50 dark:bg-gray-800">
                     <form @submit.prevent="submit">
-                    
                     <div class="mb-4">
                         <Input v-model="form.name" name="name" id="name" placeholder="Enter Category Name" label="Category Name">
                             <template #helper v-if="form.errors.name" class="text-red-500">
@@ -36,8 +49,6 @@ const submit = () => {
                             </template>
                         </Input>
                     </div>
-                    
-
                     <div class="mb-4">
                         <Input v-model="form.description" name="description" id="description" placeholder="Enter Category Description" label="Category Description">
                             <template #helper v-if="form.errors.description" class="text-red-500">
@@ -45,9 +56,6 @@ const submit = () => {
                             </template>
                         </Input>
                     </div>
-
-                    
-
                     <div class="mb-4">
                         <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail" id="thumbnail" label="Category Thumbnail">
                             <template #helper v-if="form.errors.thumbnail" class="text-red-500">
@@ -55,7 +63,6 @@ const submit = () => {
                             </template>
                         </Input>
                     </div>
-                    
                     <div class="mb-4">
                         <Button color="default" type="submit" :disabled="form.processing">Submit</Button>
                     </div>
