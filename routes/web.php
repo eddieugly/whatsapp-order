@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\CategoryController;
@@ -37,6 +39,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
 
         Route::resource('roles', AdminRoleController::class);
+
+        Route::post('roles/attach-permission', AdminAttachPermissionToRoleController::class)->name('roles.attach-permission');
+
+        Route::post('roles/detach-permission', AdminDetachPermissionFromRoleController::class)->name('roles.detach-permission');
 
         Route::resource('category', AdminCategoryController::class);
 

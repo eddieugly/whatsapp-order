@@ -5,6 +5,7 @@ import { Input, Button } from 'flowbite-vue';
 import { useForm } from '@inertiajs/vue3';
 import Section from '@/Components/Section.vue';
 import Card from '@/Components/Card/Card.vue';
+import Permissions from './Permissions.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -17,7 +18,15 @@ let props = defineProps({
     },
     item: {
         type: Object,
-    }
+        default: () => ({}),
+    },
+    permissions: {
+        type: Array,
+    },
+    edit: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const form = useForm({
@@ -55,5 +64,7 @@ const submit = () => {
                 </div>
             </Card>
         </Section>
+
+        <Permissions v-if="edit" class="mt-6" :role="item" :permissions="permissions" />
     </AuthenticatesLayout>
 </template>

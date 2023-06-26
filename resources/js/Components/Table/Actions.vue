@@ -23,7 +23,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex items-center space-x-2">
+    <div class=" ">
         <dropdown placement="left" text="Actions">
             <template #trigger>
                 <span>

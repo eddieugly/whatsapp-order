@@ -10,7 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreRoleRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Resources\PermissionResource;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -88,11 +90,15 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        
+        $role->load(['permissions:permissions.id,permissions.name']);
+
         return Inertia::render('Admin/Roles/Edit', [
             'title' => 'Edit Role',
             'edit' => true,
             'item' => new RoleResource($role),
             'routeResourceName' => $this->routeResourceName,
+            'permissions' => PermissionResource::collection(Permission::oldest('id')->get(['id', 'name'])),
         ]);
     }
 

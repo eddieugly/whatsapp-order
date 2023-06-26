@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Permission;
-use App\Http\Resources\PermissionsResource;
+use App\Http\Resources\PermissionResource;
 use App\Http\Requests\StorePermissionsRequest;
 use App\Http\Requests\UpdatePermissionsRequest;
 
@@ -35,7 +35,7 @@ class PermissionsController extends Controller
         return Inertia::render('Admin/Permissions/Index', [
             'title' => 'Permissionss',
             'filters' => Request::only(['search']),
-            'items' => PermissionsResource::collection($permissions),
+            'items' => PermissionResource::collection($permissions),
             'headers' => [
                 [
                     'label' => 'Name',
@@ -92,7 +92,7 @@ class PermissionsController extends Controller
         return Inertia::render('Admin/Permissions/Edit', [
             'title' => 'Edit Permission',
             'edit' => true,
-            'item' => new PermissionsResource($permissions),
+            'item' => new PermissionResource($permissions),
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
