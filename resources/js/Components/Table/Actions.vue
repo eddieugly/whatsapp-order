@@ -19,6 +19,10 @@ defineProps({
         type: Boolean,
         default: () => true,
     },
+    showDelete: {
+        type: Boolean,
+        default: () => true,
+    },
 });
 </script>
 

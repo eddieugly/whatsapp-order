@@ -82,6 +82,9 @@ const props = defineProps({
         type: Object,
         default: () => [],
     },
+    can: {
+        type: Boolean,
+    }
 });
 
 const {

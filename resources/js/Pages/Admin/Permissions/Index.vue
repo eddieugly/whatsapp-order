@@ -19,7 +19,7 @@
                         </Td>
                         <Td class="flex items-center">
                             <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" />
+                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :modal-place="(items.lenght - 1)" />
                         </Td>
                     </template>
                 </Table>

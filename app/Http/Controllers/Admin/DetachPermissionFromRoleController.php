@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DetachPermissionFromRoleController extends Controller
 {
@@ -19,7 +20,9 @@ class DetachPermissionFromRoleController extends Controller
     {
         $permission = Permission::findById($request->permissionId);
 
-        $permission->removeRole($request->RoleId);
+        $role = Role::findById($request->roleId);
+
+        $permission->removeRole($role);
 
         return redirect()->back()->with('success', 'Permission Detached Successfully');
     }

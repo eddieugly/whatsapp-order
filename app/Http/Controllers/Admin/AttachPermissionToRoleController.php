@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AttachPermissionToRoleController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:edit role');
+        $this->middleware('permission:edit role');
     }
 
     /**
@@ -19,7 +20,11 @@ class AttachPermissionToRoleController extends Controller
     {
         $permission = Permission::findById($request->permissionId);
 
-        $permission->assignRole($request->RoleId);
+        $role = Role::findById($request->roleId);
+
+        // dd($role);
+
+        $permission->assignRole($role);
 
         return redirect()->back()->with('success', 'Permission Attached Successfully');
     }

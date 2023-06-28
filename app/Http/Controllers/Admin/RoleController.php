@@ -6,13 +6,15 @@ use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoleResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreRoleRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Http\Resources\PermissionResource;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Permission;
+use App\Http\Resources\PermissionResource;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -33,6 +35,8 @@ class RoleController extends Controller
         })->latest('id')
         ->paginate(10);
 
+        $user = User::findOrFail(Auth::id());
+
         return Inertia::render('Admin/Roles/Index', [
             'title' => 'Roles',
             'filters' => Request::only(['search']),
@@ -52,6 +56,7 @@ class RoleController extends Controller
                 ]
             ],
             'routeResourceName' => $this->routeResourceName,
+            'can' => $user->can('admin'),
             
         ]);
     }
@@ -83,6 +88,18 @@ class RoleController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    public function assign()
+    {
+        $user = User::findOrFail(Auth::id());
+
+        // $check = $user->hasRole('super admin');
+        $check = $user->can('create staff', 'web');
+
+        dd($check);
+
+        return redirect()->back()->with('success', 'Role Assigned Successfully');
     }
 
     /**

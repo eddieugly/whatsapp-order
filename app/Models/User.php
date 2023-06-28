@@ -56,10 +56,10 @@ class User extends Authenticatable
         });
     }
 
-    public function hasRole($role)
-    {
-        return $this->roles->contains('name', $role);
-    }
+    // public function hasRole($role)
+    // {
+    //     return $this->roles->contains('name', $role);
+    // }
 
     public function canRole($role)
     {

@@ -44,6 +44,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::post('roles/detach-permission', AdminDetachPermissionFromRoleController::class)->name('roles.detach-permission');
 
+        Route::get('assign', [AdminRoleController::class, 'assign'])->name('assign');
+
         Route::resource('category', AdminCategoryController::class);
 
         Route::resource('permissions', AdminPermissionsController::class);
