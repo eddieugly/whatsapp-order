@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Casts\PasswordCast;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -44,7 +45,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password' => PasswordCast::class,
     ];
 
     protected static function boot()
@@ -56,13 +57,8 @@ class User extends Authenticatable
         });
     }
 
-    // public function hasRole($role)
-    // {
-    //     return $this->roles->contains('name', $role);
-    // }
-
-    public function canRole($role)
+    public function getRouteKeyName(): string
     {
-        return $this->roles->contains('name', $role);
+        return 'ulid';
     }
 }

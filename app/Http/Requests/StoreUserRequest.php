@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -11,7 +15,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +26,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['bail', 'required', 'string', 'max:255'],
+            'email' => ['bail', 'required', 'email', 'max:255', Rule::unique(User::class, 'email')],
+            'password' => ['bail', 'required', 'confirmed', Password::defaults()],
+            'roleId' => ['bail', 'required', Rule::exists(Role::class, 'id')],
         ];
     }
 }

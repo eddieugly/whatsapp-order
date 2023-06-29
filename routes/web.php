@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
-use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
-use App\Http\Controllers\Admin\RoleController as AdminRoleController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
+use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
+use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('category', AdminCategoryController::class);
 
         Route::resource('permissions', AdminPermissionsController::class);
+
+        Route::resource('users', AdminUserController::class);
         
     });
     
