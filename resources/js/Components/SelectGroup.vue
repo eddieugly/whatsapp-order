@@ -34,7 +34,7 @@ defineProps({
         <InputLabel v-if="label"
                :value="label" />
 
-        <Select class="mt-1"
+        <Select
                 :model-value="modelValue"
                 @update:model-value="$emit('update:modelValue', $event)"
                 :items="items"

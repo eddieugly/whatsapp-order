@@ -11,10 +11,17 @@ use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:view users')->only('index');
+        $this->middleware('can:create users')->only(['create', 'store']);
+        $this->middleware('can:edit users')->only(['edit', 'update']);
+        $this->middleware('can:delete users')->only('destroy');
+    }
 
     private string $routeResourceName = 'users';
     /**
@@ -23,22 +30,23 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()
-        ->select([
-            'id',
-            'ulid',
-            'name',
-            'email',
-            'created_at',
-        ])
-        ->with(['roles:roles.id,roles.name'])
-        ->when(Request::input('search'), function ($query, $search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            })->latest('id')
+            ->select([
+                'id',
+                'ulid',
+                'name',
+                'email',
+                'created_at',
+            ])
+            ->with(['roles:roles.id,roles.name'])
+            ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', '%' . $name . '%'))
+            ->when(Request::input('email'), fn (Builder $builder, $email) => $builder->where('email', 'like', '%' . $email . '%'))
+            ->when(Request::input('roleId'), fn (Builder $builder, $roleId) => $builder->whereHas('roles', fn (Builder $builder) => $builder->where('roles.id', $roleId)))
+            ->latest('id')
             ->paginate(10);
 
         return Inertia::render('Admin/Users/Index', [
             'title' => 'Users',
-            'filters' => Request::only(['search']),
+            'filters' => Request::only(['name', 'email', 'roleId']),
             'items' => UserResource::collection($users),
             'headers' => [
                 [
@@ -63,7 +71,12 @@ class UserController extends Controller
                 ]
             ],
             'routeResourceName' => $this->routeResourceName,
-            
+            'roles' => RoleResource::collection(Role::get(['id', 'name'])),
+            'can' => [
+                'create' => Request::user()->can('create users'),
+                'edit' => Request::user()->can('edit users'),
+                'delete' => Request::user()->can('delete users'),
+            ],
         ]);
     }
 
@@ -108,7 +121,7 @@ class UserController extends Controller
     {
         $user->load(['roles:roles.id']);
 
-        return Inertia::render('Admin/MenuCategory/Edit', [
+        return Inertia::render('Admin/Users/Edit', [
             'title' => 'Edit User',
             'item' => new UserResource($user),
             'routeResourceName' => $this->routeResourceName,

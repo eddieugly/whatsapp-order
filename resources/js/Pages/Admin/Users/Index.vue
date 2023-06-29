@@ -4,10 +4,10 @@
     <AuthenticatesLayout>
         <Section>
             <Card>
-                <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
-                    :search-link="route(`admin.${routeResourceName}.index`)">
+
+                <SearchAddFilterButton v-model="filters" :roles="roles" :href="route(`admin.${routeResourceName}.create`)" :can-create="can.create">
                     Add {{ title }}
-                </SearchAddButton>
+                </SearchAddFilterButton>
 
                 <Table :headers="headers" :items="items">
                     <template v-slot="{ item }">
@@ -26,8 +26,8 @@
                             {{ item.created_at_formatted }}
                         </Td>
                         <Td class="flex items-center">
-                            <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :modal-place="(items.lenght - 1)" />
+                            <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
+                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete" :show-edit="can.edit" />
                         </Td>
                     </template>
                 </Table>
@@ -66,9 +66,10 @@ import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
 import { Badge, Button, Modal } from 'flowbite-vue';
-import SearchAddButton from '@/Components/Table/SearchAddButton.vue';
+import SearchAddFilterButton from '@/Components/Table/SearchAddFilterButton .vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
+import useFilters from '@/Composables/useFilters';
 
 const props = defineProps({
     routeResourceName: {
@@ -87,7 +88,12 @@ const props = defineProps({
         type: Object,
         default: () => [],
     },
+    filters: {
+        type: Object,
+        default: () => ({}),
+    },
     roles: Array,
+    can: Object,
 });
 
 const {
@@ -98,6 +104,11 @@ const {
     showModal,
     handleDeleteItem,
 } = useDeleteItem({
+    routeResourceName: props.routeResourceName,
+});
+
+const { filters } = useFilters({
+    filters: props.filters,
     routeResourceName: props.routeResourceName,
 });
 

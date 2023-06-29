@@ -19,6 +19,9 @@ export default function (params) {
 
     function handleDeleteItem() {
         router.delete(route(`admin.${routeResourceName}.destroy`, { id: itemToDelete.value.id }), {
+            preserveScroll: true,
+            preserveState: true,
+            
             onBefore: () => {
                 isDeleting.value = true;
             },
