@@ -5,8 +5,7 @@
 
         <Section>
             <Card>
-                <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
-                    :search-link="route(`admin.${routeResourceName}.index`)">
+                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
                     Add {{ title }}
                 </SearchAddButton>
 
@@ -19,8 +18,8 @@
                             {{ item.created_at_formatted }}
                         </Td>
                         <Td class="flex items-center">
-                            <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" />
+                            <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
+                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-edit="can.edit" :show-delete="can.delete" />
                         </Td>
                     </template>
                 </Table>
@@ -64,6 +63,7 @@ import { Button, Modal } from 'flowbite-vue';
 import SearchAddButton from '@/Components/Table/SearchAddButton.vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
+import useFilters from '@/Composables/useFilters';
 
 const props = defineProps({
     routeResourceName: {
@@ -82,9 +82,7 @@ const props = defineProps({
         type: Object,
         default: () => [],
     },
-    can: {
-        type: Boolean,
-    }
+    can: Object,
 });
 
 const {
@@ -98,6 +96,9 @@ const {
     routeResourceName: props.routeResourceName,
 });
 
-
+const { filters } = useFilters({
+    filters: props.filters,
+    routeResourceName: props.routeResourceName,
+});
 
 </script>

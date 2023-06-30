@@ -1,10 +1,7 @@
 <script setup>
 
 import { Link } from '@inertiajs/vue3';
-import Edit from '@/Components/Icons/Edit.vue';
-import Trash from '@/Components/Icons/Trash.vue';
 import Action from '@/Components/Icons/Action.vue'
-import { Dropdown, ListGroup, ListGroupItem } from 'flowbite-vue';
 
 defineProps({
     editLink: {
@@ -40,9 +37,9 @@ const dripEd = "dropdown-" + parseInt(Math.random() * 10000000).toString();
 				</li>
 			</ul>
 			<div v-if="showDelete" class="py-1">
-				<Link @click="$emit('deleteClicked', $event)" as="button" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white">
+				<button href="" @click="$emit('deleteClicked', $event)" as="button" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white">
                     Delete
-                </Link>
+                </button>
 			</div>
 		</div>
 	</div>

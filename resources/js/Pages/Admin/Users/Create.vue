@@ -50,7 +50,7 @@ const submit = () => {
                 <div class="items-center p-5 lg:p-10 mx-auto max-w-4xl">
                     <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-5">{{ title }}</h5>
                     <form @submit.prevent="submit">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 P-4 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                             <div class="mb-4">
                                 <Input v-model="form.name" name="name" id="name" placeholder="Enter Name" label="Name">
                                 <template #helper v-if="form.errors.name" class="text-red-500">

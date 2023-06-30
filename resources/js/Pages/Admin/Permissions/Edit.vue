@@ -38,7 +38,7 @@ const submit = () => {
     <AuthenticatesLayout>
         <Section>
             <Card>
-                <div class="items-center sm:p-8 lg:p-10 mx-auto max-w-2xl">
+                <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl">
                     <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-5">{{ title }}</h5>
                     <form @submit.prevent="submit">
                         <div class="mb-4">

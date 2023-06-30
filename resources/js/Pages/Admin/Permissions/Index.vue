@@ -4,8 +4,7 @@
     <AuthenticatesLayout>
         <Section>
             <Card>
-                <SearchAddButton :href="route(`admin.${routeResourceName}.create`)"
-                    :search-link="route(`admin.${routeResourceName}.index`)">
+                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
                     Add {{ title }}
                 </SearchAddButton>
 
@@ -61,6 +60,7 @@ import { Button, Modal } from 'flowbite-vue';
 import SearchAddButton from '@/Components/Table/SearchAddButton.vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
+import useFilters from '@/Composables/useFilters';
 
 const props = defineProps({
     routeResourceName: {
@@ -79,6 +79,7 @@ const props = defineProps({
         type: Object,
         default: () => [],
     },
+    can: Object,
 });
 
 const {
@@ -92,6 +93,9 @@ const {
     routeResourceName: props.routeResourceName,
 });
 
-
+const { filters } = useFilters({
+    filters: props.filters,
+    routeResourceName: props.routeResourceName,
+});
 
 </script>

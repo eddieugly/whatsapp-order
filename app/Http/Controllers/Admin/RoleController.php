@@ -15,9 +15,17 @@ use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Permission;
 use App\Http\Resources\PermissionResource;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class RoleController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:view role')->only('index');
+        $this->middleware('can:create role')->only(['create', 'store']);
+        $this->middleware('can:edit role')->only(['edit', 'update']);
+        $this->middleware('can:delete role')->only('destroy');
+    }
+
     private string $routeResourceName = 'roles';
     
     /**
@@ -30,16 +38,14 @@ class RoleController extends Controller
             'id',
             'name',
             'created_at',
-        ])->when(Request::input('search'), function ($query, $search) {
-            $query->where('name', 'like', '%' . $search . '%');
-        })->latest('id')
+        ])
+        ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
+        ->latest('id')
         ->paginate(10);
-
-        $user = User::findOrFail(Auth::id());
 
         return Inertia::render('Admin/Roles/Index', [
             'title' => 'Roles',
-            'filters' => Request::only(['search']),
+            'filters' => Request::only(['name']),
             'items' => RoleResource::collection($roles),
             'headers' => [
                 [
@@ -56,7 +62,11 @@ class RoleController extends Controller
                 ]
             ],
             'routeResourceName' => $this->routeResourceName,
-            'can' => $user->can('admin'),
+            'can' => [
+                'create' => Request::user()->can('create role'),
+                'edit' => Request::user()->can('edit role'),
+                'delete' => Request::user()->can('delete role'),
+            ],
             
         ]);
     }
@@ -88,18 +98,6 @@ class RoleController extends Controller
     public function show(string $id)
     {
         //
-    }
-
-    public function assign()
-    {
-        $user = User::findOrFail(Auth::id());
-
-        // $check = $user->hasRole('super admin');
-        $check = $user->can('create staff', 'web');
-
-        dd($check);
-
-        return redirect()->back()->with('success', 'Role Assigned Successfully');
     }
 
     /**

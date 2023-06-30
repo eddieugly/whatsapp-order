@@ -11,10 +11,17 @@ use Spatie\Permission\Models\Permission;
 use App\Http\Resources\PermissionResource;
 use App\Http\Requests\StorePermissionsRequest;
 use App\Http\Requests\UpdatePermissionsRequest;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class PermissionsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:view permission')->only('index');
+        $this->middleware('can:create permission')->only(['create', 'store']);
+        $this->middleware('can:edit permission')->only(['edit', 'update']);
+        $this->middleware('can:delete permission')->only('destroy');
+    }
+
     private string $routeResourceName = 'permissions';
 
     /**
@@ -27,14 +34,14 @@ class PermissionsController extends Controller
             'id',
             'name',
             'created_at',
-        ])->when(Request::input('search'), function ($query, $search) {
-            $query->where('name', 'like', '%' . $search . '%');
-        })->latest('id')
+        ])
+        ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
+        ->latest('id')
         ->paginate(10);
 
         return Inertia::render('Admin/Permissions/Index', [
             'title' => 'Permissionss',
-            'filters' => Request::only(['search']),
+            'filters' => Request::only(['name']),
             'items' => PermissionResource::collection($permissions),
             'headers' => [
                 [
@@ -51,6 +58,11 @@ class PermissionsController extends Controller
                 ]
             ],
             'routeResourceName' => $this->routeResourceName,
+            'can' => [
+                'create' => Request::user()->can('create role'),
+                'edit' => Request::user()->can('edit role'),
+                'delete' => Request::user()->can('delete role'),
+            ],
             
         ]);
     }
@@ -87,12 +99,11 @@ class PermissionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Permission $permissions)
+    public function edit(Permission $permission)
     {
         return Inertia::render('Admin/Permissions/Edit', [
             'title' => 'Edit Permission',
-            'edit' => true,
-            'item' => new PermissionResource($permissions),
+            'item' => new PermissionResource($permission),
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
