@@ -59,9 +59,9 @@ class PermissionsController extends Controller
             ],
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => Request::user()->can('create role'),
-                'edit' => Request::user()->can('edit role'),
-                'delete' => Request::user()->can('delete role'),
+                'create' => Request::user()->can('create permission'),
+                'edit' => Request::user()->can('edit permission'),
+                'delete' => Request::user()->can('delete permission'),
             ],
             
         ]);

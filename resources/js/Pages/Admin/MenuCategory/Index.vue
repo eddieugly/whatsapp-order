@@ -4,25 +4,32 @@
     <AuthenticatesLayout>
         <Section>
             <Card>
-                <SearchAddButton :href="route(`admin.${props.routeResourceName}.create`)"
-                    :search-link="route(`admin.${props.routeResourceName}.index`)">
-                    Add Category
+                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
+                    Add {{ title }}
                 </SearchAddButton>
 
                 <Table :headers="headers" :items="items">
                     <template v-slot="{ item }">
-                        <Td>
+                        <Td class="flex items-center whitespace-nowrap">
+                            <img :src="item.thumbnail" alt="Category Thumbnail" class="w-auto h-8 mr-3">
                             {{ item.name }}
                         </Td>
                         <Td>
                             {{ item.description }}
                         </Td>
                         <Td>
-                            {{ item.thumbnail }}
+                            <Badge :type="item.status ? 'green' : 'red'">
+                                {{ item.status ? 'Active' : 'Inactive' }}
+                            </Badge>
+                        </Td>
+                        <Td>
+                            <Badge :type="item.featured ? 'green' : 'red'">
+                                {{ item.featured ? 'Featured' : 'NotFeatured' }}
+                            </Badge>
                         </Td>
                         <Td class="">
                             <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${props.routeResourceName}.edit`, { id: item.id })" />
+                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete" :show-edit="can.edit" />
                         </Td>
                     </template>
                 </Table>
@@ -63,9 +70,10 @@ import Card from '@/Components/Card/Card.vue';
 import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
-import { Modal, Button } from 'flowbite-vue';
+import { Modal, Button, Badge } from 'flowbite-vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
+import useFilters from '@/Composables/useFilters'
 
 let props = defineProps({
     routeResourceName: {
@@ -84,6 +92,7 @@ let props = defineProps({
         type: Object,
         default: () => [],
     },
+    can: Object,
 });
 
 const {
@@ -94,6 +103,11 @@ const {
     showModal,
     handleDeleteItem,
 } = useDeleteItem({
+    routeResourceName: props.routeResourceName,
+});
+
+const { filters } = useFilters({
+    filters: props.filters,
     routeResourceName: props.routeResourceName,
 });
 </script>

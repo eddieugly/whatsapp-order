@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 
 class CategoryController extends Controller
@@ -26,16 +27,19 @@ class CategoryController extends Controller
         ->select([
             'ulid',
             'name',
+            'slug',
             'description',
             'thumbnail',
-        ])->when(Request::input('search'), function ($query, $search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            })->latest('id')
+            'status',
+            'featured',
+        ])
+        ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
+        ->latest('id')
             ->paginate(10);
 
         return Inertia::render('Admin/MenuCategory/Index', [
             'title' => 'Category',
-            'filters' => Request::only(['search']),
+            'filters' => Request::only(['name']),
             'items' => CategoryResource::collection($menuCategories),
             'headers' => [
                 [
@@ -47,8 +51,12 @@ class CategoryController extends Controller
                     'name' => 'description'
                 ],
                 [
-                    'label' => 'Thumbnail',
-                    'name' => 'thumbnail'
+                    'label' => 'Status',
+                    'name' => 'status'
+                ],
+                [
+                    'label' => 'Featured',
+                    'name' => 'features'
                 ],
                 [
                     'label' => 'Action',
@@ -56,6 +64,11 @@ class CategoryController extends Controller
                 ]
             ],
             'routeResourceName' => $this->routeResourceName,
+            'can' => [
+                'create' => Request::user()->can('create category'),
+                'edit' => Request::user()->can('edit category'),
+                'delete' => Request::user()->can('delete category'),
+            ],
             
         ]);
     }
@@ -84,20 +97,16 @@ class CategoryController extends Controller
             try {
                 $filename = uploadImage($request->thumbnail, $path, $size);
             } catch (\Exception $exp) {
-                
-                return Redirect::back()->with('error', 'Could Not Upload Image');
+                $errorMessage = $exp->getMessage();                
+                return Redirect::back()->with('error', $errorMessage);
             }
         }
 
-        $data = $request->validated();
+        $data = $request->safe()->only(['name', 'slug', 'description', 'status', 'featured']);
 
-        
+        $data['thumbnail'] = $filename;
 
-        Category::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'thumbnail' => $filename
-        ]);
+        $category = Category::create($data);
 
         return Redirect::route('admin.category.index')->with('success', 'Category Added Successfully');
     }
@@ -141,13 +150,11 @@ class CategoryController extends Controller
             }
         }
         
-        $data = $request->validated();
+        $data = $request->safe()->only(['name', 'slug', 'description', 'status', 'featured']);
+
+        $data['thumbnail'] = $filename;
         
-        $category->update([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'thumbnail' => $filename
-        ]);
+        $category->update($data);
 
         return redirect('/admin/category')->with('success', 'Category Updated Successfully');
     }

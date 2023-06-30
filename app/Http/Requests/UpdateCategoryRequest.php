@@ -24,9 +24,12 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique(Category::class, 'name')->ignore($this->route('category'), 'ulid')],
-            'description' => ['sometimes', 'string', 'max:255'],
-            'thumbnail' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'name' => ['bail', 'required', 'string', 'max:50', Rule::unique(Category::class, 'name')->ignore($this->route('category'), 'ulid')],
+            'slug' => ['bail', 'required', 'string', 'max:50', Rule::unique(Category::class, 'slug')->ignore($this->route('category'), 'ulid')],
+            'description' => ['bail', 'sometimes', 'string', 'max:255'],
+            'thumbnail' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'status' => ['bail', 'sometimes', 'boolean'],
+            'featured' => ['bail', 'sometimes', 'boolean'],
         ];
     }
 }
