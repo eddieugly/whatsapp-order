@@ -34,13 +34,13 @@ class UserSeeder extends Seeder
         ]);
 
         $staff = User::create([
-            'name' => 'Attendant',
+            'name' => 'Staff Attendant',
             'email' => 'staffs@testorder.com',
             'password' => Hash::make('12345678')
         ]);
 
         $delivery = User::create([
-            'name' => 'Delivery',
+            'name' => 'Delivery Agent',
             'email' => 'delivery@testorder.com',
             'password' => Hash::make('12345678')
         ]);
@@ -50,15 +50,5 @@ class UserSeeder extends Seeder
             'email' => 'user@testorder.com',
             'password' => Hash::make('12345678')
         ]);
-
-        $admin->assignRole('admin');
-
-        $manager->assignRole('manager');
-
-        $chef->assignRole('chef');
-
-        $staff->assignRole('staff');
-
-        $delivery->assignRole('delivery');
     }
 }

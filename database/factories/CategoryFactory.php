@@ -17,9 +17,14 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->word();
+
         return [
-            'name' => fake()->name(),
-            'description' => fake()->sentence(),
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => fake()->paragraphs(5, true),
+            'status' => fake()->boolean(50),
+            'featured' => fake()->boolean(50),
             'thumbnail' => fake()->imageUrl(500, 500, null, null, null, null, 'png'),
         ];
     }

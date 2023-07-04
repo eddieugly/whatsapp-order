@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->ulid('ulid')->unique();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('slug');
+            $table->longText('description')->nullable();
+            $table->boolean('status')->default(false);
+            $table->boolean('featured')->default(false);
             $table->string('thumbnail')->nullable();
             $table->timestamps();
         });

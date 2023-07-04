@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetach
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('TestPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,

@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->ulid('ulid')->unique();
-            $table->bigInteger('category_id');
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('status')->comment('0 => inactive, 1 => active');
-            $table->decimal('price', 8, 2);
+            $table->string('slug');
+            $table->longText('description')->nullable();
+            $table->bigInteger('price')->unsigned();
+            $table->boolean('status')->default(false);
+            $table->boolean('featured')->default(false);
+            $table->boolean('slider')->default(false);
             $table->string('thumbnail')->nullable();
             $table->timestamps();
         });

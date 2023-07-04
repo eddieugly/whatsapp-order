@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +18,16 @@ class MenuFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->word();
+
         return [
-            'category_id' => Category::factory(),
-            'name' => fake()->name(),
-            'description' => fake()->sentence(),
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => fake()->paragraphs(5, true),
+            'price' => random_int(100, 9000),
             'status' => fake()->boolean(50),
-            'price' => fake()->randomFloat(2, 199, 9999),
+            'featured' => fake()->boolean(50),
+            'slider' => fake()->boolean(50),
             'thumbnail' => fake()->imageUrl(500, 500, null, null, null, null, 'png'),
         ];
     }
