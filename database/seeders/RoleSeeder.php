@@ -53,7 +53,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'view reservation']);
 
         Permission::create(['name' => 'create role']);
-        Permission::create(['name' => 'edit role']);
+        $superPermit = Permission::create(['name' => 'edit role']);
         Permission::create(['name' => 'assign role']);
         Permission::create(['name' => 'revoke role']);
         Permission::create(['name' => 'delete role']);
@@ -81,6 +81,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'create users']);
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'delete users']);
+
+        $superPermit->assignRole($superAdmin);
+
+
 
         User::find(1)->assignRole($superAdmin);
         User::find(2)->assignRole($generalManager);

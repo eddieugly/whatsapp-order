@@ -13,6 +13,7 @@ import InputLabel from './InputLabel.vue';
 
 
 defineProps({
+  modelValue: {},
   value: {},
   label: {
     type: String,

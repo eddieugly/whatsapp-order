@@ -17,10 +17,11 @@ const props = defineProps({
   },
   checked: {
     type: [Array, Boolean],
-    default: false,
+    default: true,
   },
   value: {
-    default: null,
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -145,8 +145,8 @@ class CategoryController extends Controller
             try {
                 $filename = uploadImage($request->thumbnail, $path, $size);
             } catch (\Exception $exp) {
-                
-                return Redirect::back()->with('error', 'Could Not Upload Image');
+                $errorMessage = $exp->getMessage();                
+                return Redirect::back()->with('error', $errorMessage);
             }
         }
         

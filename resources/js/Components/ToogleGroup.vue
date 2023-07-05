@@ -14,7 +14,10 @@ import InputLabel from './InputLabel.vue';
 
 
 defineProps({
-  value: {},
+  value: {
+    type: Boolean,
+    default: false,
+  },
   label: {
     type: String,
     default: "",
