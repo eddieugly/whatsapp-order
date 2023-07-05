@@ -24,11 +24,14 @@ class StoreMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique(Menu::class, 'name')],
-            'description' => ['sometimes', 'string', 'max:255'],
-            'status' => ['required', 'numeric', 'in:0,1'],
-            'price' => ['required', 'numeric', 'gt:0'],
-            'thumbnail' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'name' => ['bail', 'required', 'string', 'max:50', Rule::unique(Menu::class, 'name')],
+            'slug' => ['bail', 'required', 'string', 'max:50', Rule::unique(Menu::class, 'slug')],
+            'description' => ['bail', 'sometimes', 'string', 'max:255'],
+            'price' => ['bail', 'required', 'integer', 'gt:0'],
+            'status' => ['bail', 'sometimes', 'boolean'],
+            'featured' => ['bail', 'sometimes', 'boolean'],
+            'slider' => ['bail', 'sometimes', 'boolean'],
+            'thumbnail' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
         ];
     }
 }

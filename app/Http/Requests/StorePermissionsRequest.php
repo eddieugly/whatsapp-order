@@ -24,7 +24,7 @@ class StorePermissionsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique(Permission::class, 'name')],
+            'name' => ['bail', 'required', 'string', 'max:50', Rule::unique(Permission::class, 'name')],
         ];
     }
 }

@@ -17,9 +17,12 @@ class Menu extends Model
         'ulid',
         'category_id',
         'name',
+        'slug',
         'description',
-        'status',
         'price',
+        'status',
+        'featured',
+        'slider',
         'thumbnail'
     ];
 
@@ -47,7 +50,15 @@ class Menu extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function scopeActive() : Scope {
-        return $this->where('status', 1);
+    public function scopeActive($builder) : Scope {
+        return $builder->where('status', true);
+    }
+
+    function scopeInActive($builder) : Scope {
+        return $builder->where('active', false);
+    }
+
+    function scopeFeatured($builder) : Scope {
+        return $builder->where('featured', true);
     }
 }
