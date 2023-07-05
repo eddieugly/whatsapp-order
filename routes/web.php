@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
+use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('permissions', AdminPermissionsController::class);
 
         Route::resource('users', AdminUserController::class);
+
+        Route::resource('menu', AdminMenuController::class);
         
     });
     

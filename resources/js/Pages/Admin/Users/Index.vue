@@ -82,7 +82,7 @@ const props = defineProps({
     },
     items: {
         type: Object,
-        default: () => [],
+        default: () => ({}),
     },
     headers: {
         type: Object,

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\MenuResource;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
@@ -21,7 +23,9 @@ class MenuController extends Controller
     {
         $menus  = Menu::query()
             ->select([
+                'id',
                 'ulid',
+                'category_id',
                 'name',
                 'description',
                 'price',
@@ -30,6 +34,7 @@ class MenuController extends Controller
                 'slider',
                 'thumbnail',
             ])
+            ->with(['category:id,name'])
             ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
             ->when(Request::input('categoryId'), fn (Builder $builder, $categoryId) => $builder->whereHas(
                 'category',
@@ -69,6 +74,10 @@ class MenuController extends Controller
                         'name' => 'price'
                     ],
                     [
+                        'label' => 'Category',
+                        'name' => 'category'
+                    ],
+                    [
                         'label' => 'Status',
                         'name' => 'status'
                     ],
@@ -86,6 +95,7 @@ class MenuController extends Controller
                     ]
                 ],
                 'routeResourceName' => $this->routeResourceName,
+                'categories' => CategoryResource::collection(Category::get(['ulid', 'name'])),
                 'can' => [
                     'create' => Request::user()->can('create menu'),
                     'edit' => Request::user()->can('edit menu'),

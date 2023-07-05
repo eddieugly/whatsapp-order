@@ -14,16 +14,26 @@
                             {{ item.name }}
                         </Td>
                         <Td>
-                            {{ item.description }}
+                            {{ item.price }}
+                        </Td>
+                        <Td>
+                            <Badge type="purple">
+                                {{ item.category.name }}
+                            </Badge>
                         </Td>
                         <Td>
                             <Badge :type="item.status ? 'green' : 'red'">
-                                {{ item.status ? 'Active' : 'Inactive' }}
+                                {{ item.status ? 'Active' : 'InActive' }}
                             </Badge>
                         </Td>
                         <Td>
                             <Badge :type="item.featured ? 'green' : 'red'">
                                 {{ item.featured ? 'Featured' : 'NotFeatured' }}
+                            </Badge>
+                        </Td>
+                        <Td>
+                            <Badge :type="item.slider ? 'green' : 'red'">
+                                {{ item.slider ? 'OnSlider' : 'NotOnSlider' }}
                             </Badge>
                         </Td>
                         <Td class="">
@@ -73,7 +83,7 @@ import { Modal, Button, Badge } from 'flowbite-vue';
 import useDeleteItem from '@/Composables/useDeleteItem';
 import useFilters from '@/Composables/useFilters'
 
-let props = defineProps({
+const props = defineProps({
     routeResourceName: {
         type: String,
         required: true,
@@ -90,6 +100,11 @@ let props = defineProps({
         type: Object,
         default: () => [],
     },
+    filters: {
+        type: Object,
+        default: () => ({}),
+    },
+    categories: Array,
     can: Object,
 });
 

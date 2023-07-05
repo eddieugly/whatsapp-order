@@ -16,6 +16,7 @@ class MenuResource extends JsonResource
     {
         return [
             'id' => $this->ulid,
+            'category_id' => $this->category_id,
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->whenNotNull($this->description),
@@ -24,7 +25,7 @@ class MenuResource extends JsonResource
             'featured' => $this->featured,
             'slider' => $this->slider,
             'thumbnail' => $this->whenNotNull($this->thumbnail),
-            'category' => CategoryResource::collection($this->whenLoaded('category')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

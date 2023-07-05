@@ -49,6 +49,12 @@
             <span class="ml-3">Menu Category</span>
           </Sidelink>
         </li>
+        <li>
+          <Sidelink :href="route('admin.menu.index')" :active="route().current('admin.menu*')">
+            <Menu />
+            <span class="ml-3">Menu List</span>
+          </Sidelink>
+        </li>
 
       </ul>
     </div>
@@ -203,6 +209,7 @@ import Permissions from './Icons/Permissions.vue';
 import Category from './Icons/Category.vue';
 import Users from './Icons/Users.vue';
 import Search from './Icons/Search.vue';
+import Menu from './Icons/Menu.vue';
 
 </script>
 
