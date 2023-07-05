@@ -2,7 +2,6 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-        <Section>
             <Card>
                 <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
                     Add {{ title }}
@@ -34,7 +33,6 @@
                     </template>
                 </Table>
             </Card>
-        </Section>
 
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>

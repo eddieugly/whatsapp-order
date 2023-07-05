@@ -36,24 +36,22 @@ const submit = () => {
     <Head :title="title" />
 
     <AuthenticatesLayout>
-        <Section>
-            <Card>
-                <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl">
-                    <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-5">{{ title }}</h5>
-                    <form @submit.prevent="submit">
-                        <div class="mb-4">
-                            <Input v-model="form.name" name="name" id="name" placeholder="Enter Name" label="Name">
-                            <template #helper v-if="form.errors.name" class="text-red-500">
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.name }}</p>
-                            </template>
-                            </Input>
-                        </div>
-                        <div class="mb-4">
-                            <Button color="default" type="submit" :disabled="form.processing">Submit</Button>
-                        </div>
-                    </form>
-                </div>
-            </Card>
-        </Section>
+        <Card>
+            <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl">
+                <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-5">{{ title }}</h5>
+                <form @submit.prevent="submit">
+                    <div class="mb-4">
+                        <Input v-model="form.name" name="name" id="name" placeholder="Enter Name" label="Name">
+                        <template #helper v-if="form.errors.name" class="text-red-500">
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.name }}</p>
+                        </template>
+                        </Input>
+                    </div>
+                    <div class="mb-4">
+                        <Button color="default" type="submit" :disabled="form.processing">Submit</Button>
+                    </div>
+                </form>
+            </div>
+        </Card>
     </AuthenticatesLayout>
 </template>

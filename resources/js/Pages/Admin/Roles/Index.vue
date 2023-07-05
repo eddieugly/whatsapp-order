@@ -3,28 +3,29 @@
 
     <AuthenticatesLayout>
 
-        <Section>
-            <Card>
-                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
-                    Add {{ title }}
-                </SearchAddButton>
 
-                <Table :headers="headers" :items="items">
-                    <template v-slot="{ item }">
-                        <Td>
-                            {{ item.name }}
-                        </Td>
-                        <Td>
-                            {{ item.created_at_formatted }}
-                        </Td>
-                        <Td class="flex items-center">
-                            <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-edit="can.edit" :show-delete="can.delete" />
-                        </Td>
-                    </template>
-                </Table>
-            </Card>
-        </Section>
+        <Card>
+            <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)">
+                Add {{ title }}
+            </SearchAddButton>
+
+            <Table :headers="headers" :items="items">
+                <template v-slot="{ item }">
+                    <Td>
+                        {{ item.name }}
+                    </Td>
+                    <Td>
+                        {{ item.created_at_formatted }}
+                    </Td>
+                    <Td class="flex items-center">
+                        <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
+                            :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-edit="can.edit"
+                            :show-delete="can.delete" />
+                    </Td>
+                </template>
+            </Table>
+        </Card>
+
 
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>

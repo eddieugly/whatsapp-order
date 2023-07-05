@@ -21,6 +21,7 @@ class MenuFactory extends Factory
         $name = fake()->unique()->word();
 
         return [
+            'category_id' => Category::factory(),
             'name' => $name,
             'slug' => Str::slug($name),
             'description' => fake()->paragraphs(5, true),

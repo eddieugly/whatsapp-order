@@ -2,37 +2,37 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-        <Section>
-            <Card>
+        <Card>
 
-                <SearchAddFilterButton v-model="filters" :roles="roles" :href="route(`admin.${routeResourceName}.create`)" :can-create="can.create">
-                    Add {{ title }}
-                </SearchAddFilterButton>
+            <SearchAddFilterButton v-model="filters" :roles="roles" :href="route(`admin.${routeResourceName}.create`)"
+                :can-create="can.create">
+                Add {{ title }}
+            </SearchAddFilterButton>
 
-                <Table :headers="headers" :items="items">
-                    <template v-slot="{ item }">
-                        <Td>
-                            {{ item.name }}
-                        </Td>
-                        <Td>
-                            {{ item.email }}
-                        </Td>
-                        <Td>
-                            <Badge v-for="role in item.roles" :key="role.id" type="green">
-                                {{ role.name }}
-                            </Badge>
-                        </Td>
-                        <Td>
-                            {{ item.created_at_formatted }}
-                        </Td>
-                        <Td class="flex items-center">
-                            <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete" :show-edit="can.edit" />
-                        </Td>
-                    </template>
-                </Table>
-            </Card>
-        </Section>
+            <Table :headers="headers" :items="items">
+                <template v-slot="{ item }">
+                    <Td>
+                        {{ item.name }}
+                    </Td>
+                    <Td>
+                        {{ item.email }}
+                    </Td>
+                    <Td>
+                        <Badge v-for="role in item.roles" :key="role.id" type="green">
+                            {{ role.name }}
+                        </Badge>
+                    </Td>
+                    <Td>
+                        {{ item.created_at_formatted }}
+                    </Td>
+                    <Td class="flex items-center">
+                        <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
+                            :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete"
+                            :show-edit="can.edit" />
+                    </Td>
+                </template>
+            </Table>
+        </Card>
 
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>

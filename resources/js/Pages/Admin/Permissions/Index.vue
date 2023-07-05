@@ -2,29 +2,27 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-        <Section>
-            <Card>
-                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
-                    Add {{ title }}
-                </SearchAddButton>
+        <Card>
+            <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)">
+                Add {{ title }}
+            </SearchAddButton>
 
-                <Table :headers="headers" :items="items">
-                    <template v-slot="{ item }">
-                        <Td>
-                            {{ item.name }}
-                        </Td>
-                        <Td>
-                            {{ item.created_at_formatted }}
-                        </Td>
-                        <Td class="flex items-center">
-                            <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :modal-place="(items.lenght - 1)" />
-                        </Td>
-                    </template>
-                </Table>
-            </Card>
-        </Section>
-
+            <Table :headers="headers" :items="items">
+                <template v-slot="{ item }">
+                    <Td>
+                        {{ item.name }}
+                    </Td>
+                    <Td>
+                        {{ item.created_at_formatted }}
+                    </Td>
+                    <Td class="flex items-center">
+                        <Actions @deleteClicked="showModal(item)"
+                            :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })"
+                            :modal-place="(items.lenght - 1)" />
+                    </Td>
+                </template>
+            </Table>
+        </Card>
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>
                 <div class="flex items-center text-lg">

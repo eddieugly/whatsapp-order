@@ -30,7 +30,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -39,13 +39,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return Inertia::render('Admin/Mydashboard');
         })->name('dashboard');
 
+        
         Route::resource('roles', AdminRoleController::class);
 
         Route::post('roles/attach-permission', AdminAttachPermissionToRoleController::class)->name('roles.attach-permission');
 
         Route::post('roles/detach-permission', AdminDetachPermissionFromRoleController::class)->name('roles.detach-permission');
-
-        Route::get('assign', [AdminRoleController::class, 'assign'])->name('assign');
 
         Route::resource('category', AdminCategoryController::class);
 
