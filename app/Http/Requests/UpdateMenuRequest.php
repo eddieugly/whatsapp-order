@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,9 +25,10 @@ class UpdateMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => ['bail', 'required', Rule::exists(Category::class, 'ulid')],
             'name' => ['bail', 'required', 'string', 'max:50', Rule::unique(Menu::class, 'name')->ignore($this->route('menu'), 'ulid')],
             'slug' => ['bail', 'required', 'string', 'max:50', Rule::unique(Menu::class, 'slug')->ignore($this->route('menu'), 'ulid')],
-            'description' => ['bail', 'sometimes', 'string', 'max:255'],
+            'description' => ['bail', 'sometimes', 'string'],
             'price' => ['bail', 'required', 'integer', 'gt:0'],
             'status' => ['bail', 'sometimes', 'boolean'],
             'featured' => ['bail', 'sometimes', 'boolean'],

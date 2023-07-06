@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use Inertia\Inertia;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\MenuResource;
 use App\Http\Requests\StoreMenuRequest;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateMenuRequest;
 use App\Http\Resources\CategoryResource;
-use App\Http\Resources\MenuResource;
-use App\Models\Category;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Request;
-use Inertia\Inertia;
 
 class MenuController extends Controller
 {
     private string $routeResourceName = 'menu';
+
+    public function __construct() {
+        $this->middleware('can:view menu')->only('index');
+        $this->middleware('can:create menu')->only(['create', 'store']);
+        $this->middleware('can:edit menu')->only(['edit', 'update']);
+        $this->middleware('can:delete menu')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,28 +42,34 @@ class MenuController extends Controller
                 'slider',
                 'thumbnail',
             ])
-            ->with(['category:id,name'])
+            ->with(['category:id,ulid,name,status,featured'])
             ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
             ->when(Request::input('categoryId'), fn (Builder $builder, $categoryId) => $builder->whereHas(
-                'category',
-                fn (Builder $builder) => $builder->where('category.id', $categoryId)
+                'category', fn (Builder $builder) => $builder->where('categories.ulid', $categoryId)
             ))
             ->when(
                 Request::input('status') !== null,
-                fn (Builder $builder, $status) => $builder->when(
-                    $status,
-                    fn (Builder $builder) => $builder->active(),
+                fn (Builder $builder) => $builder->when(
+                    Request::input('status') == true ?
+                    fn (Builder $builder) => $builder->active() :
                     fn (Builder $builder) => $builder->inActive()
-
                 )
             )
             ->when(
                 Request::input('featured') !== null,
-                fn (Builder $builder, $featured) => $builder->where('featured', $featured)
+                fn (Builder $builder) => $builder->when(
+                    Request::input('featured') == true ?
+                    fn (Builder $builder) => $builder->featured() :
+                    fn (Builder $builder) => $builder->notFeatured()
+                )
             )
             ->when(
                 Request::input('slider') !== null,
-                fn (Builder $builder, $slider) => $builder->where('slider', $slider)
+                fn (Builder $builder) => $builder->when(
+                    Request::input('slider') == true ?
+                    fn (Builder $builder) => $builder->onSlider() :
+                    fn (Builder $builder) => $builder->noSlider()
+                )
             )
             ->latest('id')
             ->paginate(10);
@@ -109,7 +123,11 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Menu/Create', [
+            'title' => 'Add Menu',
+            'routeResourceName' => $this->routeResourceName,
+            'categories' => CategoryResource::collection(Category::get(['id', 'ulid', 'name'])),
+        ]);
     }
 
     /**
@@ -117,7 +135,29 @@ class MenuController extends Controller
      */
     public function store(StoreMenuRequest $request)
     {
-        //
+        $filename = '';
+        $path = imagePath()['categoryThumbnail']['path'];
+        $size = imagePath()['categoryThumbnail']['size'];
+        
+        if ($request->hasFile('thumbnail')) {
+            try {
+                $filename = uploadImage($request->thumbnail, $path, $size);
+            } catch (\Exception $exp) {
+                $errorMessage = $exp->getMessage();                
+                return Redirect::back()->with('error', $errorMessage);
+            }
+        }
+
+        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+
+        $categoryId = Category::where('ulid', $request->category_id)->first();
+
+        $data['category_id'] = $categoryId->id;
+        $data['thumbnail'] = $filename;
+
+        Menu::create($data);
+
+        return Redirect::route('admin.menu.index')->with('success', 'Menu Added Successfully');
     }
 
     /**
@@ -133,7 +173,13 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        //
+        $menu->load(['category']);
+        return Inertia::render('Admin/Menu/Edit', [
+            'title' => 'Edit Menu',
+            'item' => new MenuResource($menu),
+            'routeResourceName' => $this->routeResourceName,
+            'categories' => CategoryResource::collection(Category::get(['ulid', 'name'])),
+        ]);
     }
 
     /**
@@ -141,7 +187,29 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        //
+
+        $filename = $menu->thumbnail;
+        $path = imagePath()['categoryThumbnail']['path'];
+        $size = imagePath()['categoryThumbnail']['size'];
+        
+        if ($request->hasFile('thumbnail')) {
+            try {
+                $filename = uploadImage($request->thumbnail, $path, $size);
+            } catch (\Exception $exp) {
+                $errorMessage = $exp->getMessage();                
+                return Redirect::back()->with('error', $errorMessage);
+            }
+        }
+        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+
+        $categoryId = Category::where('ulid', $request->category_id)->first();
+
+        $data['category_id'] = $categoryId->id;
+        $data['thumbnail'] = $filename;
+
+        $menu->update($data);
+
+        return Redirect::route('admin.menu.index')->with('success', 'Menu Updated Successfully');
     }
 
     /**
@@ -149,6 +217,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        //
+        $menu->delete();
+
+        return Redirect::back()->with('success', 'Menu Deleted Successfully');
     }
 }

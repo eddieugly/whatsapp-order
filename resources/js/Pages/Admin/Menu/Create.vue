@@ -9,6 +9,7 @@ import replace from 'lodash/replace';
 import ToogleGroup from '@/Components/ToogleGroup.vue';
 import Card from '@/Components/Card/Card.vue';
 import TextAreaGroup from '@/Components/TextAreaGroup.vue';
+import SelectGroup from '@/Components/SelectGroup.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -23,15 +24,19 @@ let props = defineProps({
         type: Boolean,
         default: false,
     },
+    categories: Array,
 })
 
 const form = useForm({
     name: "",
+    category_id: null,
     slug: "",
     description: "",
+    price: "",
     thumbnail: null,
     status: false,
     featured: false,
+    slider: false,
 });
 
 watch(() => form.name, (name) => {
@@ -54,27 +59,38 @@ const submit = () => {
                 <form @submit.prevent="submit">
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="mb-4">
-                            <Input v-model="form.name" name="name" id="name" placeholder="Enter Category Name"
-                                label="Category Name">
+                            <Input v-model="form.name" name="name" id="name" placeholder="Enter Menu Name"
+                                label="Menu Name">
                             <template #helper v-if="form.errors.name" class="text-red-500">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.name }}</p>
                             </template>
                             </Input>
                         </div>
                         <div class="mb-4">
-                            <Input v-model="form.slug" name="slug" id="slug" placeholder="Slug" label="Category Name">
+                            <Input v-model="form.slug" name="slug" id="slug" placeholder="Slug" label="Menu Slug">
                             <template #helper v-if="form.errors.slug" class="text-red-500">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.slug }}</p>
                             </template>
                             </Input>
                         </div>
+                        <div class="mb-4">
+                            <Input v-model="form.price" name="price" id="price" type="number" placeholder="Enter Menu Price" 
+                                label="Menu Price">
+                            <template #helper v-if="form.errors.price">
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.price }}</p>
+                            </template>
+                            </Input>
+                        </div>
+                        <div class="mb-4">
+                            <SelectGroup label="Category" v-model="form.category_id" :items="categories"
+                                :error-message="form.errors.category_id" select-value="Select Category" required />
+                        </div>
                         <div class="mb-4 sm:col-span-2">
-                            
-                            <TextAreaGroup label="Category Description" :error-message="form.errors.description" v-model="form.description" />
+                            <TextAreaGroup label="Menu Description" :error-message="form.errors.description" v-model="form.description" />
                         </div>
                         <div class="mb-4 sm:col-span-2">
                             <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail"
-                                id="thumbnail" label="Category Thumbnail">
+                                id="thumbnail" label="Menu Thumbnail">
                             <template #helper class="text-red-500">
                                 <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
                                 <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
@@ -87,6 +103,10 @@ const submit = () => {
                         <div class="mb-4">
                             <ToogleGroup label="Featured" v-model:checked="form.featured"
                                 :error-message="form.errors.featured" />
+                        </div>
+                        <div class="mb-4">
+                            <ToogleGroup label="Show On Slider" v-model:checked="form.slider"
+                                :error-message="form.errors.slider" />
                         </div>
                     </div>
 

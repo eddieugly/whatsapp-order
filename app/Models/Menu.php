@@ -13,6 +13,12 @@ class Menu extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'status' => 'boolean',
+        'featured' => 'boolean',
+        'slider' => 'boolean',
+    ];
+
     protected $fillable = [
         'ulid',
         'category_id',
@@ -35,11 +41,11 @@ class Menu extends Model
         });
     }
 
-    protected function price() : Attribute {
-        return Attribute::make(
-            get: fn (string $value) => number_format($value, 2),
-        );
-    }
+    // protected function price() : Attribute {
+    //     return Attribute::make(
+    //         get: fn (string $value) => number_format($value, 2),
+    //     );
+    // }
 
     public function getRouteKeyName(): string
     {
@@ -50,15 +56,27 @@ class Menu extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function scopeActive($builder) : Scope {
+    public function scopeActive($builder) {
         return $builder->where('status', true);
     }
 
-    function scopeInActive($builder) : Scope {
-        return $builder->where('active', false);
+    function scopeInActive($builder) {
+        return $builder->where('status', false);
     }
 
-    function scopeFeatured($builder) : Scope {
+    function scopeFeatured($builder) {
         return $builder->where('featured', true);
+    }
+
+    function scopeNotFeatured($builder) {
+        return $builder->where('featured', false);
+    }
+
+    function scopeOnSlider($builder) {
+        return $builder->where('slider', true);
+    }
+
+    function scopeNoSlider($builder) {
+        return $builder->where('slider', false);
     }
 }

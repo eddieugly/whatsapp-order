@@ -62,7 +62,7 @@ const submit = () => {
                             </Input>
                         </div>
                         <div class="mb-4">
-                            <Input v-model="form.slug" name="slug" id="slug" placeholder="Slug" label="Category Name">
+                            <Input v-model="form.slug" name="slug" id="slug" placeholder="Slug" label="Category Slug">
                             <template #helper v-if="form.errors.slug" class="text-red-500">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.slug }}</p>
                             </template>
