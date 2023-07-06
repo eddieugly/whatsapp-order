@@ -26,25 +26,20 @@ defineProps({
         type: String,
         default: "",
     },
+    selectValue: {
+        type: String,
+        default: "Select"
+    }
 });
 </script>
 
 <template>
     <div>
-        <InputLabel v-if="label"
-               :value="label" />
+        <InputLabel v-if="label" :value="label" />
 
-        <Select
-                :model-value="modelValue"
-                @update:model-value="$emit('update:modelValue', $event)"
-                :items="items"
-                :item-text="itemText"
-                :item-value="itemValue"
-                :without-select="withoutSelect"
-                v-bind="$attrs" />
+        <Select :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" :items="items"
+            :item-text="itemText" :item-value="itemValue" :select-value="selectValue" :without-select="withoutSelect" v-bind="$attrs" />
 
-        <InputError v-if="errorMessage"
-                    class="mt-1"
-                    :message="errorMessage" />
+        <InputError v-if="errorMessage" class="mt-1" :message="errorMessage" />
     </div>
 </template>

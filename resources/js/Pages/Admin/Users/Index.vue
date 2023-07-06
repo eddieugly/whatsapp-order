@@ -4,10 +4,11 @@
     <AuthenticatesLayout>
         <Card>
 
-            <SearchAddFilterButton v-model="filters" :roles="roles" :href="route(`admin.${routeResourceName}.create`)"
-                :can-create="can.create">
+            
+
+            <Filters  v-model="filters" :roles="roles" :href="route(`admin.${routeResourceName}.create`)" :can-create="can.create">
                 Add {{ title }}
-            </SearchAddFilterButton>
+            </Filters>
 
             <Table :headers="headers" :items="items">
                 <template v-slot="{ item }">
@@ -60,13 +61,12 @@
 <script setup>
 import AuthenticatesLayout from '@/Layouts/AuthenticatesLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import Section from '@/Components/Section.vue';
 import Card from '@/Components/Card/Card.vue'
 import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
 import { Badge, Button, Modal } from 'flowbite-vue';
-import SearchAddFilterButton from '@/Components/Table/SearchAddFilterButton .vue';
+import Filters from './Filters.vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
 import useFilters from '@/Composables/useFilters';

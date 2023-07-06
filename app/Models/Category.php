@@ -45,15 +45,19 @@ class Category extends Model
         return $this->hasMany(Menu::class);
     }
 
-    function scopeActive($builder) : Scope {
-        return $builder->where('active', true);
+    function scopeActive($builder) {
+        return $builder->where('status', true);
     }
 
-    function scopeInActive($builder) : Scope {
-        return $builder->where('active', false);
+    function scopeInActive($builder) {
+        return $builder->where('status', false);
     }
 
-    function scopeFeatured($builder) : Scope {
+    function scopeFeatured($builder) {
         return $builder->where('featured', true);
+    }
+
+    function scopeNotFeatured($builder) {
+        return $builder->where('featured', false);
     }
 }

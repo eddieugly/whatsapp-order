@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Redirect;
 class UserController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:view users')->only('index');
-        $this->middleware('can:create users')->only(['create', 'store']);
-        $this->middleware('can:edit users')->only(['edit', 'update']);
-        $this->middleware('can:delete users')->only('destroy');
+        // $this->middleware('can:view users')->only('index');
+        // $this->middleware('can:create users')->only(['create', 'store']);
+        // $this->middleware('can:edit users')->only(['edit', 'update']);
+        // $this->middleware('can:delete users')->only('destroy');
     }
 
     private string $routeResourceName = 'users';

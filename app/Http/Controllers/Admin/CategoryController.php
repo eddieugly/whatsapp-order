@@ -34,6 +34,21 @@ class CategoryController extends Controller
             'featured',
         ])
         ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
+        ->when(
+            Request::input('status') !== null, fn (Builder $builder) => $builder->when(
+                Request::input('status') == true ? 
+                fn (Builder $builder) => $builder->active() :
+                fn (Builder $builder) => $builder->inActive()
+            )
+        )
+        ->when(
+            Request::input('featured') !== null,
+            fn (Builder $builder) => $builder->when(
+                Request::input('featured') == true ?
+                fn (Builder $builder) => $builder->featured() :
+                fn (Builder $builder) => $builder->notFeatured()
+            )
+        )
         ->latest('id')
             ->paginate(10);
 
@@ -45,10 +60,6 @@ class CategoryController extends Controller
                 [
                     'label' => 'Category Name',
                     'name' => 'name'
-                ],
-                [
-                    'label' => 'Description',
-                    'name' => 'description'
                 ],
                 [
                     'label' => 'Status',

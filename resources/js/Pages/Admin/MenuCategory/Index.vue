@@ -3,18 +3,15 @@
 
     <AuthenticatesLayout>
             <Card>
-                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
+                <Filters v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)">
                     Add {{ title }}
-                </SearchAddButton>
+                </Filters>
 
                 <Table :headers="headers" :items="items">
                     <template v-slot="{ item }">
                         <Td class="flex items-center whitespace-nowrap">
-                            <img :src="item.thumbnail" alt="Category Thumbnail" class="w-auto h-8 mr-3">
+                            <img :src="item.thumbnail" alt="Thumbnail" class="w-auto h-8 mr-3">
                             {{ item.name }}
-                        </Td>
-                        <Td>
-                            {{ item.description }}
                         </Td>
                         <Td>
                             <Badge :type="item.status ? 'green' : 'red'">
@@ -69,6 +66,7 @@ import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';
 import Actions from '@/Components/Table/Actions.vue';
 import { Modal, Button, Badge } from 'flowbite-vue';
+import Filters from './Filters.vue';
 
 import useDeleteItem from '@/Composables/useDeleteItem';
 import useFilters from '@/Composables/useFilters'

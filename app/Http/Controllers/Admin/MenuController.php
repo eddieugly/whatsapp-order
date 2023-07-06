@@ -41,9 +41,9 @@ class MenuController extends Controller
                 fn (Builder $builder) => $builder->where('category.id', $categoryId)
             ))
             ->when(
-                Request::input('active') !== null,
-                fn (Builder $builder, $active) => $builder->when(
-                    $active,
+                Request::input('status') !== null,
+                fn (Builder $builder, $status) => $builder->when(
+                    $status,
                     fn (Builder $builder) => $builder->active(),
                     fn (Builder $builder) => $builder->inActive()
 

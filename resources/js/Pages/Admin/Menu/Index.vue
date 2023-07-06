@@ -2,47 +2,48 @@
     <Head :title="title" />
 
     <AuthenticatesLayout>
-            <Card>
-                <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)" >
-                    Add {{ title }}
-                </SearchAddButton>
+        <Card>
+            <SearchAddButton v-model="filters" :can-create="can.create" :href="route(`admin.${routeResourceName}.create`)">
+                Add {{ title }}
+            </SearchAddButton>
 
-                <Table :headers="headers" :items="items">
-                    <template v-slot="{ item }">
-                        <Td class="flex items-center whitespace-nowrap">
-                            <img :src="item.thumbnail" alt="Category Thumbnail" class="w-auto h-8 mr-3">
-                            {{ item.name }}
-                        </Td>
-                        <Td>
-                            {{ item.price }}
-                        </Td>
-                        <Td>
-                            <Badge type="purple">
-                                {{ item.category.name }}
-                            </Badge>
-                        </Td>
-                        <Td>
-                            <Badge :type="item.status ? 'green' : 'red'">
-                                {{ item.status ? 'Active' : 'InActive' }}
-                            </Badge>
-                        </Td>
-                        <Td>
-                            <Badge :type="item.featured ? 'green' : 'red'">
-                                {{ item.featured ? 'Featured' : 'NotFeatured' }}
-                            </Badge>
-                        </Td>
-                        <Td>
-                            <Badge :type="item.slider ? 'green' : 'red'">
-                                {{ item.slider ? 'OnSlider' : 'NotOnSlider' }}
-                            </Badge>
-                        </Td>
-                        <Td class="">
-                            <Actions @deleteClicked="showModal(item)"
-                                :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete" :show-edit="can.edit" />
-                        </Td>
-                    </template>
-                </Table>
-            </Card>
+            <Table :headers="headers" :items="items">
+                <template v-slot="{ item }">
+                    <Td class="flex items-center whitespace-nowrap">
+                        <img :src="item.thumbnail" alt="Category Thumbnail" class="w-auto h-8 mr-3">
+                        {{ item.name }}
+                    </Td>
+                    <Td>
+                        {{ item.price }}
+                    </Td>
+                    <Td>
+                        <Badge type="purple">
+                            {{ item.category.name }}
+                        </Badge>
+                    </Td>
+                    <Td>
+                        <Badge :type="item.status ? 'green' : 'red'">
+                            {{ item.status ? 'Active' : 'InActive' }}
+                        </Badge>
+                    </Td>
+                    <Td>
+                        <Badge :type="item.featured ? 'green' : 'red'">
+                            {{ item.featured ? 'Featured' : 'NotFeatured' }}
+                        </Badge>
+                    </Td>
+                    <Td>
+                        <Badge :type="item.slider ? 'green' : 'red'">
+                            {{ item.slider ? 'OnSlider' : 'NotOnSlider' }}
+                        </Badge>
+                    </Td>
+                    <Td class="">
+                        <Actions @deleteClicked="showModal(item)"
+                            :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete"
+                            :show-edit="can.edit" />
+                    </Td>
+                </template>
+            </Table>
+        </Card>
 
         <Modal size="lg" v-if="isShowModal" @close="closeModal">
             <template #header>

@@ -16,6 +16,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  selectValue: {
+    type: String,
+    default: "Select"
+  }
 });
 
 defineEmits(["update:modelValue"]);
@@ -24,7 +28,7 @@ const options = computed(() => {
   if (props.withoutSelect) return props.items;
 
   return [
-    { [props.itemText]: "Select", [props.itemValue]: "" },
+    { [props.itemText]: props.selectValue, [props.itemValue]: "" },
     ...props.items,
   ];
 });
