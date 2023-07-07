@@ -10,6 +10,7 @@ import ToogleGroup from '@/Components/ToogleGroup.vue';
 import Card from '@/Components/Card/Card.vue';
 import TextAreaGroup from '@/Components/TextAreaGroup.vue';
 import SelectGroup from '@/Components/SelectGroup.vue';
+import ImageUploadGroup from '@/Components/ImageUploadGroup.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -34,6 +35,7 @@ const form = useForm({
     description: "",
     price: "",
     thumbnail: null,
+    images: null,
     status: false,
     featured: false,
     slider: false,
@@ -96,6 +98,9 @@ const submit = () => {
                                 <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
                             </template>
                             </Input>
+                        </div>
+                        <div class="mb-4 sm:col-span-2">
+                            <ImageUploadGroup label="Menu Images" :error-message="form.errors.images" />
                         </div>
                         <div class="mb-4">
                             <ToogleGroup label="Status" v-model:checked="form.status" :error-message="form.errors.status" />
