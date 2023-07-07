@@ -11,6 +11,7 @@ import Card from '@/Components/Card/Card.vue';
 import TextAreaGroup from '@/Components/TextAreaGroup.vue';
 import SelectGroup from '@/Components/SelectGroup.vue';
 import ImageUploadGroup from '@/Components/ImageUploadGroup.vue';
+import ImageUpload from '@/Components/ImageUpload.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -100,7 +101,7 @@ const submit = () => {
                             </Input>
                         </div>
                         <div class="mb-4 sm:col-span-2">
-                            <ImageUploadGroup label="Menu Images" :error-message="form.errors.images" />
+                            <ImageUpload />
                         </div>
                         <div class="mb-4">
                             <ToogleGroup label="Status" v-model:checked="form.status" :error-message="form.errors.status" />

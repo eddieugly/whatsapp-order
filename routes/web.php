@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsControll
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
+use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('users', AdminUserController::class);
 
         Route::resource('menu', AdminMenuController::class);
+
+        Route::post('upload-images', AdminUploadImagesController::class);
         
     });
     
