@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Menu;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -30,5 +34,11 @@ class AppServiceProvider extends ServiceProvider
                 ? $rule->letters()->mixedCase()->numbers()->symbols()->uncompromised()
                 : $rule;
         });
+
+        Relation::enforceMorphMap([
+            'category' => Category::class,
+            'menu' => Menu::class,
+            'user' => User::class,
+        ]);
     }
 }

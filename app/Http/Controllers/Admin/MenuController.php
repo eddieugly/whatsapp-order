@@ -19,10 +19,10 @@ class MenuController extends Controller
     private string $routeResourceName = 'menu';
 
     public function __construct() {
-        $this->middleware('can:view menu')->only('index');
-        $this->middleware('can:create menu')->only(['create', 'store']);
-        $this->middleware('can:edit menu')->only(['edit', 'update']);
-        $this->middleware('can:delete menu')->only('destroy');
+        // $this->middleware('can:view menu')->only('index');
+        // $this->middleware('can:create menu')->only(['create', 'store']);
+        // $this->middleware('can:edit menu')->only(['edit', 'update']);
+        // $this->middleware('can:delete menu')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -173,7 +173,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        $menu->load(['category']);
+        $menu->load(['category', 'media']);
         return Inertia::render('Admin/Menu/Edit', [
             'title' => 'Edit Menu',
             'item' => new MenuResource($menu),

@@ -11,8 +11,16 @@ const props = defineProps({
   },
   maxFiles: {
     type: Number,
-    default: 5,
+    default: 4,
   },
+  modelType: {
+    type: String,
+    required: true
+  },
+  modelId: {
+    type: String,
+    required: true,
+  }
 })
 
 onMounted(() => {
@@ -21,10 +29,16 @@ onMounted(() => {
     headers: {
       "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']")?.content,
     },
+    paramName: 'image',
     maxFilesize: props.maxFilesize,
     maxFiles: props.maxFiles,
     acceptedFiles: ".jpeg,.jpg,.png,.webp",
     addRemoveLinks: true,
+  });
+
+  dropzone.on('sending', (file, xhr, fd) => {
+    fd.append('modelType', props.modelType);
+    fd.append('modelId', props.modelId);
   });
 });
 </script>

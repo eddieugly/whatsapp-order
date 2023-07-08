@@ -26,6 +26,15 @@ class MenuResource extends JsonResource
             'slider' => $this->slider,
             'thumbnail' => $this->whenNotNull($this->thumbnail),
             'category' => new CategoryResource($this->whenLoaded('category')),
+            'images' => $this->whenLoaded(
+                'media',
+                fn () => $this->media->map(
+                    fn ($media) => [
+                        'id' => $media->id,
+                        'html' => $media->toHtml(),
+                    ]
+                )
+            ),
         ];
     }
 }

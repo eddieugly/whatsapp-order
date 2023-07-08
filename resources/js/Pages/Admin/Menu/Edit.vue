@@ -10,6 +10,7 @@ import ToogleGroup from '@/Components/ToogleGroup.vue';
 import Card from '@/Components/Card/Card.vue';
 import TextAreaGroup from '@/Components/TextAreaGroup.vue';
 import SelectGroup from '@/Components/SelectGroup.vue';
+import ImageUpload from '@/Components/ImageUpload.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -44,10 +45,12 @@ watch(() => form.name, (name) => {
 });
 
 const submit = () => {
-    form.post(route(`admin.${props.routeResourceName}.update`,  { id: props.item.id}), {
+    form.post(route(`admin.${props.routeResourceName}.update`, { id: props.item.id }), {
         forceFormData: true,
     });
 };
+
+const maxUploadImageCount = 4;
 
 
 </script>
@@ -59,10 +62,19 @@ const submit = () => {
         <Card>
             <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl rounded">
                 <form @submit.prevent="submit">
+                    <div v-if="item.images.length > 0" class="grid md:grid-cols-2 gap-4">
+                        <div v-for="image in item.images" :key="image.id">
+                            <div v-html="image.html" class="[&_img]:h-64 [&_img]:w-full [&_img]:object-contain"></div>
+                        </div>
+                    </div>
                     <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="mb-4 sm:col-span-2">
+                            <ImageUpload v-if="item.images.length < maxUploadImageCount" :model-id="item.id"
+                                :maxFiles="maxUploadImageCount - item.images.length" model-type="menu" />
+                        </div>
                         <div class="mb-4">
-                            <Input v-model="form.name" name="name" id="name" placeholder="Enter Menu Name"
-                                label="Menu Name" required>
+                            <Input v-model="form.name" name="name" id="name" placeholder="Enter Menu Name" label="Menu Name"
+                                required>
                             <template #helper v-if="form.errors.name" class="text-red-500">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.name }}</p>
                             </template>
@@ -76,7 +88,7 @@ const submit = () => {
                             </Input>
                         </div>
                         <div class="mb-4">
-                            <Input v-model="form.price" name="price" id="price" type="number" placeholder="Enter Menu Price" 
+                            <Input v-model="form.price" name="price" id="price" type="number" placeholder="Enter Menu Price"
                                 label="Menu Price">
                             <template #helper v-if="form.errors.price">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.price }}</p>
@@ -88,14 +100,17 @@ const submit = () => {
                                 :error-message="form.errors.category_id" select-value="Select Category" required />
                         </div>
                         <div class="mb-4 sm:col-span-2">
-                            <TextAreaGroup label="Menu Description" :error-message="form.errors.description" v-model="form.description" />
+                            <TextAreaGroup label="Menu Description" :error-message="form.errors.description"
+                                v-model="form.description" />
                         </div>
                         <div class="mb-4 sm:col-span-2">
                             <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail"
                                 id="thumbnail" label="Menu Thumbnail">
                             <template #helper class="text-red-500">
-                                <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
-                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
+                                <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg,
+                                    .webp</small>
+                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                                    form.errors.thumbnail }}</p>
                             </template>
                             </Input>
                         </div>
@@ -118,4 +133,5 @@ const submit = () => {
                 </form>
             </div>
         </Card>
-    </AuthenticatesLayout></template>
+    </AuthenticatesLayout>
+</template>

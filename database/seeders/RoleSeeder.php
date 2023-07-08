@@ -52,12 +52,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'reschedule reservation']);
         Permission::create(['name' => 'view reservation']);
 
-        Permission::create(['name' => 'create role']);
-        $superPermit = Permission::create(['name' => 'edit role']);
-        Permission::create(['name' => 'assign role']);
-        Permission::create(['name' => 'revoke role']);
-        Permission::create(['name' => 'delete role']);
-        Permission::create(['name' => 'view role']);
+        $superPermit1 = Permission::create(['name' => 'create role']);
+        $superPermit2 = Permission::create(['name' => 'edit role']);
+        $superPermit3 = Permission::create(['name' => 'assign role']);
+        $superPermit4 = Permission::create(['name' => 'revoke role']);
+        $superPermit5 = Permission::create(['name' => 'delete role']);
+        $superPermit6 = Permission::create(['name' => 'view role']);
 
         Permission::create(['name' => 'create permission']);
         Permission::create(['name' => 'edit permission']);
@@ -82,7 +82,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'delete users']);
 
-        $superPermit->assignRole($superAdmin);
+        $superPermit1->assignRole($superAdmin);
+        $superPermit2->assignRole($superAdmin);
+        $superPermit3->assignRole($superAdmin);
+        $superPermit4->assignRole($superAdmin);
+        $superPermit5->assignRole($superAdmin);
+        $superPermit6->assignRole($superAdmin);
 
 
 
