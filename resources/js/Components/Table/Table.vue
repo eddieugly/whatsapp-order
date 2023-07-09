@@ -21,14 +21,21 @@
       </tbody>
     </table>
   </div>
+
+  <div v-if="items.meta.links.length>3" class="flex items-center justify-center text-center py-4">
+    <Pagination :links="items.meta.links" />
+  </div>
 </template>
 
 <script setup>
 
 import Th from './Th.vue';
 import Td from './Td.vue';
+import Pagination from './Pagination.vue';
+import { ref } from 'vue';
 
-defineProps({
+
+const props = defineProps({
   headers: {
     type: Array,
     default: () => [],
