@@ -7,7 +7,7 @@ import 'dropzone/dist/dropzone.css';
 const props = defineProps({
   maxFilesize: {
     type: Number,
-    default: 1024
+    default: 10240
   },
   maxFiles: {
     type: Number,
@@ -25,7 +25,7 @@ const props = defineProps({
 
 onMounted(() => {
   let dropzone = new Dropzone("#image-upload", {
-    url: "/admin/upload-images",
+    url: route('admin.images.store'),
     headers: {
       "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']")?.content,
     },
@@ -48,9 +48,14 @@ onMounted(() => {
   <div class="dropzone" id="image-upload">
     <div class="dz-message flex flex-col items-center justify-center" data-dz-message>
       <FileUpload />
-      <div><p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag
-      and drop</p></div>
-      <div><p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG or WEBP (MAX. 10MB)</p></div>
+      <div><p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload or drag
+      and drop</span></p></div>
+      <div v-if="maxFiles >= 1">
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          You can only upload {{ maxFiles }} image<span v-if="maxFiles > 1" >s</span>
+        </p>
+      </div>
+      <div><p class="text-xs text-gray-500 dark:text-gray-400">Supported Files .png, .jpg, .jpeg or .webp (MAX. 10MB)</p></div>
     </div>
   </div>
 </template>

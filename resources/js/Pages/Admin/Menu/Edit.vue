@@ -11,6 +11,7 @@ import Card from '@/Components/Card/Card.vue';
 import TextAreaGroup from '@/Components/TextAreaGroup.vue';
 import SelectGroup from '@/Components/SelectGroup.vue';
 import ImageUpload from '@/Components/ImageUpload.vue';
+import Close from '@/Components/Icons/Close.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -33,7 +34,7 @@ const form = useForm({
     name: props.item.name,
     slug: props.item.slug,
     description: props.item.description,
-    price: props.item.price,
+    price: `${props.item.price}`,
     thumbnail: null,
     status: props.item.status,
     featured: props.item.featured,
@@ -50,6 +51,12 @@ const submit = () => {
     });
 };
 
+const deleteImage = (imageID) => {
+    if (!confirm('Are You Sure You Want To Delete This Image?') ) return;
+
+    router.post(route('admin.images.destroy', { id: imageID }));
+}
+
 const maxUploadImageCount = 4;
 
 
@@ -62,9 +69,14 @@ const maxUploadImageCount = 4;
         <Card>
             <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl rounded">
                 <form @submit.prevent="submit">
-                    <div v-if="item.images.length > 0" class="grid md:grid-cols-2 gap-4">
-                        <div v-for="image in item.images" :key="image.id">
-                            <div v-html="image.html" class="[&_img]:h-64 [&_img]:w-full [&_img]:object-contain"></div>
+                    <div v-if="item.images.length > 0" class="grid grid-cols-2 gap-4 my-3">
+                        <div v-for="image in item.images" :key="image.id" class="bg-gray-50 p-4 rounded-md relative">
+                            <button class="absolute right-4 top-4 p-0.5 text-sm font-medium text-center text-red-500 transition-colors duration-200 hover:bg-red-500 hover:text-white rounded-full focus:outline-none dark:text-gray-400 dark:hover:text-white-100"
+                                type="button"
+                                @click.prevent="deleteImage(image.id)">
+                                <Close />
+                            </button>
+                            <div v-html="image.html" class="[&_img]:h-48 [&_img]:w-full [&_img]:object-conver"></div>
                         </div>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
@@ -133,5 +145,4 @@ const maxUploadImageCount = 4;
                 </form>
             </div>
         </Card>
-    </AuthenticatesLayout>
-</template>
+    </AuthenticatesLayout></template>
