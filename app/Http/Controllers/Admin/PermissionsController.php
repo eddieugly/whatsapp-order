@@ -37,7 +37,8 @@ class PermissionsController extends Controller
         ])
         ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
         ->latest('id')
-        ->paginate(10);
+        ->paginate(10)
+        ->withQueryString();
 
         return Inertia::render('Admin/Permissions/Index', [
             'title' => 'Permissionss',

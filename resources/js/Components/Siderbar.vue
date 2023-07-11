@@ -49,10 +49,18 @@
             <span class="ml-3">Menu Category</span>
           </Sidelink>
         </li>
+
         <li>
           <Sidelink :href="route('admin.menu.index')" :active="route().current('admin.menu*')">
             <Menu />
             <span class="ml-3">Menu List</span>
+          </Sidelink>
+        </li>
+
+        <li>
+          <Sidelink :href="route('admin.blog-category.index')" :active="route().current('admin.blog-category*')">
+            <Category />
+            <span class="ml-3">Blog Category</span>
           </Sidelink>
         </li>
 

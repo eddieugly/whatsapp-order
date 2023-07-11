@@ -3,27 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
-use Inertia\Response;
-use App\Models\Category;
+use App\Models\Blogcategory;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\CategoryResource;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\BlogcategoryResource;
+use App\Http\Requests\StoreBlogcategoryRequest;
+use App\Http\Requests\UpdateBlogcategoryRequest;
 
-class CategoryController extends Controller
+class BlogcategoryController extends Controller
 {
-    private string $routeResourceName = 'category';
-    
+    private string $routeResourceName = 'blog-category';
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $menuCategories = Category::query()
+        $blogCategories = Blogcategory::query()
         ->select([
             'ulid',
             'name',
@@ -53,13 +51,13 @@ class CategoryController extends Controller
         ->paginate(10)
         ->withQueryString();
 
-        return Inertia::render('Admin/MenuCategory/Index', [
-            'title' => 'Category',
-            'filters' => Request::only(['name', 'status', 'featured']),
-            'items' => CategoryResource::collection($menuCategories),
+        return Inertia::render('Admin/BlogCategory/Index', [
+            'title' => 'Blog Category',
+            'filters' => Request::only(['name']),
+            'items' => BlogcategoryResource::collection($blogCategories),
             'headers' => [
                 [
-                    'label' => 'Category Name',
+                    'label' => 'Blog Category',
                     'name' => 'name'
                 ],
                 [
@@ -90,8 +88,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/MenuCategory/Create', [
-            'title' => 'Add Category',
+        return Inertia::render('Admin/BlogCategory/Create', [
+            'title' => 'Add Blog Category',
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
@@ -99,7 +97,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request): RedirectResponse
+    public function store(StoreBlogcategoryRequest $request)
     {
         $filename = '';
         $path = imagePath()['categoryThumbnail']['path'];
@@ -118,15 +116,15 @@ class CategoryController extends Controller
 
         $data['thumbnail'] = $filename;
 
-        $category = Category::create($data);
+        $blogcategory = Blogcategory::create($data);
 
-        return Redirect::route('admin.category.index')->with('success', 'Category Added Successfully');
+        return Redirect::route('admin.blog-category.index')->with('success', 'Blog Category Added Successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Blogcategory $blogcategory)
     {
         //
     }
@@ -134,13 +132,11 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Blogcategory $blog_category)
     {
-
-        dd($category);
-        return Inertia::render('Admin/MenuCategory/Edit', [
-            'title' => 'Edit Category',
-            'item' => new CategoryResource($category),
+        return Inertia::render('Admin/BlogCategory/Edit', [
+            'title' => 'Edit Blog Category',
+            'item' => new BlogcategoryResource($blog_category),
             'routeResourceName' => $this->routeResourceName,
         ]);
     }
@@ -148,10 +144,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
+    public function update(UpdateBlogcategoryRequest $request, Blogcategory $blog_category)
     {
-        
-        $filename = $category->thumbnail;
+        $filename = $blog_category->thumbnail;
         $path = imagePath()['categoryThumbnail']['path'];
         $size = imagePath()['categoryThumbnail']['size'];
         
@@ -168,18 +163,18 @@ class CategoryController extends Controller
 
         $data['thumbnail'] = $filename;
         
-        $category->update($data);
+        $blog_category->update($data);
 
-        return redirect('/admin/category')->with('success', 'Category Updated Successfully');
+        return Redirect::route('admin.blog-category.index')->with('success', 'Blog Category Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Blogcategory $blog_category)
     {
-        $category->delete();
+        $blog_category->delete();
 
-        return Redirect::back()->with('success', 'Category Deleted Successfully');
+        return Redirect::back()->with('success', 'Blog Category Deleted Successfully');
     }
 }

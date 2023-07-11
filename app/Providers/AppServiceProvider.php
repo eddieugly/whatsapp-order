@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Blogcategory;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\User;
@@ -39,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
             'category' => Category::class,
             'menu' => Menu::class,
             'user' => User::class,
+            'blogcategory' => Blogcategory::class,
         ]);
     }
 }

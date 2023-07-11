@@ -42,7 +42,8 @@ class UserController extends Controller
             ->when(Request::input('email'), fn (Builder $builder, $email) => $builder->where('email', 'like', '%' . $email . '%'))
             ->when(Request::input('roleId'), fn (Builder $builder, $roleId) => $builder->whereHas('roles', fn (Builder $builder) => $builder->where('roles.id', $roleId)))
             ->latest('id')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Users/Index', [
             'title' => 'Users',

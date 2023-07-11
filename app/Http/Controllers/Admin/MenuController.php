@@ -72,7 +72,8 @@ class MenuController extends Controller
                 )
             )
             ->latest('id')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
             return Inertia::render('Admin/Menu/Index', [
                 'title' => 'Menu',
