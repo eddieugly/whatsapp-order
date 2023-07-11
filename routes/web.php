@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\BlogcategoryController as AdminBlogcategoryController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\DeleteImageController as AdminDeleteImageController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
@@ -63,6 +64,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('delete-images', AdminDeleteImageController::class)->name('images.destroy');
 
         Route::resource('blog-category', AdminBlogcategoryController::class);
+
+        Route::resource('blogs', AdminBlogController::class);
         
     });
     

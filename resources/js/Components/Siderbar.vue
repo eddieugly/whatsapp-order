@@ -64,6 +64,13 @@
           </Sidelink>
         </li>
 
+        <li>
+          <Sidelink :href="route('admin.blogs.index')" :active="route().current('admin.blogs*')">
+            <Menu />
+            <span class="ml-3">Blog List</span>
+          </Sidelink>
+        </li>
+
       </ul>
     </div>
     <div

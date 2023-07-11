@@ -2,50 +2,50 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Menu;
+use App\Models\Blog;
 use Inertia\Inertia;
-use App\Models\Category;
+use App\Models\Blogcategory;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MenuResource;
-use App\Http\Requests\StoreMenuRequest;
+use App\Http\Resources\BlogResource;
+use App\Http\Requests\StoreBlogRequest;
 use Illuminate\Support\Facades\Request;
-use App\Http\Requests\UpdateMenuRequest;
-use App\Http\Resources\CategoryResource;
+use App\Http\Requests\UpdateBlogRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\BlogcategoryResource;
 
-class MenuController extends Controller
+class BlogController extends Controller
 {
-    private string $routeResourceName = 'menu';
+    private string $routeResourceName = 'blogs';
 
     public function __construct() {
-        $this->middleware('can:view menu')->only('index');
-        $this->middleware('can:create menu')->only(['create', 'store']);
-        $this->middleware('can:edit menu')->only(['edit', 'update']);
-        $this->middleware('can:delete menu')->only('destroy');
+        $this->middleware('can:view blog')->only('index');
+        $this->middleware('can:create blog')->only(['create', 'store']);
+        $this->middleware('can:edit blog')->only(['edit', 'update']);
+        $this->middleware('can:delete blog')->only('destroy');
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $menus  = Menu::query()
+        $blogs  = Blog::query()
             ->select([
                 'id',
                 'ulid',
-                'category_id',
-                'name',
+                'blogcategory_id',
+                'title',
                 'description',
-                'price',
                 'status',
                 'featured',
                 'slider',
                 'thumbnail',
             ])
-            ->with(['category:id,ulid,name,status,featured'])
-            ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
-            ->when(Request::input('categoryId'), fn (Builder $builder, $categoryId) => $builder->whereHas(
-                'category', fn (Builder $builder) => $builder->where('categories.ulid', $categoryId)
+            ->with(['blogcategory:id,ulid,name,status,featured'])
+            ->when(Request::input('title'), fn (Builder $builder, $title) => $builder->where('title', 'like', "%{$title}%"))
+            ->when(Request::input('blogcategoryId'), fn (Builder $builder, $blogcategory) => $builder->whereHas(
+                'blogcategory', fn (Builder $builder) => $builder->where('blogcategories.ulid', $blogcategory)
             ))
             ->when(
                 Request::input('status') !== null,
@@ -75,18 +75,14 @@ class MenuController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-            return Inertia::render('Admin/Menu/Index', [
-                'title' => 'Menu',
-                'filters' => Request::only(['name', 'categoryId', 'active', 'featured', 'slider']),
-                'items' => MenuResource::collection($menus),
+            return Inertia::render('Admin/Blog/Index', [
+                'title' => 'Blog',
+                'filters' => Request::only(['title', 'blogcategoryId', 'active', 'featured', 'slider']),
+                'items' => BlogResource::collection($blogs),
                 'headers' => [
                     [
-                        'label' => 'Menu Name',
-                        'name' => 'name'
-                    ],
-                    [
-                        'label' => 'Price',
-                        'name' => 'price'
+                        'label' => 'Blog Title',
+                        'name' => 'title'
                     ],
                     [
                         'label' => 'Category',
@@ -110,11 +106,11 @@ class MenuController extends Controller
                     ]
                 ],
                 'routeResourceName' => $this->routeResourceName,
-                'categories' => CategoryResource::collection(Category::get(['ulid', 'name'])),
+                'blogcategories' => BlogcategoryResource::collection(Blogcategory::get(['ulid', 'name'])),
                 'can' => [
-                    'create' => Request::user()->can('create menu'),
-                    'edit' => Request::user()->can('edit menu'),
-                    'delete' => Request::user()->can('delete menu'),
+                    'create' => Request::user()->can('create blog'),
+                    'edit' => Request::user()->can('edit blog'),
+                    'delete' => Request::user()->can('delete blog'),
                 ],
             ]);
     }
@@ -124,17 +120,17 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Menu/Create', [
-            'title' => 'Add Menu',
+        return Inertia::render('Admin/Blog/Create', [
+            'title' => 'Add Blog',
             'routeResourceName' => $this->routeResourceName,
-            'categories' => CategoryResource::collection(Category::get(['id', 'ulid', 'name'])),
+            'blogcategories' => BlogcategoryResource::collection(Blogcategory::get(['id', 'ulid', 'name'])),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMenuRequest $request)
+    public function store(StoreBlogRequest $request)
     {
         $filename = '';
         $path = imagePath()['categoryThumbnail']['path'];
@@ -149,22 +145,22 @@ class MenuController extends Controller
             }
         }
 
-        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+        $data = $request->safe()->only(['title', 'slug', 'description', 'status', 'featured', 'slider']);
 
-        $categoryId = Category::where('ulid', $request->category_id)->first();
+        $blogcategoryId = Blogcategory::where('ulid', $request->blogcategory_id)->first();
 
-        $data['category_id'] = $categoryId->id;
+        $data['blogcategory_id'] = $blogcategoryId->id;
         $data['thumbnail'] = $filename;
 
-        Menu::create($data);
+        Blog::create($data);
 
-        return Redirect::route('admin.menu.index')->with('success', 'Menu Added Successfully');
+        return Redirect::route('admin.blogs.index')->with('success', 'Blog Added Successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Menu $menu)
+    public function show(Blog $blog)
     {
         //
     }
@@ -172,24 +168,23 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Menu $menu)
+    public function edit(Blog $blog)
     {
-        $menu->load(['category', 'media']);
-        return Inertia::render('Admin/Menu/Edit', [
-            'title' => 'Edit Menu',
-            'item' => new MenuResource($menu),
+        $blog->load(['blogcategory', 'media']);
+        return Inertia::render('Admin/Blog/Edit', [
+            'title' => 'Edit Blog',
+            'item' => new BlogResource($blog),
             'routeResourceName' => $this->routeResourceName,
-            'categories' => CategoryResource::collection(Category::get(['ulid', 'name'])),
+            'blogcategories' => BlogcategoryResource::collection(Blogcategory::get(['ulid', 'name'])),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMenuRequest $request, Menu $menu)
+    public function update(UpdateBlogRequest $request, Blog $blog)
     {
-
-        $filename = $menu->thumbnail;
+        $filename = $blog->thumbnail;
         $path = imagePath()['categoryThumbnail']['path'];
         $size = imagePath()['categoryThumbnail']['size'];
         
@@ -201,25 +196,25 @@ class MenuController extends Controller
                 return Redirect::back()->with('error', $errorMessage);
             }
         }
-        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+        $data = $request->safe()->only(['title', 'slug', 'description', 'status', 'featured', 'slider']);
 
-        $categoryId = Category::where('ulid', $request->category_id)->first();
+        $blogcategoryId = Blogcategory::where('ulid', $request->blogcategory_id)->first();
 
-        $data['category_id'] = $categoryId->id;
+        $data['blogcategory_id'] = $blogcategoryId->id;
         $data['thumbnail'] = $filename;
 
-        $menu->update($data);
+        $blog->update($data);
 
-        return Redirect::route('admin.menu.index')->with('success', 'Menu Updated Successfully');
+        return Redirect::route('admin.blogs.index')->with('success', 'Blog Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
+    public function destroy(Blog $blog)
     {
-        $menu->delete();
+        $blog->delete();
 
-        return Redirect::back()->with('success', 'Menu Deleted Successfully');
+        return Redirect::back()->with('success', 'Blog Deleted Successfully');
     }
 }

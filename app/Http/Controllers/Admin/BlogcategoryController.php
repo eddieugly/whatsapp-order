@@ -75,9 +75,9 @@ class BlogcategoryController extends Controller
             ],
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => Request::user()->can('create category'),
-                'edit' => Request::user()->can('edit category'),
-                'delete' => Request::user()->can('delete category'),
+                'create' => Request::user()->can('create blog'),
+                'edit' => Request::user()->can('edit blog'),
+                'delete' => Request::user()->can('delete blog'),
             ],
             
         ]);
@@ -124,7 +124,7 @@ class BlogcategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Blogcategory $blogcategory)
+    public function show(Blogcategory $blog_category)
     {
         //
     }
