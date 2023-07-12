@@ -8,8 +8,11 @@ import kebabCase from 'lodash/kebabCase';
 import replace from 'lodash/replace';
 import ToogleGroup from '@/Components/ToogleGroup.vue';
 import Card from '@/Components/Card/Card.vue';
-import TextAreaGroup from '@/Components/TextAreaGroup.vue';
 import SelectGroup from '@/Components/SelectGroup.vue';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -72,15 +75,19 @@ const submit = () => {
                             </template>
                             </Input>
                         </div>
-                        <div class="mb-4 sm:col-span-2">
-                            <TextAreaGroup label="Menu Description" :error-message="form.errors.description" v-model="form.description" />
+                        <div class=" mb-20 sm:col-span-2">
+                            <InputLabel class="mb-2" value="Description" />
+                            <QuillEditor v-model:content="form.description" content-type="html" theme="snow" />
+                            <InputError v-if="form.errors.description" :message="form.errors.description" />
                         </div>
                         <div class="mb-4 sm:col-span-2">
                             <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail"
                                 id="thumbnail" label="Menu Thumbnail">
                             <template #helper class="text-red-500">
-                                <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
-                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
+                                <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg,
+                                    .webp</small>
+                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                                    form.errors.thumbnail }}</p>
                             </template>
                             </Input>
                         </div>

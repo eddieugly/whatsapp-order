@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
 
-        // $this->call(RoleSeeder::class);
+        $this->call(RoleSeeder::class);
 
-        // Category::factory()->count(15)->create();
-        // Menu::factory()->count(30)->hasCategory(1)->create();
-        // Blogcategory::factory()->count(15)->create();
+        Category::factory()->count(15)->create();
+        Menu::factory()->count(30)->hasCategory(1)->create();
+        Blogcategory::factory()->count(15)->create();
         Blog::factory()->count(15)->hasBlogcategory(1)->create();
     }
 }

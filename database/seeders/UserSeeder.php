@@ -36,19 +36,19 @@ class UserSeeder extends Seeder
         $staff = User::create([
             'name' => 'Staff Attendant',
             'email' => 'staffs@testorder.com',
-            'password' => Hash::make('12345678')
+            'password' => '12345678'
         ]);
 
         $delivery = User::create([
             'name' => 'Delivery Agent',
             'email' => 'delivery@testorder.com',
-            'password' => Hash::make('12345678')
+            'password' => '12345678'
         ]);
 
         $user = User::create([
             'name' => 'Test User',
             'email' => 'user@testorder.com',
-            'password' => Hash::make('12345678')
+            'password' => '12345678'
         ]);
     }
 }

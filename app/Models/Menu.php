@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\PurifyHtml;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class Menu extends Model implements HasMedia
         'status' => 'boolean',
         'featured' => 'boolean',
         'slider' => 'boolean',
+        'description' => PurifyHtml::class,
     ];
 
     protected $fillable = [

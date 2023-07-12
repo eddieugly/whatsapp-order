@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-span-1 md:col-full">
-      <SelectGroup v-model="filters.featured" :items="[{id: 1, name: 'OnSlider'}, {id: 0, name: 'NotOnSlider'}]" select-value="Select Slider" />
+      <SelectGroup v-model="filters.slider" :items="[{id: 1, name: 'OnSlider'}, {id: 0, name: 'NotOnSlider'}]" select-value="Select Slider" />
     </div>
 
     <div class="col-span-1 md:col-full">
