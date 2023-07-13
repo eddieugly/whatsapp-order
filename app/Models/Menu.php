@@ -39,8 +39,8 @@ class Menu extends Model implements HasMedia
     {
         parent::boot();
 
-        static::creating(function ($category) {
-            $category->ulid = (string) Str::ulid();
+        static::creating(function ($menu) {
+            $menu->ulid = (string) Str::ulid();
         });
     }
 

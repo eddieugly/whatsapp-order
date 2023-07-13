@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
 
         $deliveryManager = Role::create(['name' => 'delivery manager']);
 
-        $customerManager = Role::create(['name' => 'customer manager']);
+        $customerManager = Role::create(['name' => 'our customer']);
 
         Permission::create(['name' => 'create staff']);
         Permission::create(['name' => 'edit staff']);

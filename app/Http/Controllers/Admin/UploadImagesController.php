@@ -16,7 +16,7 @@ class UploadImagesController extends Controller
         $modelClass = Relation::getMorphedModel($request->modelType);
 
         $validator = Validator::make($request->all(), [
-            'image' => ['bail', 'required', 'image', 'mimes:png,jpg,jpeg,webp', 'max:1024'],
+            'image' => ['bail', 'required', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'modelType' => ['bail', 'required', 'string', Rule::in(array_keys(Relation::morphMap()))],
             'modelId' => ['bail', 'required', 'string', Rule::exists($modelClass, 'ulid')],
         ]);

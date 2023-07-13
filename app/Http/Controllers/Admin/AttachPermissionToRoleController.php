@@ -22,8 +22,6 @@ class AttachPermissionToRoleController extends Controller
 
         $role = Role::findById($request->roleId);
 
-        // dd($role);
-
         $permission->assignRole($role);
 
         return redirect()->back()->with('success', 'Permission Attached Successfully');
