@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
 
+        $this->call(GeneralSeeder::class);
+
         Category::factory()->count(15)->create();
         Menu::factory()->count(30)->hasCategory(1)->create();
         Blogcategory::factory()->count(15)->create();

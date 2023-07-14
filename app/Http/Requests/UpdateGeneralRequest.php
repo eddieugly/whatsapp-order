@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\General;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGeneralRequest extends FormRequest
 {
@@ -22,6 +24,7 @@ class UpdateGeneralRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'generalId' => ['bail', 'required', 'string', Rule::exists(General::class, 'ulid')],
             'company_name' => ['bail', 'required', 'string', 'max:50'],
             'company_tagline' => ['bail', 'required', 'string', 'max:100'],
             'company_abbrevation' => ['bail', 'required', 'string', 'max:10'],

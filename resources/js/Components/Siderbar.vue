@@ -66,8 +66,16 @@
 
         <li>
           <Sidelink :href="route('admin.blogs.index')" :active="route().current('admin.blogs*')">
-            <Menu />
+            <BlogList />
             <span class="ml-3">Blog List</span>
+          </Sidelink>
+        </li>
+
+
+        <li>
+          <Sidelink :href="route('admin.settings.index')" :active="route().current('admin.settings*')">
+            <Settings />
+            <span class="ml-3">General Settings</span>
           </Sidelink>
         </li>
 
@@ -225,6 +233,8 @@ import Category from './Icons/Category.vue';
 import Users from './Icons/Users.vue';
 import Search from './Icons/Search.vue';
 import Menu from './Icons/Menu.vue';
+import Settings from './Icons/Settings.vue';
+import BlogList from './Icons/BlogList.vue';
 
 </script>
 

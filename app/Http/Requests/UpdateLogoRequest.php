@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\General;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateLogoRequest extends FormRequest
 {
@@ -22,6 +24,7 @@ class UpdateLogoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'generalId' => ['bail', 'required', 'string', Rule::exists(General::class, 'ulid')],
             'company_logo_white' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'company_logo_dark' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'company_favicon' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],

@@ -18,19 +18,19 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Super Admin',
             'email' => 'super_admin@testorder.com',
-            'password' => Hash::make('compose123')
+            'password' => 'compose123'
         ]);
 
         $manager = User::create([
             'name' => 'General Manager',
             'email' => 'manager@testorder.com',
-            'password' => Hash::make('12345678')
+            'password' => '12345678'
         ]);
 
         $chef = User::create([
             'name' => 'Sui Chef',
             'email' => 'chefs@testorder.com',
-            'password' => Hash::make('12345678')
+            'password' => '12345678'
         ]);
 
         $staff = User::create([

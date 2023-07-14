@@ -24,6 +24,7 @@
         "flowbite": "^1.6.5",
         "flowbite-vue": "^0.0.10",
         "lodash": "^4.17.21",
-        "uuid": "^9.0.0"
+        "uuid": "^9.0.0",
+        "vue3-select2-component": "^0.1.7"
     }
 }

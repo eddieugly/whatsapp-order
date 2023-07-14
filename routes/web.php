@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\BlogcategoryController as AdminBlogcategoryContro
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\DeleteImageController as AdminDeleteImageController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
+use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
 
@@ -66,6 +67,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('blog-category', AdminBlogcategoryController::class);
 
         Route::resource('blogs', AdminBlogController::class);
+
+        Route::get('general-settings', [AdminGeneralController::class, 'general'])->name('settings.index');
+
+        Route::post('general-settings', [AdminGeneralController::class, 'updateGeneral'])->name('settings.update');
+
+        Route::post('general-settings-logo', [AdminGeneralController::class, 'logoUpdate'])->name('settings.update.logo');
         
     });
     

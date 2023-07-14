@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Blog;
 use App\Models\Blogcategory;
 use App\Models\Category;
+use App\Models\General;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
             'user' => User::class,
             'blogcategory' => Blogcategory::class,
             'blog' => Blog::class,
+            'general' => General::class,
         ]);
     }
 }
