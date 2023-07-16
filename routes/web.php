@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesContro
 */
 
 Route::get('/', function () {
-    return Inertia::render('TestPage', [
+    return Inertia::render('Frontend/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
