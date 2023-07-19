@@ -1,20 +1,26 @@
 <template>
-  <div class="antialiased bg-gray-50 dark:bg-gray-900">
+  <div class="antialiased">
     <!-- NavBar -->
     <header>
-      <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+      <nav class="bg-white border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <a href="https://flowbite.com" class="flex items-center">
             <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
           </a>
           <div class="flex items-center lg:order-2">
-            <a href="#"
-              class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log
-              in</a>
-            <a href="#"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Get
-              started</a>
+            <!-- phone number -->
+            <div class="ml-auto py-2 md:w-48 hidden sm:flex flex-col place-items-end">
+              <span class="font-bold md:text-xl">8 800 332 65-66</span>
+              <span class="font-semibold text-sm text-gray-400">Support 24/7</span>
+            </div>
+            <a href="#" class="hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-blue-800 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+              <UserIcon class="w-6 h-6" />
+            </a>
+            <a href="#" class="relative inline-flex hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-blue-800 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+              <CartIcon class="w-6 h-6" />
+              <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 right-2 dark:border-gray-900">20</div>
+            </a>
             <button data-drawer-target="default-sidebar-0909" data-drawer-toggle="default-sidebar-0909"
               aria-controls="default-sidebar-0909" aria-expanded="false" type="button"
               class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -28,7 +34,7 @@
             </button>
           </div>
           <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-            <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+            <ul class="flex flex-col mt-4 font-semibold lg:flex-row lg:space-x-8 lg:mt-0">
               <li>
                 <a href="#"
                   class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
@@ -394,7 +400,7 @@
     </header>
 
     <!-- Main -->
-    <main class="p-4 h-auto pt-20">
+    <main class="p-4 h-auto">
 
       <slot />
     </main>
@@ -404,11 +410,11 @@
 </template>
 
 <script setup>
-import TestNav from '@/Components/TestNav.vue';
-import TestSide from '@/Components/TestSide.vue';
 import Alert from '@/Components/Alert.vue';
 import { onMounted } from 'vue';
 import { initFlowbite } from 'flowbite';
+import UserIcon from '@/Components/Icons/UserIcon.vue';
+import CartIcon from '@/Components/Icons/CartIcon.vue';
 
 
 onMounted(() => {
