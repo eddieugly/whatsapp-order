@@ -4,6 +4,7 @@ import SiderbarVue from '@/Components/Siderbar.vue';
 import { onMounted } from 'vue';
 import { initFlowbite } from 'flowbite';
 import Alert from '@/Components/Alert.vue';
+import DashboardFooter from '@/Components/DashboardFooter.vue';
 
 
 onMounted(() => {
@@ -24,6 +25,7 @@ onMounted(() => {
             <main class="p-4 md:ml-64 h-auto pt-20">
 
                 <slot />
+                <DashboardFooter />
             </main>
             <Alert />
 

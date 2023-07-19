@@ -403,6 +403,7 @@
     <main class="p-4 h-auto">
 
       <slot />
+      <Footer />
     </main>
 
     <Alert />
@@ -415,6 +416,7 @@ import { onMounted } from 'vue';
 import { initFlowbite } from 'flowbite';
 import UserIcon from '@/Components/Icons/UserIcon.vue';
 import CartIcon from '@/Components/Icons/CartIcon.vue';
+import Footer from '@/Components/Frontend/Footer.vue';
 
 
 onMounted(() => {
