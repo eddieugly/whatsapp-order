@@ -2,8 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\GeneralResource;
+use App\Http\Resources\MenuResource;
+use App\Models\Category;
 use App\Models\General;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -46,6 +50,9 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error')
             ],
             'general' => new GeneralResource(General::first()),
+            'featured_categories' => CategoryResource::collection(Category::featured()->inRandomOrder()->limit(3)->get()),
+            'featured_menues' => MenuResource::collection(Menu::featured()->inRandomOrder()->limit(6)->get()),
+            'slider_menues' => MenuResource::collection(Menu::onSlider()->inRandomOrder()->limit(8)->get()),
         ]);
     }
 }
