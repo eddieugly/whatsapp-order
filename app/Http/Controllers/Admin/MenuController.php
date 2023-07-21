@@ -137,8 +137,8 @@ class MenuController extends Controller
     public function store(StoreMenuRequest $request)
     {
         $filename = '';
-        $path = imagePath()['categoryThumbnail']['path'];
-        $size = imagePath()['categoryThumbnail']['size'];
+        $path = imagePath()['menuThumbnail']['path'];
+        $size = imagePath()['menuThumbnail']['size'];
         
         if ($request->hasFile('thumbnail')) {
             try {
@@ -190,8 +190,8 @@ class MenuController extends Controller
     {
 
         $filename = $menu->thumbnail;
-        $path = imagePath()['categoryThumbnail']['path'];
-        $size = imagePath()['categoryThumbnail']['size'];
+        $path = imagePath()['menuThumbnail']['path'];
+        $size = imagePath()['menuThumbnail']['size'];
         
         if ($request->hasFile('thumbnail')) {
             try {

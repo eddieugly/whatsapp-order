@@ -98,7 +98,7 @@ const submit = () => {
                             <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail"
                                 id="thumbnail" label="Menu Thumbnail">
                             <template #helper class="text-red-500">
-                                <small>Image will be resized into 500x500 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
+                                <small>Image will be resized into 500x375 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
                                 <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
                             </template>
                             </Input>

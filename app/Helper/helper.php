@@ -93,6 +93,10 @@ function imagePath()
         'path' => 'assets/img/categoryThumbnail',
         'size' => '500x500'
     ];
+    $data['menuThumbnail'] = [
+        'path' => 'assets/img/menuThumbnail',
+        'size' => '500x375'
+    ];
     $data['favicon'] = [
         'path' => 'assets/img',
     ];
