@@ -41,7 +41,7 @@ class Category extends Model
         return 'ulid';
     }
 
-    public function menu() : HasMany {
+    public function menus() : HasMany {
         return $this->hasMany(Menu::class);
     }
 

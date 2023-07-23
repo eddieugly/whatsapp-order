@@ -50,9 +50,7 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error')
             ],
             'general' => new GeneralResource(General::first()),
-            'featured_categories' => CategoryResource::collection(Category::featured()->inRandomOrder()->limit(3)->get()),
-            'featured_menues' => MenuResource::collection(Menu::featured()->inRandomOrder()->limit(6)->get()),
-            'slider_menues' => MenuResource::collection(Menu::onSlider()->inRandomOrder()->limit(8)->get()),
+            'slider_menues' => MenuResource::collection(Menu::active()->onSlider()->inRandomOrder()->limit(8)->get()),
         ]);
     }
 }

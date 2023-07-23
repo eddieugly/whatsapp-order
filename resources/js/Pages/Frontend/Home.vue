@@ -1,10 +1,10 @@
 <template>
   <Head title="Home" />
   <FrontEndLayout>
-    <section class="bg-orange-100 dark:bg-gray-900">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+    <section class="bg-orange-50 -mt-24 py-14  dark:bg-gray-900">
+      <div class="py-14 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
         <a href="#"
-          class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-orange-50 rounded-full dark:bg-gray-800 dark:text-white hover:bg-orange-200 dark:hover:bg-gray-700"
+          class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-orange-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-orange-200 dark:hover:bg-gray-700"
           role="alert">
           <span class="text-xs bg-yellow-700 rounded-full text-white px-4 py-1.5 mr-3">New</span> <span
             class="text-sm font-medium">Flowbite is out! See what's new</span>
@@ -115,23 +115,25 @@
             menu category. Click on any of the category to see all food menues belonging to the category</p>
         </div>
         <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
-          <div v-for="category in $page.props.featured_categories" :key="category.id">
-            <article
-              class="mx-auto max-w-md shadow-xl bg-cover bg-center min-h-100 transform duration-500 hover:-translate-y-2 cursor-pointer group"
-              :style='{ backgroundImage: `url(${category.thumbnail})` }'>
-              <div
-                class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
-                <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
-                  {{ category.name }}
-                </h1>
+          <div v-for="category in featured_categories" :key="category.id" :class="{ 'lg:col-start-2' : featured_categories.length == 1 }">
+            <Link :href="route('frontend.category.index', { id: category.slug })">
+              <article
+                class="mx-auto max-w-md shadow-xl bg-cover bg-center min-h-100 transform duration-500 hover:-translate-y-2 cursor-pointer group"
+                :style='{ backgroundImage: `url(${category.thumbnail})` }'>
                 <div
-                  class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
+                  class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
+                  <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
+                    {{ category.name }}
+                  </h1>
+                  <div
+                    class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
+                  </div>
+                  <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
+                    {{ category.description.substring(0, 55) }}...
+                  </p>
                 </div>
-                <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
-                  {{ category.description.substring(0, 55) }}...
-                </p>
-              </div>
-            </article>
+              </article>
+            </Link>
           </div>
         </div>
         <div class="flex justify-center col-span-2 mt-3 mb-5">
@@ -152,7 +154,7 @@
             food menus. Add all food menu of your choice to cart and proceed.</p>
         </div>
         <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
-          <div v-for="menu in $page.props.featured_menues" :key="menu.id">
+          <div v-for="menu in featured_menus" :key="menu.id">
             <the-card class="mx-auto" variant="image" :img-src="menu.thumbnail" img-alt="Food Menu">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ menu.name }}</h5>
               <p class="font-normal text-gray-700 dark:text-gray-400 py-5">
@@ -268,5 +270,16 @@ import OrderCheckout from '@/Components/Frontend/Svg/OrderCheckout.vue';
 import OrderPickUp from '@/Components/Frontend/Svg/OrderPickUp.vue';
 import { TheCard } from 'flowbite-vue';
 import MenuCarousel from '@/Components/Frontend/MenuCarousel.vue';
+
+defineProps({
+  featured_categories: {
+    type: Object,
+    default: () => ({}),
+  },
+  featured_menus: {
+    type: Object,
+    default: () => ({}),
+  }
+});
 
 </script>

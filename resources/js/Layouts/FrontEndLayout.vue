@@ -2,7 +2,7 @@
   <div class="antialiased">
     <!-- NavBar -->
     <header>
-      <nav class="bg-orange-100 border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
+      <nav class="bg-transparent border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <a href="https://flowbite.com" class="flex items-center">
             <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
@@ -14,10 +14,10 @@
               <span class="font-bold md:text-xl">8 800 332 65-66</span>
               <span class="font-semibold text-sm text-gray-400">Support 24/7</span>
             </div>
-            <a href="#"
+            <Link :href="route('login')"
               class="hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
               <UserIcon class="w-6 h-6" />
-            </a>
+            </Link>
             <a href="#"
               class="relative inline-flex hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
               <CartIcon class="w-6 h-6" />
@@ -412,6 +412,7 @@ import { initFlowbite } from 'flowbite';
 import UserIcon from '@/Components/Icons/UserIcon.vue';
 import CartIcon from '@/Components/Icons/CartIcon.vue';
 import Footer from '@/Components/Frontend/Footer.vue';
+import { Link } from '@inertiajs/vue3';
 
 
 onMounted(() => {

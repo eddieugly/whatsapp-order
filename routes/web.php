@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetach
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
+use App\Http\Controllers\HomeControler;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,14 +30,10 @@ use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesContro
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Frontend/Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('home');
+
+Route::get('/', [HomeControler::class, 'index'])->name('home');
+
+Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('frontend.category.index');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -81,10 +78,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Mydashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('category', CategoryController::class);
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

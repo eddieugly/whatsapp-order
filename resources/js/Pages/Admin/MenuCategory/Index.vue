@@ -11,7 +11,7 @@
                     <template v-slot="{ item }">
                         <Td class="flex items-center whitespace-nowrap">
                             <img :src="item.thumbnail" alt="Thumbnail" class="w-auto h-8 mr-3">
-                            {{ item.name }}
+                            {{ item.name }} ({{ item.menus_count }} menus)
                         </Td>
                         <Td>
                             <Badge :type="item.status ? 'green' : 'red'">

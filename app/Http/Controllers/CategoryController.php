@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Category;
+use App\Http\Resources\CategoryResource;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
@@ -11,9 +14,19 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Category $category)
     {
-        //
+        $category->load(['menus' => fn ($query) => $query->where('status', true)]);
+        $all_categories = Category::whereHas('menus', function (Builder $query) {
+            $query->where('status', true);
+        })->active()->get();
+        // dd(new CategoryResource($category));
+        return Inertia::render('Frontend/Category', [
+            'title' => $category?->name,
+            'category'=> new CategoryResource($category),
+            'all_categories' => CategoryResource::collection($all_categories),
+
+        ]);
     }
 
     /**

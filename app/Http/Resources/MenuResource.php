@@ -20,9 +20,9 @@ class MenuResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->whenNotNull($this->description),
             'price' => $this->price,
-            'status' => $this->status,
-            'featured' => $this->featured,
-            'slider' => $this->slider,
+            'status' => $this->when($request->user()?->can('edit menu'), $this->status),
+            'featured' => $this->when($request->user()?->can('edit menu'), $this->featured),
+            'slider' => $this->when($request->user()?->can('edit menu'), $this->slider),
             'thumbnail' => $this->whenNotNull($this->thumbnail),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'images' => $this->whenLoaded(

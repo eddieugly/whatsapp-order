@@ -33,6 +33,7 @@ class CategoryController extends Controller
             'status',
             'featured',
         ])
+        ->withCount('menus')
         ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
         ->when(
             Request::input('status') !== null, fn (Builder $builder) => $builder->when(

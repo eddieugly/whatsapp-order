@@ -20,8 +20,10 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,
-            'status' => $this->status,
-            'featured' => $this->featured,
+            'status' => $this->when($request->user()?->can('edit category'), $this->status),
+            'featured' => $this->when($request->user()?->can('edit category'), $this->featured),
+            'menus' => MenuResource::collection($this->whenLoaded('menus')),
+            'menus_count' => $this->whenCounted('menus_count'),
         ];
     }
 }
