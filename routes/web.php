@@ -35,6 +35,8 @@ Route::get('/', [HomeControler::class, 'index'])->name('home');
 
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('frontend.category.index');
 
+Route::get('/categories', [CategoryController::class, 'general'])->name('frontend.categories');
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {

@@ -137,11 +137,9 @@
           </div>
         </div>
         <div class="flex justify-center col-span-2 mt-3 mb-5">
-          <button
-            class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800"
-            type="button">
+          <Link :href="route('frontend.categories')" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800">
             Load More
-          </button>
+          </Link>
         </div>
       </div>
     </section>

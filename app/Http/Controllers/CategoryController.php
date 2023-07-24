@@ -12,20 +12,34 @@ use App\Http\Requests\UpdateCategoryRequest;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the single category resource.
      */
     public function index(Category $category)
     {
         $category->load(['menus' => fn ($query) => $query->where('status', true)]);
-        $all_categories = Category::whereHas('menus', function (Builder $query) {
+        $all_categories = Category::select(['id', 'ulid', 'name', 'slug'])->whereHas('menus', function (Builder $query) {
             $query->where('status', true);
         })->active()->get();
-        // dd(new CategoryResource($category));
+
         return Inertia::render('Frontend/Category', [
             'title' => $category?->name,
             'category'=> new CategoryResource($category),
             'all_categories' => CategoryResource::collection($all_categories),
+        ]);
+    }
 
+    /**
+     * Display a listing of the all category resource.
+     */
+    public function general()
+    {
+        $all_categories = Category::whereHas('menus', function (Builder $query) {
+            $query->where('status', true);
+        })->active()->get();
+        
+        return Inertia::render('Frontend/Categories', [
+            'title' => 'Menu Categories',
+            'all_categories' => CategoryResource::collection($all_categories),
         ]);
     }
 
