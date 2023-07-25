@@ -19,7 +19,7 @@
                 <h5 class="mr-3 font-semibold dark:text-white">Our Menu</h5>
                 <p class="text-gray-500 dark:text-gray-400">Select a category to view relating menu.</p>
               </div>
-              <AllMenuFilters :category="filters" @setCategory="setCategory" :categories="all_categories" />
+              <AllMenuFilters :myfilters="props.filters" :categories="all_categories" />
             </div>
           </div>
         </div>
@@ -147,8 +147,6 @@ import MenuCarousel from '@/Components/Frontend/MenuCarousel.vue';
 import Breadcrumbs from '@/Components/Frontend/Breadcrumbs.vue';
 import { TheCard } from 'flowbite-vue';
 import AllMenuFilters from './AllMenuFilters.vue';
-import { ref, watch } from 'vue';
-import debounce from 'lodash/debounce';
 
 const props = defineProps({
   category: {
@@ -167,21 +165,9 @@ const props = defineProps({
     default: 'Category',
   },
   filters: {
-        type: Array,
+        type: Object,
+        default: () => ({}),
     },
 });
-
-const filters = ref(props.filters);
-
-const setCategory = (value) => {
-  console.log(value);
-  filters.value = value
-}
-
-
-
-watch(filters, debounce(function (value) {
-  router.get(route('frontend.menus'), { category: [value] }, { preserveState: true, replace: true });
-}, 500));
 
 </script>
