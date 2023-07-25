@@ -4,7 +4,8 @@
 
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="pt-8 px-2 mx-auto max-w-screen-xl md:px-0">
-        <CategoriesBreadcrumbs class="shadow-md" :current-page="category.name" middle-page="Categories" :middle-page-link="route('frontend.categories')" />
+        <Breadcrumbs class="shadow-md" current-page="Our Menu" middle-page="Menus"
+          :middle-page-link="route('frontend.menus')" />
       </div>
     </section>
 
@@ -15,45 +16,25 @@
           <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
               <div>
-                <h5 class="mr-3 font-semibold dark:text-white">Menu Categories</h5>
-                <p class="text-gray-500 dark:text-gray-400">Choose & select a category to view relating menu.</p>
+                <h5 class="mr-3 font-semibold dark:text-white">Our Menu</h5>
+                <p class="text-gray-500 dark:text-gray-400">Select a category to view relating menu.</p>
               </div>
-              <button id="dropdownDefaultButton" data-dropdown-target="dropdown-filters-0090"
-                data-dropdown-toggle="dropdown-filters-0090"
-                class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
-                type="button">
-                Select Category
-                <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 4 4 4-4" />
-                </svg>
-              </button>
-              <!-- Dropdown menu -->
-              <div id="dropdown-filters-0090"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                  <li v-for="all_category in all_categories">
-                    <Link :href="route('frontend.category.index', { id: all_category.slug })" class="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-gray-600 dark:hover:text-white">
-                      {{ all_category.name }}
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              <AllMenuFilters :category="filters" @setCategory="setCategory" :categories="all_categories" />
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="bg-white dark:bg-gray-900">
+
+    <section class="bg-orange-50 dark:bg-gray-900">
       <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
         <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ category.name }}</h2>
-          <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">{{ category.description.substring(0,
-            100) }}</p>
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Menus</h2>
+          <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Take a quick peek at our featured
+            food menus. Add all food menu of your choice to cart and proceed.</p>
         </div>
         <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
-          <div v-for="menu in category.menus" :key="menu.id" :class="{ 'lg:col-start-2': category.menus.length == 1 }">
+          <div v-for="menu in all_menus" :key="menu.id">
             <the-card class="mx-auto" variant="image" :img-src="menu.thumbnail" img-alt="Food Menu">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ menu.name }}</h5>
               <p class="font-normal text-gray-700 dark:text-gray-400 py-5">
@@ -67,11 +48,6 @@
               </div>
             </the-card>
           </div>
-        </div>
-        <div class="flex justify-center col-span-2 mt-3 mb-5">
-          <Link :href="route('frontend.menus')" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800" >
-            Load More
-          </Link>
         </div>
       </div>
     </section>
@@ -163,16 +139,22 @@
 
 <script setup>
 import FrontEndLayout from '../../Layouts/FrontEndLayout.vue'
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import FoodOrder from '@/Components/Frontend/Svg/FoodOrder.vue';
 import OrderCheckout from '@/Components/Frontend/Svg/OrderCheckout.vue';
 import OrderPickUp from '@/Components/Frontend/Svg/OrderPickUp.vue';
-import { TheCard } from 'flowbite-vue';
 import MenuCarousel from '@/Components/Frontend/MenuCarousel.vue';
-import CategoriesBreadcrumbs from '@/Components/Frontend/CategoriesBreadcrumbs.vue';
+import Breadcrumbs from '@/Components/Frontend/Breadcrumbs.vue';
+import { TheCard } from 'flowbite-vue';
+import AllMenuFilters from './AllMenuFilters.vue';
+import { ref, watch } from 'vue';
+import debounce from 'lodash/debounce';
 
-defineProps({
+const props = defineProps({
   category: {
+    String,
+  },
+  all_menus: {
     type: Object,
     default: () => ({}),
   },
@@ -183,7 +165,23 @@ defineProps({
   title: {
     type: String,
     default: 'Category',
-  }
+  },
+  filters: {
+        type: Array,
+    },
 });
+
+const filters = ref(props.filters);
+
+const setCategory = (value) => {
+  console.log(value);
+  filters.value = value
+}
+
+
+
+watch(filters, debounce(function (value) {
+  router.get(route('frontend.menus'), { category: [value] }, { preserveState: true, replace: true });
+}, 500));
 
 </script>
