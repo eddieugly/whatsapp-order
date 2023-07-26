@@ -9,7 +9,7 @@
     </svg>
   </button>
   <!-- Dropdown menu -->
-  <div id="dropdown-filters-0090" class="z-10 hidden bg-white rounded-lg shadow w-48 p-3 dark:bg-gray-700">
+  <div id="dropdown-filters-0090" class="z-10 bg-white rounded-lg shadow w-48 p-3 dark:bg-gray-700" :class=" { 'hidden' : !filtersAvailable } ">
     <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose Category</h6>
     <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefaultButton">
       <li v-for="(category, index) in categories" :key="index" class="flex items-center">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, watch, reactive } from 'vue';
+import { ref, watch, reactive, onMounted } from 'vue';
 import debounce from 'lodash/debounce';
 import { router } from '@inertiajs/vue3';
 
@@ -44,6 +44,14 @@ const props = defineProps({
 });
 
 const selectedCategory = ref([]);
+const filtersAvailable = ref(false);
+
+onMounted(() => {
+  if (Array.isArray(props.myfilters.category) ) {
+    selectedCategory.value = props.myfilters.category;
+    filtersAvailable.value = true;
+  }
+});
 
 watch(
   props.myfilters,
@@ -54,8 +62,6 @@ watch(
     deep: true,
   }
 );
-
-
 const radioTrue = (categorySlug) => {
   if (props.myfilters.length) {
     const isCategoryPresent = props.myfilters.category.some((category) => category === categorySlug);
