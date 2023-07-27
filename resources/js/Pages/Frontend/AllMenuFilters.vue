@@ -9,7 +9,7 @@
     </svg>
   </button>
   <!-- Dropdown menu -->
-  <div id="dropdown-filters-0090" class="z-10 bg-white rounded-lg shadow w-48 p-3 dark:bg-gray-700" :class=" { 'hidden' : !filtersAvailable } ">
+  <div id="dropdown-filters-0090" class="z-10 hidden bg-white rounded-lg shadow w-48 p-3 dark:bg-gray-700">
     <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose Category</h6>
     <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefaultButton">
       <li v-for="(category, index) in categories" :key="index" class="flex items-center">
@@ -34,6 +34,7 @@
 import { ref, watch, reactive, onMounted } from 'vue';
 import debounce from 'lodash/debounce';
 import { router } from '@inertiajs/vue3';
+import { Dropdown } from "flowbite";
 
 const props = defineProps({
   myfilters: {
@@ -44,14 +45,19 @@ const props = defineProps({
 });
 
 const selectedCategory = ref([]);
-const filtersAvailable = ref(false);
+
 
 onMounted(() => {
   if (Array.isArray(props.myfilters.category) ) {
     selectedCategory.value = props.myfilters.category;
-    filtersAvailable.value = true;
+  const dropdown = new Dropdown(
+        document.getElementById("dropdown-filters-0090"),
+        document.getElementById("dropdownDefaultButton")
+      );
+  dropdown.show();
   }
 });
+
 
 watch(
   props.myfilters,
@@ -73,7 +79,10 @@ const radioTrue = (categorySlug) => {
     return false;
   }
 };
-
+function myFunction() {
+  document.getElementById("dropdownDefaultButton").click('click');
+  console.log('Button Pressed');
+}
 const checkedNames = ref([]);
 
 watch(selectedCategory, debounce(function (value) {

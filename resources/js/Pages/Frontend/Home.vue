@@ -115,30 +115,32 @@
             menu category. Click on any of the category to see all food menues belonging to the category</p>
         </div>
         <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
-          <div v-for="category in featured_categories" :key="category.id" :class="{ 'lg:col-start-2' : featured_categories.length == 1 }">
+          <div v-for="category in featured_categories" :key="category.id"
+            :class="{ 'lg:col-start-2': featured_categories.length == 1 }">
             <Link :href="route('frontend.category.index', { id: category.slug })">
-              <article
-                class="mx-auto max-w-md shadow-xl bg-cover bg-center min-h-100 transform duration-500 hover:-translate-y-2 cursor-pointer group"
-                :style='{ backgroundImage: `url(${category.thumbnail})` }'>
+            <article
+              class="mx-auto max-w-md shadow-xl bg-cover bg-center min-h-100 transform duration-500 hover:-translate-y-2 cursor-pointer group"
+              :style='{ backgroundImage: `url(${category.thumbnail})` }'>
+              <div
+                class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
+                <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
+                  {{ category.name }}
+                </h1>
                 <div
-                  class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
-                  <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
-                    {{ category.name }}
-                  </h1>
-                  <div
-                    class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
-                  </div>
-                  <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
-                    {{ category.description.substring(0, 55) }}...
-                  </p>
+                  class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
                 </div>
-              </article>
+                <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
+                  {{ category.description.substring(0, 55) }}...
+                </p>
+              </div>
+            </article>
             </Link>
           </div>
         </div>
         <div class="flex justify-center col-span-2 mt-3 mb-5">
-          <Link :href="route('frontend.categories')" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800">
-            Load More
+          <Link :href="route('frontend.categories')"
+            class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800">
+          Load More
           </Link>
         </div>
       </div>
@@ -153,23 +155,37 @@
         </div>
         <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
           <div v-for="menu in featured_menus" :key="menu.id">
-            <the-card class="mx-auto" variant="image" :img-src="menu.thumbnail" img-alt="Food Menu">
+            <the-card class="relative mx-auto" variant="image" :img-src="menu.thumbnail" img-alt="Food Menu">
+              <span
+                class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39%
+                OFF</span>
+              <Link :href="route('frontend.menu.index', { id: menu.slug })">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ menu.name }}</h5>
+              </Link>
+
               <p class="font-normal text-gray-700 dark:text-gray-400 py-5">
                 {{ menu.description.substring(0, 55) }}...
               </p>
               <div class="flex items-center justify-between">
                 <span class="text-3xl font-bold text-gray-900 dark:text-white">₦{{ menu.price.toLocaleString() }}</span>
-                <a href="#"
-                  class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Add
-                  to cart</a>
+                <Link :href="route('frontend.menu.index', { id: menu.slug })"
+                  class="text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                  <svg class="w-[20px] h-[20px] shrink-0 mr-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                  </svg>
+                
+                Add to cart
+                </Link>
               </div>
             </the-card>
           </div>
         </div>
         <div class="flex justify-center col-span-2 mt-3 mb-5">
-          <Link :href="route('frontend.menus')" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800" >
-            Load More
+          <Link :href="route('frontend.menus')"
+            class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800">
+          Load More
           </Link>
         </div>
       </div>
@@ -239,7 +255,9 @@
 
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="py-8 px-4 mx-auto max-w-full h-screen sm:py-16 lg:px-6">
-        <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed" style=""></iframe>
+        <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no"
+          src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed"
+          style=""></iframe>
       </div>
     </section>
 

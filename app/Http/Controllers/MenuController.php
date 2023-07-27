@@ -13,7 +13,21 @@ use Illuminate\Database\Eloquent\Builder;
 class MenuController extends Controller
 {
     /**
-     * Display a listing of the all category resource.
+     * Display a listing of the single category resource.
+     */
+    public function index(Menu $menu)
+    {
+        $menu->load(['category:id,ulid,name', 'media']);
+
+        return Inertia::render('Frontend/Menu', [
+            'title' => $menu?->name,
+            'menu'=> new MenuResource($menu),
+        ]);
+    }
+
+
+    /**
+     * Display a listing of the all Active Menu resource with multi category search query.
      */
     public function general()
     {

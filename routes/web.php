@@ -40,6 +40,8 @@ Route::get('/categories', [CategoryController::class, 'general'])->name('fronten
 
 Route::get('/menus', [MenuController::class, 'general'])->name('frontend.menus');
 
+Route::get('/menu/{menu:slug}', [MenuController::class, 'index'])->name('frontend.menu.index');
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
