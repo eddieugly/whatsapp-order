@@ -61,19 +61,19 @@
               <label class="">
                 <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   Powder</p>
               </label>
               <label class="">
                 <input type="radio" name="type" value="Whole Bean" class="peer sr-only" />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   Whole Bean</p>
               </label>
               <label class="">
                 <input type="radio" name="type" value="Groud" class="peer sr-only" />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   Groud</p>
               </label>
             </div>
@@ -83,21 +83,21 @@
               <label class="">
                 <input type="radio" name="subscription" value="4 Months" class="peer sr-only" />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   4 Months</p>
                 <span class="mt-1 block text-center text-xs">₦1,950</span>
               </label>
               <label class="">
                 <input type="radio" name="subscription" value="8 Months" class="peer sr-only" checked />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   8 Months</p>
                 <span class="mt-1 block text-center text-xs">₦2,050</span>
               </label>
               <label class="">
                 <input type="radio" name="subscription" value="12 Months" class="peer sr-only" />
                 <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-yellow-300 hover:bg-orange-200 focus:ring-4 focus:ring-yellow-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-yellow-800 cursor-pointer">
+                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
                   12 Months</p>
                 <span class="mt-1 block text-center text-xs">₦1,800</span>
               </label>
@@ -110,7 +110,7 @@
               </div>
 
               <button type="button"
-                class="inline-flex items-center justify-center text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-12 py-3 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800 transition-all duration-200 ease-in-out focus:shadow">
+                class="inline-flex items-center justify-center text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-12 py-3 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800 transition-all duration-200 ease-in-out focus:shadow">
                 <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
