@@ -109,13 +109,15 @@
                 <h1 class="text-3xl font-bold">₦{{ menu.price.toLocaleString() }}</h1>
               </div>
 
-              <button type="button"
+              <button type="button" :disabled="isAlreadyInCart(menu.id)" @click="addToCart(menu)"
                 class="inline-flex items-center justify-center text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-12 py-3 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800 transition-all duration-200 ease-in-out focus:shadow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                <svg class="w-[20px] h-[20px] shrink-0 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 18 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
                 </svg>
-                Add to cart
+                <span v-if="isAlreadyInCart">Item Added</span>
+                <span v-else>Add to cart</span>
               </button>
             </div>
 
@@ -145,8 +147,9 @@
           <div class="lg:col-span-3">
             <div class="border-b border-gray-300">
               <nav class="flex gap-4">
-                <Link :href="route('frontend.menu.index', { id: menu.slug })" title="" class="border-b-2 border-gray-900 py-4 text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800">
-                  Menu Description
+                <Link :href="route('frontend.menu.index', { id: menu.slug })" title=""
+                  class="border-b-2 border-gray-900 py-4 text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800">
+                Menu Description
                 </Link>
               </nav>
             </div>
@@ -221,31 +224,63 @@
       </div>
     </section>
 
-  <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-full h-screen sm:py-16 lg:px-6">
-      <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no"
-        src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed"
-        style=""></iframe>
-    </div>
-  </section>
+    <section class="bg-gray-50 dark:bg-gray-900">
+      <div class="py-8 px-4 mx-auto max-w-full h-screen sm:py-16 lg:px-6">
+        <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no"
+          src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed"
+          style=""></iframe>
+      </div>
+    </section>
 
-  <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="py-20 px-4 mx-auto max-w-screen-xl sm:py-20 lg:px-6">
-      <div class="mx-auto max-w-screen-sm text-center mb-12 lg:mb-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Menu Slider</h2>
-        <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Take a quick peek at our featured
-          food menus. Add all food menu of your choice to cart and proceed.</p>
+    <section class="bg-gray-50 dark:bg-gray-900">
+      <div class="py-20 px-4 mx-auto max-w-screen-xl sm:py-20 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center mb-12 lg:mb-16">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Menu Slider</h2>
+          <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Take a quick peek at our featured
+            food menus. Add all food menu of your choice to cart and proceed.</p>
+        </div>
+        <div class="">
+          <MenuCarousel>
+            <Slide v-for="slider in $page.props.slider_menues" :key="slider.id">
+              <div class="carousel__item">
+                <div
+                  class="mx-auto max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50">
+                  <Link :href="route('frontend.menu.index', { id: slider.slug })">
+                  <img class="p-0 rounded-t-lg" :src="slider.thumbnail" alt="product image" />
+                  </Link>
+                  <div class="px-5 py-5">
+                    <Link :href="route('frontend.menu.index', { id: slider.slug })">
+                    <h5 class="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">{{
+                      slider.name }}</h5>
+                    </Link>
+                    <div class="flex items-center justify-between py-4">
+                      <span class="text-xl font-bold text-gray-900 dark:text-white">₦{{ slider.price.toLocaleString()
+                      }}</span>
+                      <button :disabled="isAlreadyInCart(slider.id)" @click="addToCart(slider)"
+                        class="text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800">
+                        <svg class="w-[20px] h-[20px] shrink-0 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          fill="none" viewBox="0 0 18 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                        </svg>
+                        <span v-if="isAlreadyInCart(slider.id)">Item Added</span>
+                        <span v-else>Add to cart</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Slide>
+          </MenuCarousel>
+        </div>
       </div>
-      <div class="">
-        <MenuCarousel />
-      </div>
-    </div>
-  </section>
-</FrontEndLayout>
+    </section>
+  </FrontEndLayout>
 </template>
 
 <script setup>
-import FrontEndLayout from '../../Layouts/FrontEndLayout.vue'
+import { computed, toRef } from 'vue';
+import FrontEndLayout from '../../Layouts/FrontEndLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import FoodOrder from '@/Components/Frontend/Svg/FoodOrder.vue';
 import OrderCheckout from '@/Components/Frontend/Svg/OrderCheckout.vue';
@@ -254,8 +289,15 @@ import { TheCard } from 'flowbite-vue';
 import MenuCarousel from '@/Components/Frontend/MenuCarousel.vue';
 import CategoriesBreadcrumbs from '@/Components/Frontend/CategoriesBreadcrumbs.vue';
 import MenuPageCarousel from '@/Components/Frontend/MenuPageCarousel.vue';
+import { Slide } from 'vue3-carousel';
 
-defineProps({
+import { useCartStore } from '@/Store/cart';
+import { storeToRefs } from 'pinia';
+
+const cartStore = useCartStore();
+const { cart } = storeToRefs(cartStore);
+
+const props = defineProps({
   menu: {
     type: Object,
     default: () => ({}),
@@ -266,4 +308,22 @@ defineProps({
   }
 });
 
+const menu = toRef(props.menu);
+
+const addToCart = (menu) => {
+  cart.value.push(menu);
+};
+
+const isAlreadyInCart = (value) => {
+  let res = cart.value.find(c => c.id === value);
+  if (res) return true;
+  return false
+};
+
 </script>
+
+<style scoped>
+.carousel__slide {
+  padding: 5px;
+}
+</style>

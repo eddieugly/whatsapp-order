@@ -1,6 +1,6 @@
 <template>
   <button id="dropdownDefaultButton" data-dropdown-target="dropdown-filters-0090"
-    data-dropdown-toggle="dropdown-filters-0090"
+    data-dropdown-toggle="dropdown-filters-0090" ref="selectedButton"
     class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800"
     type="button">
     Select Category
@@ -45,16 +45,21 @@ const props = defineProps({
 });
 
 const selectedCategory = ref([]);
+const selectedButton = ref();
 
 
 onMounted(() => {
-  if (Array.isArray(props.myfilters.category) ) {
+  if (Array.isArray(props.myfilters.category)) {
     selectedCategory.value = props.myfilters.category;
-  const dropdown = new Dropdown(
-        document.getElementById("dropdown-filters-0090"),
-        document.getElementById("dropdownDefaultButton")
-      );
-  dropdown.show();
+
+    const triggerElement = document.querySelector("#dropdownDefaultButton");
+    const targetElement = document.querySelector("#dropdown-filters-0090");
+    const event = new MouseEvent("click", {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  triggerElement.dispatchEvent(event);
   }
 });
 

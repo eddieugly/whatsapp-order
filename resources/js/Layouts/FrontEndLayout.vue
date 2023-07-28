@@ -23,7 +23,8 @@
               <CartIcon class="w-6 h-6" />
               <div
                 class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-yellow-600 border-2 border-white rounded-full -top-2 right-2 dark:border-gray-900">
-                20</div>
+                {{ cartStore.cart.length }}
+              </div>
             </a>
             <button data-drawer-target="default-sidebar-0909" data-drawer-toggle="default-sidebar-0909"
               aria-controls="default-sidebar-0909" aria-expanded="false" type="button"
@@ -40,17 +41,19 @@
           <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
             <ul class="flex flex-col mt-4 font-semibold lg:flex-row lg:space-x-8 lg:mt-0">
               <li>
-                <a href="#"
-                  class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-yellow-700 lg:p-0 dark:text-white"
-                  aria-current="page">Home</a>
+                <NavLink :href="route('home')" :active="route().current('home')">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <a href="#"
-                  class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Company</a>
+                <NavLink :href="route('frontend.categories')" :active="route().current('frontend.categories') || route().current('frontend.category.index')">
+                  Categories
+                </NavLink>
               </li>
               <li>
-                <a href="#"
-                  class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
+                <NavLink :href="route('frontend.menus')" :active="route().current('frontend.menus') || route().current('frontend.menu.index')">
+                  Menus
+                </NavLink>
               </li>
               <li>
                 <a href="#"
@@ -413,11 +416,17 @@ import UserIcon from '@/Components/Icons/UserIcon.vue';
 import CartIcon from '@/Components/Icons/CartIcon.vue';
 import Footer from '@/Components/Frontend/Footer.vue';
 import { Link } from '@inertiajs/vue3';
+import NavLink from '@/Components/Frontend/NavLink.vue';
 
+import { useCartStore } from '@/Store/cart';
+import { storeToRefs } from 'pinia';
+
+const cartStore = useCartStore();
+const { cart } = storeToRefs(cartStore);
 
 onMounted(() => {
   initFlowbite();
-})
+});
 
 </script>
 
