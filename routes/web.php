@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetach
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeControler;
 use App\Http\Controllers\MenuController;
 
@@ -41,6 +42,8 @@ Route::get('/categories', [CategoryController::class, 'general'])->name('fronten
 Route::get('/menus', [MenuController::class, 'general'])->name('frontend.menus');
 
 Route::get('/menu/{menu:slug}', [MenuController::class, 'index'])->name('frontend.menu.index');
+
+Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart.index');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
