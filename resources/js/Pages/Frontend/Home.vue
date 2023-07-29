@@ -350,6 +350,7 @@ const addToCart = (menu) => {
     slug: menu.slug,
     price: menu.price,
     quantity: 1,
+    thumbnail: menu.thumbnail,
   });
 };
 

@@ -4,164 +4,138 @@
 
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="py-8 px-2 mx-auto max-w-screen-xl md:px-0">
-        <CategoriesBreadcrumbs class="shadow-md" :current-page="menu.name" middle-page="Menus"
-          :middle-page-link="route('frontend.menus')" />
+        <CategoriesBreadcrumbs class="shadow-md" current-page="Cart Items" :middle-page="title"
+          :middle-page-link="route('frontend.cart.index')" />
       </div>
     </section>
 
     <section class="bg-white dark:bg-gray-900">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
-        <div class="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
-          <div class="lg:col-span-3 lg:row-end-1">
-            <div class="lg:flex lg:items-start">
-              <img class="w-full h-full object-cover" :src="menu.thumbnail" alt="Product Image">
-            </div>
-          </div>
+      <div v-if="!cart.length" class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Your Cart Is Empty</h2>
+        </div>
+        <div class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+          <div class="mx-auto w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50">
+            <Link :href="route('frontend.menus')">
+              <FolderSearch />
+              <!-- <a href="https://storyset.com/online">Online illustrations by Storyset</a> -->
 
-          <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-            <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ menu.name }}</h1>
-
-            <div class="mt-5 flex items-center">
-              <div class="flex items-center">
-                <svg class="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    class=""></path>
-                </svg>
-                <svg class="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    class=""></path>
-                </svg>
-                <svg class="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    class=""></path>
-                </svg>
-                <svg class="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    class=""></path>
-                </svg>
-                <svg class="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    class=""></path>
-                </svg>
-              </div>
-            </div>
-
-            <h2 class="mt-8 text-base text-gray-900">Side Type</h2>
-            <div class="mt-3 flex select-none flex-wrap items-center gap-1">
-              <label class="">
-                <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  Powder</p>
-              </label>
-              <label class="">
-                <input type="radio" name="type" value="Whole Bean" class="peer sr-only" />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  Whole Bean</p>
-              </label>
-              <label class="">
-                <input type="radio" name="type" value="Groud" class="peer sr-only" />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  Groud</p>
-              </label>
-            </div>
-
-            <h2 class="mt-8 text-base text-gray-900">Extra Chicken?</h2>
-            <div class="mt-3 flex select-none flex-wrap items-center gap-1">
-              <label class="">
-                <input type="radio" name="subscription" value="4 Months" class="peer sr-only" />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  4 Months</p>
-                <span class="mt-1 block text-center text-xs">₦1,950</span>
-              </label>
-              <label class="">
-                <input type="radio" name="subscription" value="8 Months" class="peer sr-only" checked />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  8 Months</p>
-                <span class="mt-1 block text-center text-xs">₦2,050</span>
-              </label>
-              <label class="">
-                <input type="radio" name="subscription" value="12 Months" class="peer sr-only" />
-                <p
-                  class="peer-checked:bg-yellow-800 peer-checked:text-white px-6 py-2 font-bold text-gray-900 rounded-lg border border-orange-300 hover:bg-orange-200 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
-                  12 Months</p>
-                <span class="mt-1 block text-center text-xs">₦1,800</span>
-              </label>
-            </div>
-
-            <div
-              class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-              <div class="flex items-end">
-                <h1 class="text-3xl font-bold">₦{{ menu.price.toLocaleString() }}</h1>
-              </div>
-
-              <button type="button" :disabled="isAlreadyInCart(menu.id)" @click="addToCart(menu)"
-                class="inline-flex items-center justify-center text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-12 py-3 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800 transition-all duration-200 ease-in-out focus:shadow">
+              <button class="w-full text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800">
                 <svg class="w-[20px] h-[20px] shrink-0 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 18 20">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
                 </svg>
-                <span v-if="isAlreadyInCart">Item Added</span>
-                <span v-else>Add to cart</span>
+                Continue Shopping...
               </button>
-            </div>
-
-            <ul class="mt-8 space-y-2">
-              <li class="flex items-center text-left text-sm font-medium text-gray-600">
-                <svg class="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    class=""></path>
-                </svg>
-                Free shipping worldwide
-              </li>
-
-              <li class="flex items-center text-left text-sm font-medium text-gray-600">
-                <svg class="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" class="">
-                  </path>
-                </svg>
-                Cancel Anytime
-              </li>
-            </ul>
+            </Link>
           </div>
+        </div>
+      </div>
+      <div v-else class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Cart Items</h2>
+        </div>
+        <div class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+          <div class="rounded-lg md:w-8/12">
+            <div v-for="menu in cart" :key="menu.id" class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+              <img :src="menu.thumbnail" alt="Menu Thumbnail" class="w-full rounded-lg sm:w-40" />
+              <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                <div class="mt-5 sm:mt-0">
+                  <h2 class="text-lg font-bold text-gray-900">{{ menu.name }}</h2>
+                  <p class="mt-1 text-xs text-gray-700">#{{ menu.id.substring(0, 6) }}</p>
+                </div>
+                <div class="flex justify-between space-x-4">
+                  <div class="flex items-center border-gray-100">
+                    <span class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-yellow-700 hover:text-blue-50">
+                      -
+                    </span>
+                    <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="numeric" :value="menu.quantity" min="1" />
+                    <span class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-yellow-700 hover:text-blue-50">
+                      +
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <p class="text-base">₦{{ menu.price.toLocaleString() }}</p>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                  <button @click="removeFromCart(menu.id)" class="text-gray-800 dark:text-white cursor-pointer duration-150 hover:text-red-500">
+                    <svg
+                      class="w-[20px] h-[20px]"
+                      aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                    </svg>
+                  </button>
+                  </div>
+                </div>
 
-          <div class="lg:col-span-3">
-            <div class="border-b border-gray-300">
-              <nav class="flex gap-4">
-                <Link :href="route('frontend.menu.index', { id: menu.slug })" title=""
-                  class="border-b-2 border-gray-900 py-4 text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800">
-                Menu Description
-                </Link>
-              </nav>
+              </div>
             </div>
-
-            <div class="mt-8 flow-root sm:mt-12">
-              {{ menu.description }}
+            <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+              <img
+                src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1131&q=80"
+                alt="product-image" class="w-full rounded-lg sm:w-40" />
+              <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                <div class="mt-5 sm:mt-0">
+                  <h2 class="text-lg font-bold text-gray-900">Nike Air Max 2019</h2>
+                  <p class="mt-1 text-xs text-gray-700">36EU - 4US</p>
+                </div>
+                <div class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                  <div class="flex items-center border-gray-100">
+                    <span
+                      class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                      - </span>
+                    <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="2"
+                      min="1" />
+                    <span
+                      class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                      + </span>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                    <p class="text-sm">259.000 ₭</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          <!-- Sub total -->
+          <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-4/12">
+            <div class="mb-2 flex justify-between">
+              <p class="text-gray-700">Subtotal</p>
+              <p class="text-gray-700">$129.99</p>
+            </div>
+            <div class="flex justify-between">
+              <p class="text-gray-700">Shipping</p>
+              <p class="text-gray-700">$4.99</p>
+            </div>
+            <hr class="my-4" />
+            <div class="flex justify-between">
+              <p class="text-lg font-bold">Total</p>
+              <div class="">
+                <p class="mb-1 text-lg font-bold">$134.98 USD</p>
+                <p class="text-sm text-gray-700">including VAT</p>
+              </div>
+            </div>
+            <button
+              class="inline-flex items-center justify-center mt-6 w-full rounded-md bg-yellow-700 py-1.5 font-medium text-blue-50 hover:bg-yellow-800">
+              <svg class="w-[20px] h-[20px] shrink-0 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0   20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z" />
+              </svg>
+              Check out
+            </button>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- How It Works Section -->
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
@@ -223,7 +197,9 @@
         </div>
       </div>
     </section>
+    <!-- End Of How It Works Section -->
 
+    <!-- Map Section -->
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="py-8 px-4 mx-auto max-w-full h-screen sm:py-16 lg:px-6">
         <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no"
@@ -231,7 +207,9 @@
           style=""></iframe>
       </div>
     </section>
+    <!-- End of Map Section -->
 
+    <!-- Menu Slider Section -->
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="py-20 px-4 mx-auto max-w-screen-xl sm:py-20 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center mb-12 lg:mb-16">
@@ -275,6 +253,8 @@
         </div>
       </div>
     </section>
+    <!-- End of Menu Slider Section -->
+
   </FrontEndLayout>
 </template>
 
@@ -293,25 +273,21 @@ import { Slide } from 'vue3-carousel';
 
 import { useCartStore } from '@/Store/cart';
 import { storeToRefs } from 'pinia';
+import FolderSearch from '@/Components/Frontend/Svg/FolderSearch.vue';
 
 const cartStore = useCartStore();
 const { cart } = storeToRefs(cartStore);
 
 const props = defineProps({
-  menu: {
-    type: Object,
-    default: () => ({}),
-  },
   title: {
     type: String,
-    default: 'Menu',
+    default: 'Cart',
   }
 });
 
-const menu = toRef(props.menu);
 
-const addToCart = (menu) => {
-  cart.value.push(menu);
+const removeFromCart = (menuID) => {
+  cartStore.removeMenuFromCart(menuID);
 };
 
 const isAlreadyInCart = (value) => {
@@ -325,5 +301,11 @@ const isAlreadyInCart = (value) => {
 <style scoped>
 .carousel__slide {
   padding: 5px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

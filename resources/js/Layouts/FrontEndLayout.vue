@@ -18,14 +18,14 @@
               class="hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
               <UserIcon class="w-6 h-6" />
             </Link>
-            <a href="#"
+            <Link :href="route('frontend.cart.index')"
               class="relative inline-flex hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-gray-800 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
               <CartIcon class="w-6 h-6" />
               <div
                 class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-yellow-600 border-2 border-white rounded-full -top-2 right-2 dark:border-gray-900">
                 {{ cartStore.cart.length }}
               </div>
-            </a>
+            </Link>
             <button data-drawer-target="default-sidebar-0909" data-drawer-toggle="default-sidebar-0909"
               aria-controls="default-sidebar-0909" aria-expanded="false" type="button"
               class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">

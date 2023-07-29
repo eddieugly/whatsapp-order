@@ -239,7 +239,13 @@ defineProps({
 });
 
 const addToCart = (menu) => {
-  cart.value.push(menu);
+  cart.value.push({
+    id: menu.id,
+    slug: menu.slug,
+    price: menu.price,
+    quantity: 1,
+    thumbnail: menu.thumbnail,
+  });
 };
 
 const isAlreadyInCart = (value) => {
