@@ -5,22 +5,22 @@ export const useCartStore = defineStore('cart', {
   state: () => ({ cart: [] }),
   actions: {
     removeMenuFromCart(MenuId) {
-      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId)
-      this.cart.splice(menuIndex[menuIndex], 1)
+      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId);
+      this.cart.splice(menuIndex, 1);
     },
-    incrementQuantity(MenuId) {
-      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId)
+    increaseQuantity(MenuId) {
+      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId);
       if (menuIndex !== -1) {
-        this.cart[menuIndex].quantity += 1
+        this.cart[menuIndex].quantity += 1;
       }
     },
-    decrementQuantity(MenuId) {
-      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId)
+    decreaseQuantity(MenuId) {
+      const menuIndex = this.cart.findIndex((menu) => menu.id === MenuId);
       if (menuIndex !== -1) {
-        this.cart[menuIndex].quantity -= 1
         if (this.cart[menuIndex].quantity === 1) {
-          this.removeMenuFromCart(MenuId)
+          this.removeMenuFromCart(MenuId);
         }
+        this.cart[menuIndex].quantity -= 1;
       }
     },
   },

@@ -348,6 +348,7 @@ const addToCart = (menu) => {
   cart.value.push({
     id: menu.id,
     slug: menu.slug,
+    name: menu.name,
     price: menu.price,
     quantity: 1,
     thumbnail: menu.thumbnail,
