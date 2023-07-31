@@ -45,6 +45,12 @@ Route::get('/menu/{menu:slug}', [MenuController::class, 'index'])->name('fronten
 
 Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart.index');
 
+Route::get('/checkout', function(){
+    return Inertia::render('Frontend/Checkout', [
+        'title' => 'Checkout',
+    ]);
+})->name('frontend.checkout.index');
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
