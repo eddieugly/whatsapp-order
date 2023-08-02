@@ -23,7 +23,7 @@
         </Link>
       </div>
       <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-        <span class="font-semibold text-gray-400 uppercase">SIMPLE ORDER</span>
+        <span class="font-semibold text-gray-400 uppercase">QUICK ORDER</span>
         <div class="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
           <a href="#" class="mr-5 mb-5 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400">
             <svg class="h-8" viewBox="0 0 132 29" fill="none" xmlns="http://www.w3.org/2000/svg">

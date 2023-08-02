@@ -1,6 +1,6 @@
 <template>
-  <footer class="p-4 bg-orange-100 sm:p-6 dark:bg-gray-800">
-    <div class="mx-auto max-w-screen-xl mt-10">
+  <footer class="p-4 bg-orange-100 pb-6 sm:p-6 dark:bg-gray-800">
+    <div class="mx-auto max-w-screen-xl my-10">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
                 <Link href="/" class="flex items-center">
