@@ -51,6 +51,12 @@ Route::get('/checkout', function(){
     ]);
 })->name('frontend.checkout.index');
 
+Route::get('/faq', [CartController::class, 'faq'])->name('frontend.faq');
+
+Route::get('/contact', [CartController::class, 'contact'])->name('frontend.contact.index');
+
+Route::post('/contact', [CartController::class, 'contactStore'])->name('frontend.contact.store');
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
