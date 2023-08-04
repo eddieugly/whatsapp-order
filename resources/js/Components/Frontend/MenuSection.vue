@@ -2,8 +2,7 @@
   <Section class="bg-orange-50">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
 
-      <SectionHeader header="Featured Menu" description="Take a quick peek at our featured
-            food menus. Add all food menu of your choice to cart and proceed." />
+      <SectionHeader header="Our Menu" description="Take a quick peek at our featured food menus. Add all food menu of your choice to cart and proceed." />
 
       <div class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2">
         <Card v-for="menu in menus" :key="menu.id" class="relative mx-auto" :class="{ 'lg:col-start-2': menus.length == 1 }">

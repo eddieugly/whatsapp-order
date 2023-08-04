@@ -19,13 +19,6 @@
         <label :for="category.slug" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">{{ category.name }}
           (56)</label>
       </li>
-      <li class="flex items-center">
-        <input id="asus" type="checkbox" value="" :checked="true"
-          class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-        <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-          Asus (97)
-        </label>
-      </li>
     </ul>
   </div>
 </template>
@@ -51,15 +44,6 @@ const selectedButton = ref();
 onMounted(() => {
   if (Array.isArray(props.myfilters.category)) {
     selectedCategory.value = props.myfilters.category;
-
-    const triggerElement = document.querySelector("#dropdownDefaultButton");
-    const targetElement = document.querySelector("#dropdown-filters-0090");
-    const event = new MouseEvent("click", {
-    view: window,
-    bubbles: true,
-    cancelable: true,
-  });
-  triggerElement.dispatchEvent(event);
   }
 });
 
