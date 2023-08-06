@@ -34,6 +34,7 @@ class UpdateGeneralRequest extends FormRequest
             'company_address' => ['bail', 'required', 'string', 'max:100'],
             'company_seo_description' => ['bail', 'required', 'string', 'max:355'],
             'company_seo_keywords' => ['bail', 'required', 'array', 'max:355'],
+            'company_seo_keywords.*' => ['distinct'],
             'company_logo_white' => [],
             'company_logo_dark' => [],
             'company_favicon' => [],
