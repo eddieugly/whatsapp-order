@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory;
 
     protected $casts = [
-        'items' => 'array',
+        'cart' => 'array',
     ];
 
     protected $fillable = [
@@ -21,8 +21,9 @@ class Order extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
-        'items',
+        'cart',
         'addon',
+        'tx_ref',
         'payment_method',
         'payment_status',
         'order_status'

@@ -2,22 +2,28 @@
   <Section class="bg-white">
     <div v-if="!cart.length" class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+        <h2
+          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+        >
           Your Cart Is Empty
         </h2>
       </div>
-      <div class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+      <div
+        class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
+      >
         <div
-          class="mx-auto w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50">
+          class="mx-auto w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50"
+        >
           <Link :href="route('frontend.menus')">
-          <FolderSearch />
-          <!-- <a href="https://storyset.com/online">Online illustrations by Storyset</a> -->
+            <FolderSearch />
+            <!-- <a href="https://storyset.com/online">Online illustrations by Storyset</a> -->
 
-          <button
-            class="w-full text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800">
-            <AddToCartIcon />
-            Continue Shopping
-          </button>
+            <button
+              class="w-full text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800"
+            >
+              <AddToCartIcon />
+              Continue Shopping
+            </button>
           </Link>
         </div>
       </div>
@@ -25,7 +31,9 @@
 
     <div v-else class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+        <h2
+          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+        >
           Checkout
         </h2>
       </div>
@@ -37,12 +45,21 @@
           </p>
 
           <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            <div v-for="menu in cart" :key="menu.id" class="flex flex-col rounded-lg bg-white sm:flex-row">
-              <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" :src="menu.thumbnail"
-                alt="Menu Thumbnail" />
+            <div
+              v-for="menu in cart"
+              :key="menu.id"
+              class="flex flex-col rounded-lg bg-white sm:flex-row"
+            >
+              <img
+                class="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                :src="menu.thumbnail"
+                alt="Menu Thumbnail"
+              />
               <div class="flex w-full flex-col px-4 py-4 items-end">
                 <span class="font-semibold">{{ menu.name }}</span>
-                <span class="float-right text-gray-400">#{{ menu.id.substring(8, 14) }}</span>
+                <span class="float-right text-gray-400"
+                  >#{{ menu.id.substring(8, 14) }}</span
+                >
                 <p class="font-semibold">
                   <span>{{ menu.quantity }} x </span>₦{{ menu.price.toLocaleString() }}
                 </p>
@@ -54,12 +71,21 @@
 
           <form class="mt-5 grid gap-6">
             <div class="relative">
-              <input @input="payNow" class="peer hidden" id="radio_1" type="radio" name="radio" checked />
+              <input
+                @input="payNow"
+                class="peer hidden"
+                id="radio_1"
+                type="radio"
+                name="radio"
+                checked
+              />
               <span
-                class="peer-checked:border-yellow-500 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-yellow-100 bg-white"></span>
+                class="peer-checked:border-yellow-500 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-yellow-100 bg-white"
+              ></span>
               <label
                 class="peer-checked:border-2 peer-checked:border-yellow-500 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-yellow-300 p-4"
-                for="radio_1">
+                for="radio_1"
+              >
                 <Flutterwave />
                 <div class="ml-5">
                   <span class="mt-2 font-semibold">Pay Now</span>
@@ -69,12 +95,20 @@
             </div>
 
             <div class="relative">
-              <input @input="orderNow" class="peer hidden" id="radio_2" type="radio" name="radio" />
+              <input
+                @input="orderNow"
+                class="peer hidden"
+                id="radio_2"
+                type="radio"
+                name="radio"
+              />
               <span
-                class="peer-checked:border-yellow-500 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-yellow-100 bg-white"></span>
+                class="peer-checked:border-yellow-500 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-yellow-100 bg-white"
+              ></span>
               <label
                 class="peer-checked:border-2 peer-checked:border-yellow-500 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-yellow-300 p-4"
-                for="radio_2">
+                for="radio_2"
+              >
                 <OrderNow />
                 <div class="ml-5">
                   <span class="mt-2 font-semibold">Pay on Pickup</span>
@@ -92,30 +126,56 @@
           </p>
           <div class="">
             <form @submit.prevent="submit">
-              <label for="customer-name" class="mt-4 mb-2 block text-sm font-medium">FullName</label>
+              <label for="customer-name" class="mt-4 mb-2 block text-sm font-medium"
+                >FullName</label
+              >
               <div class="relative">
-                <input v-model="form.customer_name" type="text" id="customer-name"
+                <input
+                  v-model="form.customer_name"
+                  type="text"
+                  id="customer-name"
                   class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-yellow-500 focus:ring-yellow-500"
-                  placeholder="Ahmed Hassan" required />
-                <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                  placeholder="Ahmed Hassan"
+                  required
+                />
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3"
+                >
                   <CheckoutInputUserIcon />
                 </div>
               </div>
-              <label for="customer-email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+              <label for="customer-email" class="mt-4 mb-2 block text-sm font-medium"
+                >Email</label
+              >
               <div class="relative">
-                <input v-model="form.customer_email" type="email" id="customer-email"
+                <input
+                  v-model="form.customer_email"
+                  type="email"
+                  id="customer-email"
                   class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-yellow-500 focus:ring-yellow-500"
-                  placeholder="johndoe@example.com" required />
-                <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                  placeholder="johndoe@example.com"
+                  required
+                />
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3"
+                >
                   <CheckoutInputEmailIcon />
                 </div>
               </div>
-              <label for="customer-phone" class="mt-4 mb-2 block text-sm font-medium">Phone Number</label>
+              <label for="customer-phone" class="mt-4 mb-2 block text-sm font-medium"
+                >Phone Number</label
+              >
               <div class="relative">
-                <input v-model="form.customer_phone" type="text" id="customer-phone"
+                <input
+                  v-model="form.customer_phone"
+                  type="text"
+                  id="customer-phone"
                   class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-yellow-500 focus:ring-yellow-500"
-                  placeholder="08133001122" />
-                <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                  placeholder="08133001122"
+                />
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3"
+                >
                   <CheckoutInputPhoneIcon />
                 </div>
               </div>
@@ -142,13 +202,15 @@
               </p>
             </div>
           </div>
-          <PayButton v-if="payButton" />
+          <PayButton v-if="payButton" :disabled="disabled" @click="makePayment">
+            <CartWalletIcon />
+            Pay & Order
+          </PayButton>
 
-          <button v-show="orderButton" type="submit" @click="submit"
-            class="inline-flex items-center justify-center mt-4 mb-8 w-full rounded-md bg-yellow-700 px-6 py-3 font-medium text-white hover:bg-yellow-800">
+          <PayButton v-if="orderButton" :disabled="false" @click="submit">
             <CheckoutNowIcon />
             Order Now
-          </button>
+          </PayButton>
         </div>
       </div>
     </div>
@@ -184,7 +246,7 @@ const form = useForm({
   customer_email: page.auth.user?.email ?? "",
   customer_phone: "",
   amount: "",
-  txRef: "",
+  tx_ref: "",
   payment_method: 1,
   cart: cart,
 });
@@ -208,6 +270,13 @@ const orderNow = () => {
   orderButton.value = true;
   form.payment_method = 0;
 };
+
+const disabled = computed(() => {
+  if (form.customer_email && form.customer_email && form.customer_phone) {
+    return false;
+  }
+  return true;
+});
 
 const subTotal = computed(() => {
   let subTotal = 0;
@@ -254,29 +323,28 @@ const makePayment = () => {
   const modal = FlutterwaveCheckout({
     public_key: "FLWPUBK_TEST-d30c862a0ea73db4c237c312716c8fae-X",
     tx_ref: generateReference(),
-    amount: total,
+    amount: form.amount,
     currency: "NGN",
     payment_options: "card, banktransfer, ussd",
     callback: function (payment) {
       // Send AJAX verification request to backend
-      form.txRef = payment.tx_ref;
+      form.tx_ref = payment.tx_ref;
       submit();
-      verifyTransactionOnBackend(payment.id);
     },
     onclose: function (incomplete) {
-      if (incomplete === true) {
-        usePage().props.flash.success = "Payment Failed! Try Again";
-      }
       modal.close();
+      if (incomplete === true) {
+        usePage().props.flash.error = "Payment Failed! Try Again";
+      }
     },
     customer: {
-      email: "rose@unsinkableship.com",
-      phone_number: "08102909304",
-      name: "Rose DeWitt Bukater",
+      email: form.customer_email,
+      phone_number: form.customer_phone,
+      name: form.customer_name,
     },
     customizations: {
-      title: "The Titanic Store",
-      description: "Payment for an awesome cruise",
+      title: page.general.company_name,
+      description: "Payment for food order",
       logo:
         "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
     },
@@ -284,7 +352,9 @@ const makePayment = () => {
 };
 
 const generateReference = () => {
+  let abbv = page.general.company_abbrevation;
+  abbv += "_";
   let date = new Date();
-  return date.getTime().toString();
+  return abbv + date.getTime().toString();
 };
 </script>

@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\BlogcategoryController as AdminBlogcategoryContro
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart.index
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('frontend.checkout.index');
 
 Route::post('/checkout/store', [OrderController::class, 'store'])->name('frontend.checkout.store');
+
+Route::get('/payment-confirmation', [PaymentController::class, 'confirmation'])->name('frontend.payment.confirmation');
+Route::get('/payment-tester', [PaymentController::confirmPaymentStatus('QPF_1691696171063')])->name('frontend.payment.confirmation');
 
 Route::get('/faq', [CartController::class, 'faq'])->name('frontend.faq');
 

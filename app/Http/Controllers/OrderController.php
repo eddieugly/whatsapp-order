@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreOrderRequest;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UpdateOrderRequest;
 
 class OrderController extends Controller
@@ -51,16 +52,16 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $data = $request->safe()->only(['customer_name', 'customer_email', 'customer_phone', 'amount', 'payment_method', 'items']);
-
+        $data = $request->safe()->only(['customer_name', 'customer_email', 'customer_phone', 'amount', 'tx_ref', 'payment_method', 'cart']);
         $data['payment_status'] = 1;
         $data['order_status'] = 1;
 
         $order = Order::create($data);
 
-        return response()->json($order);
-
-
+        if ($request->payment_method == 1 && $request->tx_ref !== '') {
+            PaymentController::confirmPaymentStatus($request->tx_ref);
+        }
+        return Redirect::route('frontend.checkout.index')->with('success', 'Your Order Has Been Placed');
     }
 
     /**
