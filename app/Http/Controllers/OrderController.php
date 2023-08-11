@@ -12,7 +12,7 @@ use App\Http\Requests\UpdateOrderRequest;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display checkout page.
      */
     public function checkout()
     {
@@ -22,12 +22,12 @@ class OrderController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a order confirmation page.
      */
-    public function checkoutStore()
+    public function confirmation()
     {
-        return Inertia::render('Frontend/Checkout', [
-            'title' => 'Checkout',
+        return Inertia::render('Frontend/CheckoutSuccess', [
+            'title' => 'Order Confirmation',
         ]);
     }
 
@@ -61,7 +61,7 @@ class OrderController extends Controller
         if ($request->payment_method == 1 && $request->tx_ref !== '') {
             PaymentController::confirmPaymentStatus($request->tx_ref);
         }
-        return Redirect::route('frontend.checkout.index')->with('success', 'Your Order Has Been Placed');
+        return Redirect::route('frontend.order.confirmation')->with('success', 'Your Order Has Been Placed');
     }
 
     /**
