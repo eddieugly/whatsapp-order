@@ -22,16 +22,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Display a order confirmation page.
-     */
-    public function confirmation()
-    {
-        return Inertia::render('Frontend/CheckoutSuccess', [
-            'title' => 'Order Confirmation',
-        ]);
-    }
-
-    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -61,7 +51,31 @@ class OrderController extends Controller
         if ($request->payment_method == 1 && $request->tx_ref !== '') {
             PaymentController::confirmPaymentStatus($request->tx_ref);
         }
-        return Redirect::route('frontend.order.confirmation')->with('success', 'Your Order Has Been Placed');
+        return Redirect::route('frontend.order.confirmation', [
+            'order' => $order->ulid
+        ])->with('success', 'Your Order Has Been Placed');
+    }
+
+        /**
+     * Display a order confirmation page.
+     */
+    public function confirmation(Order $order)
+    {
+        if ($order->order_status == 0) {
+            $status = 'has been cancelled';
+        } elseif ($order->order_status == 1) {
+            $status = 'is been processed';
+        } elseif ($order->order_status == 2) {
+            $status = 'is ready for pickup';
+        } else {
+            $status = 'has been picked up';
+        }
+
+        return Inertia::render('Frontend/CheckoutSuccess', [
+            'title' => 'Order Confirmation',
+            'orderId' => $order->ulid,
+            'orderStatus' => $status,
+        ]);
     }
 
     /**
