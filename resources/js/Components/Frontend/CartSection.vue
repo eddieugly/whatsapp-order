@@ -12,7 +12,7 @@
         class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
       >
         <div
-          class="mx-auto w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50"
+          class="mx-auto md:w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50"
         >
           <Link :href="route('frontend.menus')">
             <FolderSearch />

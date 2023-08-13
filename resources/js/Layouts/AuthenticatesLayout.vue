@@ -1,34 +1,31 @@
 <script setup>
-import DashnavVue from '@/Components/Dashnav.vue';
-import SiderbarVue from '@/Components/Siderbar.vue';
-import { onMounted } from 'vue';
-import { initFlowbite } from 'flowbite';
-import Alert from '@/Components/Alert.vue';
-import DashboardFooter from '@/Components/DashboardFooter.vue';
-
+import DashnavVue from "@/Components/Dashnav.vue";
+import SiderbarVue from "@/Components/Siderbar.vue";
+import { onMounted } from "vue";
+import { initFlowbite } from "flowbite";
+import Alert from "@/Components/Alert.vue";
+import DashboardFooter from "@/Components/DashboardFooter.vue";
 
 onMounted(() => {
-    initFlowbite();
-})
+  initFlowbite();
+});
 </script>
 
 <template>
-    <div>
-        <div class="antialiased min-h-screen bg-gray-50 dark:bg-gray-900">
-            <!-- Dashboard SideBar -->
-            <DashnavVue />
+  <div>
+    <div class="antialiased min-h-screen bg-gray-50 dark:bg-gray-900">
+      <!-- Dashboard SideBar -->
+      <DashnavVue />
 
-            <!-- Dashboard SideBar -->
-            <SiderbarVue />
+      <!-- Dashboard SideBar -->
+      <SiderbarVue />
 
-            <!-- Page Content -->
-            <main class="p-4 md:ml-64 h-auto pt-20">
-
-                <slot />
-                <DashboardFooter />
-            </main>
-            <Alert />
-
-        </div>
+      <!-- Page Content -->
+      <main class="p-4 md:ml-64 h-auto pt-20">
+        <slot />
+        <DashboardFooter />
+      </main>
+      <Alert />
     </div>
+  </div>
 </template>

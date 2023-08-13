@@ -2,15 +2,14 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\GeneralResource;
-use App\Http\Resources\MenuResource;
-use App\Models\Category;
-use App\Models\General;
 use App\Models\Menu;
-use Illuminate\Http\Request;
+use App\Models\General;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use Illuminate\Http\Request;
+use App\Http\Resources\MenuResource;
+use App\Http\Resources\GeneralResource;
+use Illuminate\Support\Facades\DB;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -36,7 +35,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
+        $firstLoadOnlyProps = $request->user()?->can('manage order') ? ['orderNoticeCount' => DB::table('notifications')->whereNull('read_at')->count()] : [];
+
+        return array_merge(parent::share($request), $firstLoadOnlyProps, [
             'auth' => [
                 'user' => $request->user(),
             ],

@@ -28,7 +28,7 @@ class StoreOrderRequest extends FormRequest
             'customer_email' => ['bail', 'required', 'string', 'max:50'],
             'customer_phone' => ['bail', 'required', 'string', 'max:50'],
             'amount' => ['bail', 'required', 'numeric', 'gt:0'],
-            'tx_ref' => ['bail', 'sometimes', 'required', 'string', 'max:50'],
+            'tx_ref' => ['bail', 'sometimes', 'nullable', 'string', 'max:50'],
             'payment_method' => ['bail', 'required', 'integer', Rule::in(0, 1)],
             'cart' => ['bail', 'required', 'array'],
             'cart.*.id' => [Rule::exists(Menu::class, 'ulid')],

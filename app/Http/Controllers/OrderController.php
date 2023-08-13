@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Notifications\NewOrderNotification;
 
 class OrderController extends Controller
 {
@@ -47,6 +48,8 @@ class OrderController extends Controller
         $data['order_status'] = 1;
 
         $order = Order::create($data);
+
+        $order->notify(new NewOrderNotification($order));
 
         if ($request->payment_method == 1 && $request->tx_ref !== '') {
             PaymentController::confirmPaymentStatus($request->tx_ref);

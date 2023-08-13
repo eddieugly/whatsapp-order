@@ -104,6 +104,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
+Route::prefix('user')->name('user.')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        
+    });
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Mydashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
