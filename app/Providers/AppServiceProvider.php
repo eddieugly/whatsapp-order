@@ -7,6 +7,7 @@ use App\Models\Blogcategory;
 use App\Models\Category;
 use App\Models\General;
 use App\Models\Menu;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             'blogcategory' => Blogcategory::class,
             'blog' => Blog::class,
             'general' => General::class,
+            'order' => Order::class,
         ]);
     }
 }

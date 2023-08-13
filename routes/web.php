@@ -34,31 +34,38 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-
+// Home Route
 Route::get('/', [HomeControler::class, 'index'])->name('home');
 
-Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('frontend.category.index');
 
-Route::get('/categories', [CategoryController::class, 'general'])->name('frontend.categories');
+// Frontend Routes
+Route::name('frontend.')->group(function () {
 
-Route::get('/menus', [MenuController::class, 'general'])->name('frontend.menus');
+    Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
 
-Route::get('/menu/{menu:slug}', [MenuController::class, 'index'])->name('frontend.menu.index');
+    Route::get('/categories', [CategoryController::class, 'general'])->name('categories');
 
-Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart.index');
+    Route::get('/menus', [MenuController::class, 'general'])->name('menus');
 
-Route::get('/checkout', [OrderController::class, 'checkout'])->name('frontend.checkout.index');
+    Route::get('/menu/{menu:slug}', [MenuController::class, 'index'])->name('menu.index');
 
-Route::post('/checkout/store', [OrderController::class, 'store'])->name('frontend.checkout.store');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('/order-confirmation/{order}', [OrderController::class, 'confirmation'])->name('frontend.order.confirmation');
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
 
-Route::get('/faq', [CartController::class, 'faq'])->name('frontend.faq');
+    Route::post('/checkout/store', [OrderController::class, 'store'])->name('checkout.store');
 
-Route::get('/contact', [CartController::class, 'contact'])->name('frontend.contact.index');
+    Route::get('/order-confirmation/{order}', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
-Route::post('/contact', [CartController::class, 'contactStore'])->name('frontend.contact.store');
+    Route::get('/faq', [CartController::class, 'faq'])->name('faq');
 
+    Route::get('/contact', [CartController::class, 'contact'])->name('contact.index');
+
+    Route::post('/contact', [CartController::class, 'contactStore'])->name('contact.store');
+
+});
+
+// Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
@@ -66,7 +73,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return Inertia::render('Admin/Mydashboard');
         })->name('dashboard');
 
-        
+
         Route::resource('roles', AdminRoleController::class);
 
         Route::post('roles/attach-permission', AdminAttachPermissionToRoleController::class)->name('roles.attach-permission');
@@ -94,9 +101,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('general-settings', [AdminGeneralController::class, 'updateGeneral'])->name('settings.update');
 
         Route::post('general-settings-logo', [AdminGeneralController::class, 'logoUpdate'])->name('settings.update.logo');
-        
     });
-    
 });
 
 Route::get('/dashboard', function () {
@@ -109,4 +114,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
