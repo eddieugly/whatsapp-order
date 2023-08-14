@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
 function uploadImage($file, $location, $size = null, $old = null, $thumb = null)
@@ -131,4 +132,11 @@ function random_string($length)
     }
 
     return $random_string;
+}
+
+function diffForHumans($date)
+{
+    $lang = session()->get('lang');
+    Carbon::setlocale($lang);
+    return Carbon::parse($date)->diffForHumans();
 }

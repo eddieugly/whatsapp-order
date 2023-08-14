@@ -9,6 +9,8 @@ use Tightenco\Ziggy\Ziggy;
 use Illuminate\Http\Request;
 use App\Http\Resources\MenuResource;
 use App\Http\Resources\GeneralResource;
+use App\Http\Resources\NotificationResource;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 
 class HandleInertiaRequests extends Middleware
@@ -35,7 +37,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $firstLoadOnlyProps = $request->user()?->can('manage order') ? ['orderNoticeCount' => DB::table('notifications')->whereNull('read_at')->count()] : [];
+        $firstLoadOnlyProps = $request->user()?->can('manage order') ? [
+            'orderNoticeCount' => Notification::query()->unRead()->count(),
+            'orderNotice' => NotificationResource::collection(Notification::select('id', 'data', 'created_at', 'read_at')->unRead()->latest()->get()),
+        ] : [];
 
         return array_merge(parent::share($request), $firstLoadOnlyProps, [
             'auth' => [
