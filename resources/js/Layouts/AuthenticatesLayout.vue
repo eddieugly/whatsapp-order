@@ -8,6 +8,9 @@ import DashboardFooter from "@/Components/DashboardFooter.vue";
 
 onMounted(() => {
   initFlowbite();
+  window.Echo.private("orders").notification((notification) => {
+    console.log(notification);
+  });
 });
 </script>
 

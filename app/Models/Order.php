@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Broadcasting\PrivateChannel;
 
 class Order extends Model
 {
@@ -63,5 +64,13 @@ class Order extends Model
     {
         // Return email address and name...
         return [$this->customer_email => $this->customer_name];
+    }
+
+    /**
+     * The channels the user receives notification broadcasts on.
+     */
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'orders';
     }
 }
