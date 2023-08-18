@@ -180,9 +180,9 @@
               <div class="pl-3 w-full">
                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">
                   New order from
-                  <span class="font-semibold text-gray-900 dark:text-white">{{
-                    order.data.name
-                  }}</span>
+                  <span class="font-semibold text-gray-900 dark:text-white">
+                    {{ order.data.name }} {{ order.data.email }}
+                  </span>
                 </div>
                 <div class="text-xs font-medium text-primary-600 dark:text-primary-500">
                   {{ order.created_at }}
