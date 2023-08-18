@@ -73,4 +73,40 @@ class Order extends Model
     {
         return 'orders';
     }
+    
+    public function scopePaymentFailed($builder) {
+        return $builder->where('payment_status', 0);
+    }
+
+    public function scopePaymentPending($builder) {
+        return $builder->where('payment_status', 1);
+    }
+
+    public function scopePaymentCompleted($builder) {
+        return $builder->where('payment_status', 2);
+    }
+
+    public function scopePayOnPickup($builder) {
+        return $builder->where('payment_method', 0);
+    }
+
+    public function scopePayNow($builder) {
+        return $builder->where('payment_method', 1);
+    }
+
+    public function scopeOrderCancelled($builder) {
+        return $builder->where('order_status', 0);
+    }
+
+    public function scopeOrderPending($builder) {
+        return $builder->where('order_status', 1);
+    }
+
+    public function scopeOrderCompleted($builder) {
+        return $builder->where('order_status', 2);
+    }
+
+    public function scopeOrderPicked($builder) {
+        return $builder->where('order_status', 3);
+    }
 }

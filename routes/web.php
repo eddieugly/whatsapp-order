@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\BlogcategoryController as AdminBlogcategoryContro
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\PaymentController;
 
 /*
@@ -101,6 +102,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('general-settings', [AdminGeneralController::class, 'updateGeneral'])->name('settings.update');
 
         Route::post('general-settings-logo', [AdminGeneralController::class, 'logoUpdate'])->name('settings.update.logo');
+
+        Route::resource('orders', AdminOrderController::class);
     });
 });
 

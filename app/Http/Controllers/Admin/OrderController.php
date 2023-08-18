@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class OrderController extends Controller
 {
-    private string $routeResourceName = 'order';
+    private string $routeResourceName = 'orders';
 
     public function __construct() {
         $this->middleware('can:view order')->only('index');
@@ -32,46 +32,50 @@ class OrderController extends Controller
                 'customer_name',
                 'customer_email',
                 'customer_phone',
-                'payment_method',
+                'cart',
+                'addon',
+                'tx_ref',
                 'payment_status',
+                'payment_method',
                 'order_status',
+                'created_at',
             ])
             ->when(Request::input('id'), fn (Builder $builder, $id) => $builder->where('ulid', 'like', "%{$id}%"))
-            ->when(Request::input('customer_name'), fn (Builder $builder, $customer_name) => $builder->where('customer_name', 'like', "%{$customer_name}%"))
-            ->when(Request::input('customer_email'), fn (Builder $builder, $customer_email) => $builder->where('customer_email', 'like', "%{$customer_email}%"))
-            ->when(Request::input('customer_phone'),
-            fn (Builder $builder, $customer_phone) => $builder->where('customer_phone', 'like', "%{$customer_phone}%"))
-            ->when(
-                Request::input('status') !== null,
+            ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('customer_name', 'like', "%{$name}%"))
+            ->when(Request::input('email'), fn (Builder $builder, $email) => $builder->where('customer_email', 'like', "%{$email}%"))
+            ->when(Request::input('phone'), fn (Builder $builder, $phone) => $builder->where('customer_phone', 'like', "%{$phone}%"))
+            ->when(Request::input('payment_status') !== null,
                 fn (Builder $builder) => $builder->when(
-                    Request::input('status') == true ?
-                    fn (Builder $builder) => $builder->active() :
-                    fn (Builder $builder) => $builder->inActive()
+                    Request::input('payment_status') == 2 ?
+                    fn (Builder $builder) => $builder->paymentCompleted() :
+                    (Request::input('payment_status') == 1 ?
+                    fn (Builder $builder) => $builder->paymentPending() :
+                    fn (Builder $builder) => $builder->paymentFailed())
                 )
             )
-            ->when(
-                Request::input('featured') !== null,
+            ->when(Request::input('payment_method') !== null,
                 fn (Builder $builder) => $builder->when(
-                    Request::input('featured') == true ?
-                    fn (Builder $builder) => $builder->featured() :
-                    fn (Builder $builder) => $builder->notFeatured()
+                    Request::input('payment_method') == 1 ?
+                    fn (Builder $builder) => $builder->payNow() :
+                    fn (Builder $builder) => $builder->payOnPickup()
                 )
             )
-            ->when(
-                Request::input('slider') !== null,
+            ->when(Request::input('order_status') !== null,
                 fn (Builder $builder) => $builder->when(
-                    Request::input('slider') == true ?
-                    fn (Builder $builder) => $builder->onSlider() :
-                    fn (Builder $builder) => $builder->noSlider()
+                    Request::input('order_status') == 3 ?
+                    fn (Builder $builder) => $builder->orderPicked() :
+                    (Request::input('order_status') == 2 ?
+                    fn (Builder $builder) => $builder->orderCompleted() :
+                    fn (Builder $builder) => $builder->orderPending())
                 )
             )
             ->latest('id')
             ->paginate(10)
             ->withQueryString();
 
-            return Inertia::render('Admin/Menu/Index', [
+            return Inertia::render('Admin/Order/Index', [
                 'title' => 'Orders',
-                'filters' => Request::only(['name', 'categoryId', 'active', 'featured', 'slider']),
+                'filters' => Request::only(['id', 'name', 'email', 'phone', 'payment_status', 'payment_method', 'order_status']),
                 'items' => OrderResource::collection($orders),
                 'headers' => [
                     [
@@ -87,16 +91,20 @@ class OrderController extends Controller
                         'name' => 'amount'
                     ],
                     [
-                        'label' => 'Payment Method',
-                        'name' => 'payment_method'
-                    ],
-                    [
                         'label' => 'Payment Status',
                         'name' => 'payment_status'
                     ],
                     [
+                        'label' => 'Payment Method',
+                        'name' => 'payment_method'
+                    ],
+                    [
                         'label' => 'Order Status',
                         'name' => 'order_status'
+                    ],
+                    [
+                        'label' => 'View Order',
+                        'name' => 'order_view'
                     ],
                     [
                         'label' => 'Action',
@@ -105,8 +113,8 @@ class OrderController extends Controller
                 ],
                 'routeResourceName' => $this->routeResourceName,
                 'can' => [
-                    'manager' => Request::user()->can('create order'),
-                    'edit' => Request::user()->can('edit order'),
+                    'manage' => Request::user()->can('manage order'),
+                    'edit' => Request::user()->can('update order'),
                     'delete' => Request::user()->can('delete order'),
                 ],
             ]);
