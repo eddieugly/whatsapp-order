@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Database\Eloquent\Builder;
 
 class OrderController extends Controller
@@ -16,7 +18,7 @@ class OrderController extends Controller
     public function __construct() {
         $this->middleware('can:view order')->only('index');
         $this->middleware('can:create order')->only(['create', 'store']);
-        $this->middleware('can:edit order')->only(['edit', 'update']);
+        $this->middleware('can:manage order')->only(['edit', 'update']);
         $this->middleware('can:delete order')->only('destroy');
     }
    /**
@@ -121,10 +123,37 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      */
-    public function show(Order $order)
+    public function edit(Order $order)
     {
-        //
+        return Inertia::render('Admin/Order/Edit', [
+            'title' => 'Update Order',
+            'item' => new OrderResource($order),
+            'routeResourceName' => $this->routeResourceName,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateOrderRequest $request, Order $order)
+    {
+
+        $data = $request->safe()->only(['customer_name', 'customer_email', 'customer_phone', 'order_status']);
+
+        $order->update($data);
+
+        return Redirect::route('admin.orders.index')->with('success', 'Order Updated Successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return Redirect::back()->with('success', 'Order Deleted Successfully');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateOrderRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->can('manage order');
     }
 
     /**
@@ -22,7 +23,10 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customer_name' => ['bail', 'required', 'string', 'max:50'],
+            'customer_email' => ['bail', 'required', 'string', 'max:50'],
+            'customer_phone' => ['bail', 'required', 'string', 'max:50'],
+            'order_status' => ['bail', 'required', 'integer', Rule::in(0, 1, 2, 3)],
         ];
     }
 }

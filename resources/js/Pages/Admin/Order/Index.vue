@@ -4,7 +4,7 @@
   <AuthenticatesLayout>
     <Card>
       <h5
-        class="mb-2 p-5 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
+        class="p-5 text-2xl border-b-2 font-semibold tracking-tight text-gray-900 dark:text-white"
       >
         Order List
       </h5>
