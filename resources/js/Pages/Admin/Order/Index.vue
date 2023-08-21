@@ -9,7 +9,7 @@
         Order List
       </h5>
 
-      <Filters v-model="filters" :can-create="can.create" />
+      <Filters v-model="filters" :can-create="can.create" :filters="filters" />
 
       <Table :headers="headers" :items="items">
         <template v-slot="{ item }">
@@ -202,7 +202,6 @@ const props = defineProps({
   },
   filters: {
     type: Object,
-    default: () => ({}),
   },
   can: Object,
 });

@@ -50,6 +50,11 @@ const submit = () => {
 
   <AuthenticatesLayout>
     <Card>
+      <h5
+        class="p-5 text-2xl border-b-2 font-semibold tracking-tight text-gray-900 dark:text-white"
+      >
+        Update Order
+      </h5>
       <div class="items-center p-5 sm:p-8 lg:p-10 mx-auto max-w-2xl rounded">
         <form @submit.prevent="submit">
           <div class="grid gap-4 sm:grid-cols-2">

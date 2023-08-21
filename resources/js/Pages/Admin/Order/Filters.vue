@@ -86,11 +86,14 @@ const props = defineProps({
     type: Boolean,
     default: () => true,
   },
+  filters: {
+    type: Object,
+  },
 });
 
 const emits = defineEmits(["update:modelValue"]);
 
-const filters = ref({ ...props.modelValue });
+const filters = ref({ ...props.filters });
 
 watch(
   filters,

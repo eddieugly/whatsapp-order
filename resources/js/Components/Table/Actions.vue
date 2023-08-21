@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import { Link } from "@inertiajs/vue3";
 import Action from "@/Components/Icons/Action.vue";
 
@@ -17,9 +18,14 @@ defineProps({
   },
 });
 
-const dropId = "dropdown-button-" + parseInt(Math.random() * 10000000).toString();
-
-const dripEd = "dropdown-" + parseInt(Math.random() * 10000000).toString();
+const dropId = computed(() => {
+  let id = "dropdown-button-" + parseInt(Math.random() * 10000000).toString();
+  return id;
+});
+const dripEd = computed(() => {
+  let id = "dropdown-" + parseInt(Math.random() * 10000000).toString();
+  return id;
+});
 
 const emits = defineEmits(["deleteClicked"]);
 </script>
@@ -30,7 +36,6 @@ const emits = defineEmits(["deleteClicked"]);
     :data-dropdown-toggle="dripEd"
     :data-dropdown-targer="dripEd"
     class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-    type="button"
   >
     <Action class="w-5 h-5" />
   </button>

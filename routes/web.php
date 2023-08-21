@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsControll
 use App\Http\Controllers\Admin\BlogcategoryController as AdminBlogcategoryController;
 use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesController;
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\PaymentController;
@@ -70,9 +71,7 @@ Route::name('frontend.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Mydashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
 
         Route::resource('roles', AdminRoleController::class);

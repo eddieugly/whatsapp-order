@@ -17,8 +17,7 @@ export default function (params) {
 
   function fetchItems() {
     router.get(route(`admin.${routeResourceName}.index`), {
-      ...filters.value,
-      page: 1,
+      ...filters.value
     }, {
       preserveState: true,
       preserveScroll: true,

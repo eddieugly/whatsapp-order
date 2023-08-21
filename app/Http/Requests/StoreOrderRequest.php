@@ -32,6 +32,7 @@ class StoreOrderRequest extends FormRequest
             'payment_method' => ['bail', 'required', 'integer', Rule::in(0, 1)],
             'cart' => ['bail', 'required', 'array'],
             'cart.*.id' => [Rule::exists(Menu::class, 'ulid')],
+            'cart.*.name' => [Rule::exists(Menu::class, 'name')],
             'cart.*.quantity' => ['bail', 'required', 'integer', 'gte:1'],
             'cart.*.price' => ['bail', 'required', 'numeric', 'gte:0'],
         ];
