@@ -46,12 +46,6 @@ class Blog extends Model implements HasMedia
         });
     }
 
-    // protected function price() : Attribute {
-    //     return Attribute::make(
-    //         get: fn (string $value) => number_format($value, 2),
-    //     );
-    // }
-
     public function getRouteKeyName(): string
     {
         return 'ulid';

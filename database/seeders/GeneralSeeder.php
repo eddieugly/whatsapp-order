@@ -14,7 +14,7 @@ class GeneralSeeder extends Seeder
     public function run(): void
     {
         General::create([
-            'company_name' => 'QuickPick Foods',
+            'company_name' => 'QuickPick',
             'company_tagline' => 'Order Food & QuickPick It',
             'company_abbrevation' => 'QPF',
             'company_description' => 'A quick way to order and get food online in Karu Metropolis & Its evirons',

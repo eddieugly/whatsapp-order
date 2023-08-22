@@ -40,9 +40,9 @@ class Blogcategory extends Model
         return 'ulid';
     }
 
-    // public function menu() : HasMany {
-    //     return $this->hasMany(Menu::class);
-    // }
+    public function blog() : HasMany {
+        return $this->hasMany(Blog::class);
+    }
 
     function scopeActive($builder) {
         return $builder->where('status', true);

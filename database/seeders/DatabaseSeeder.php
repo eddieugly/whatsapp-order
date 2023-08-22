@@ -30,9 +30,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(GeneralSeeder::class);
 
-        Category::factory()->count(15)->create();
-        Menu::factory()->count(30)->hasCategory(1)->create();
-        Blogcategory::factory()->count(15)->create();
-        Blog::factory()->count(15)->hasBlogcategory(1)->create();
+        Category::factory()->count(10)->has(Menu::factory()->count(3))->create();
+        Blogcategory::factory()->count(10)->has(Blog::factory()->count(3))->create();
     }
 }

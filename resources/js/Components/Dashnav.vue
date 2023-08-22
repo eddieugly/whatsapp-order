@@ -102,7 +102,7 @@
               </a>
             </li>
           </ul>
-          <a href="#"
+          <Link :href="route('admin.orders.index')"
             class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
             <div class="inline-flex items-center ">
               <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -112,7 +112,7 @@
               </svg>
               View all
             </div>
-          </a>
+          </Link>
         </div>
         <!-- Apps -->
         <button type="button" data-dropdown-toggle="apps-dropdown"

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Menu;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,5 +32,21 @@ class MenuFactory extends Factory
             'slider' => fake()->boolean(50),
             'thumbnail' => fake()->imageUrl(500, 500, null, null, null, null, 'png'),
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Menu $menu) {
+
+            $image_url = fake()->imageUrl(500, 500, null, null, null, null, 'png');
+
+            for ($i=0; $i < 3; $i++) { 
+                $menu->addMediaFromUrl($image_url)->withResponsiveImages()->toMediaCollection();
+            };
+
+        });
     }
 }
