@@ -39,7 +39,10 @@ class HandleInertiaRequests extends Middleware
     {
         $firstLoadOnlyProps = $request->user()?->can('manage order') ? [
             'orderNoticeCount' => Notification::query()->unRead()->count(),
-            'orderNotice' => NotificationResource::collection(Notification::select('id', 'data', 'created_at', 'read_at')->unRead()->latest()->get()),
+            'orderNotice' => NotificationResource::collection(
+                Notification::select('id', 'data', 'created_at', 'read_at'
+            )->unRead()
+            ->latest()->get()),
         ] : [];
 
         return array_merge(parent::share($request), $firstLoadOnlyProps, [

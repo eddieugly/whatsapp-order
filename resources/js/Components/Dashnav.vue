@@ -3,113 +3,69 @@
     class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex justify-start items-center">
-        <button id="toggleSidebar" aria-expanded="true" aria-controls="sidebar"
-          class="hidden p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd"></path>
-          </svg>
+        <button id="toggleSidebar" aria-expanded="true" aria-controls="sidebar" class="hidden p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+          <SidebarToggle />
         </button>
+
         <button data-drawer-target="drawer-navigation-sidebar" data-drawer-toggle="drawer-navigation-sidebar"
           aria-controls="drawer-navigation-sidebar"
           class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <svg aria-hidden="true" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
+          <SidebarToggle />
+          <SidebarClose />
           <span class="sr-only">Toggle sidebar</span>
         </button>
+
         <Link :href="route('admin.dashboard')" class="flex items-center justify-between mr-4">
-        <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuickPick</span>
+          <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="Logo" />
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuickPick</span>
         </Link>
-        <form action="#" method="GET" class="hidden md:block md:pl-2">
-          <label for="topbar-search" class="sr-only">Search</label>
-          <div class="relative sm:w-64 md:w-96">
-            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z">
-                </path>
-              </svg>
-            </div>
-            <input type="text" name="email" id="topbar-search"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Search" />
-          </div>
-        </form>
+
       </div>
+
       <div class="flex items-center lg:order-2">
-        <button type="button" data-drawer-toggle="drawer-navigation-sidebar" aria-controls="drawer-navigation-sidebar"
-          class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-          <span class="sr-only">Toggle search</span>
-          <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z">
-            </path>
-          </svg>
-        </button>
+        
         <!-- Notifications -->
-        <button id="dropdownUsersButton" type="button" data-dropdown-toggle="notification-dropdown"
+        <button
+          :disabled="orderNoticeCount == 0"
+          id="dropdownUsersButton"
+          type="button"
+          data-dropdown-toggle="notification-dropdown"
           class="relative p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
           <span class="sr-only">View notifications</span>
           <div
             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-yellow-600 border-2 border-white rounded-full -top-2 right-0 dark:border-gray-900">
-            {{ $page.props.orderNoticeCount }}
+            {{ orderNoticeCount }}
           </div>
           <!-- Bell icon -->
-          <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-            </path>
-          </svg>
+          <DashNavBellIcon />
         </button>
+
         <!-- Dropdown menu -->
         <div id="notification-dropdown" class="z-10 hidden bg-white rounded-lg shadow max-w-sm dark:bg-gray-700">
           <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
             <li v-if="orderNotices" v-for="order in orderNotices" :key="order.id">
-              <a href="#" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
-                <div class="flex-shrink-0">
-                  <svg class="w-11 h-11 text-red-800 dark:text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M15.133 10.632v-1.8a5.406 5.406 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C4.867 13.018 3 13.614 3 14.807 3 15.4 3 16 3.538 16h12.924C17 16 17 15.4 17 14.807c0-1.193-1.867-1.789-1.867-4.175ZM4 4a1 1 0 0 1-.707-.293l-1-1a1 1 0 0 1 1.414-1.414l1 1A1 1 0 0 1 4 4ZM2 8H1a1 1 0 0 1 0-2h1a1 1 0 1 1 0 2Zm14-4a1 1 0 0 1-.707-1.707l1-1a1 1 0 1 1 1.414 1.414l-1 1A1 1 0 0 1 16 4Zm3 4h-1a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2ZM6.823 17a3.453 3.453 0 0 0 6.354 0H6.823Z" />
-                  </svg>
+              <Link :href="route('admin.orders.edit', { order: order.data.id })"
+                class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+              <div class="flex-shrink-0">
+                <DashNavAlertIcon />
+              </div>
+              <div class="pl-3 w-full">
+                <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">
+                  New order from
+                  <span class="font-semibold text-gray-900 dark:text-white">
+                    {{ order.data.name }} {{ order.data.email }}
+                  </span>
                 </div>
-                <div class="pl-3 w-full">
-                  <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">
-                    New order from
-                    <span class="font-semibold text-gray-900 dark:text-white">
-                      {{ order.data.name }} {{ order.data.email }}
-                    </span>
-                  </div>
-                  <div class="text-xs font-medium text-primary-600 dark:text-primary-500">
-                    {{ order.created_at }}
-                  </div>
+                <div class="text-xs font-medium text-primary-600 dark:text-primary-500">
+                  {{ order.created_at }}
                 </div>
-              </a>
+              </div>
+              </Link>
             </li>
           </ul>
-          <Link :href="route('admin.orders.index')"
-            class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+          <Link :href="route('admin.orders.index')" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
             <div class="inline-flex items-center ">
-              <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                <path
-                  d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
-              </svg>
+              <DashAlertViewAllIcon />
               View all
             </div>
           </Link>
@@ -126,11 +82,8 @@
           </svg>
         </button>
         <!-- Dropdown menu -->
-        <div
-          class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600"
-          id="apps-dropdown">
-          <div
-            class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
+        <div class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600" id="apps-dropdown">
+          <div class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
             Apps
           </div>
           <div class="grid grid-cols-3 gap-4 p-4">
@@ -229,6 +182,7 @@
             </a>
           </div>
         </div>
+        <ToggleView />
         <button type="button"
           class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
@@ -296,8 +250,15 @@ import Search from "./Icons/Search.vue";
 import MyProfile from "./Icons/MyProfile.vue";
 import ProfileSettings from "./Icons/ProfileSettings.vue";
 import LogOut from "./Icons/LogOut.vue";
+import DashNavBellIcon from "./Icons/Dashboard/DashNavBellIcon.vue";
+import DashNavAlertIcon from "./Icons/Dashboard/DashNavAlertIcon.vue";
+import DashAlertViewAllIcon from "./Icons/Dashboard/DashAlertViewAllIcon.vue";
+import SidebarToggle from "./Icons/SidebarToggle.vue";
+import SidebarClose from "./Icons/SidebarClose.vue";
+import ToggleView from "./ToggleView.vue";
 
 const page = usePage();
 
 const orderNotices = ref(page.props.orderNotice);
+const orderNoticeCount = ref(page.props.orderNoticeCount);
 </script>

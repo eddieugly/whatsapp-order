@@ -127,6 +127,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
+        $order->unreadNotifications->markAsRead();
+        
         return Inertia::render('Admin/Order/Edit', [
             'title' => 'Update Order',
             'item' => new OrderResource($order),
