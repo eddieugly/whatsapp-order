@@ -78,6 +78,7 @@ class OrderController extends Controller
             'title' => 'Order Confirmation',
             'orderId' => $order->ulid,
             'orderStatus' => $status,
+            'statuses' => $order->order_status,
         ]);
     }
 

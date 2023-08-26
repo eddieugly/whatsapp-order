@@ -8,7 +8,7 @@
     />
 
     <!-- Order Success Section -->
-    <OrderSuccessSection :order-id="orderId" :order-status="orderStatus" />
+    <OrderSuccessSection :statuses="statuses" :order-id="orderId" :order-status="orderStatus" />
     <!-- End of Order Success Section -->
 
     <!-- How It Works Section -->
@@ -48,6 +48,9 @@ const props = defineProps({
   },
   orderStatus: {
     type: String,
+  },
+  statuses: {
+    type: Number,
   },
 });
 
