@@ -19,7 +19,6 @@ export default function (params) {
     router.get(route(`admin.${routeResourceName}.index`), {
       ...filters.value
     }, {
-      preserveState: true,
       preserveScroll: true,
       replace: true,
     });
