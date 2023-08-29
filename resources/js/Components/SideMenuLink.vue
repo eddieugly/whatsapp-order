@@ -11,6 +11,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    linkName: {
+        type: String,
+        required: true,
+    },
 });
 
 const classes = computed(() =>
@@ -22,6 +26,6 @@ const classes = computed(() =>
 
 <template>
     <Link :href="href" :class="classes">
-    <slot />
+        {{ linkName }}
     </Link>
 </template>

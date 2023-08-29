@@ -31,8 +31,7 @@ const classes = computed(() =>
 </script>
 
 <template>
-    <button type="button" :class="classes" :aria-controls="dropId" :data-collapse-toggle="dropId"
-        :aria-expanded="areaExpand">
+    <button type="button" :class="classes" :aria-controls="dropId" :data-collapse-toggle="dropId" :aria-expanded="areaExpand">
         <slot name="menuIcon" />
         
         <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ label }}</span>

@@ -1,6 +1,5 @@
 <template>
-  <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+  <aside class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="drawer-navigation-sidebar"
     id="drawer-navigation-sidebar"
   >
@@ -8,93 +7,72 @@
       
       <ul class="space-y-2">
         <li>
-          <Sidelink
-            :href="route('admin.dashboard')"
-            :active="route().current('admin.dashboard')"
-          >
+          <Sidelink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
             <Dashboard />
             <span class="ml-3">Dashboard</span>
           </Sidelink>
         </li>
 
         <li>
-          <Sidelink
-            :href="route('admin.orders.index')"
-            :active="route().current('admin.orders*')"
-          >
+          <Sidelink :href="route('admin.orders.index')" :active="route().current('admin.orders*')">
             <Order />
             <span class="ml-3">Orders</span>
           </Sidelink>
         </li>
 
         <li>
-          <Sidelink
-            :href="route('admin.roles.index')"
-            :active="route().current('admin.roles*')"
-          >
-            <Roles />
-            <span class="ml-3">Roles</span>
-          </Sidelink>
+          <SideSubMenu label="Authorization" :area-expand="(route().current('admin.roles*') || route().current('admin.permissions*'))">
+            <template #menuIcon>
+              <Permissions />
+            </template>
+            <template #default>
+              <li>
+                <SideMenuLink link-name="Roles" :href="route('admin.roles.index')" :active="route().current('admin.roles*')" />
+              </li>
+              <li>
+                <SideMenuLink link-name="Permissions" :href="route('admin.permissions.index')" :active="route().current('admin.permissions*')" />
+              </li>
+            </template>
+          </SideSubMenu>
         </li>
 
         <li>
-          <Sidelink
-            :href="route('admin.permissions.index')"
-            :active="route().current('admin.permissions*')"
-          >
-            <Permissions />
-            <span class="ml-3">Permissions</span>
-          </Sidelink>
-        </li>
-
-        <li>
-          <Sidelink
-            :href="route('admin.users.index')"
-            :active="route().current('admin.users*')"
-          >
+          <Sidelink :href="route('admin.users.index')" :active="route().current('admin.users*')" >
             <Users />
             <span class="ml-3">Users</span>
           </Sidelink>
         </li>
 
         <li>
-          <Sidelink
-            :href="route('admin.category.index')"
-            :active="route().current('admin.category*')"
-          >
-            <Category />
-            <span class="ml-3">Menu Category</span>
-          </Sidelink>
+          <SideSubMenu label="Menus" :area-expand="(route().current('admin.category*') || route().current('admin.menu*'))">
+            <template #menuIcon>
+              <Menu />
+            </template>
+            <template #default>
+              <li>
+                <SideMenuLink link-name="Menu Category" :href="route('admin.category.index')" :active="route().current('admin.category*')" />
+              </li>
+              <li>
+                <SideMenuLink link-name="Menu List" :href="route('admin.menu.index')" :active="route().current('admin.menu*')" />
+              </li>
+            </template>
+          </SideSubMenu>
         </li>
 
         <li>
-          <Sidelink
-            :href="route('admin.menu.index')"
-            :active="route().current('admin.menu*')"
-          >
-            <Menu />
-            <span class="ml-3">Menu List</span>
-          </Sidelink>
-        </li>
-
-        <li>
-          <Sidelink
-            :href="route('admin.blog-category.index')"
-            :active="route().current('admin.blog-category*')"
-          >
-            <Category />
-            <span class="ml-3">Blog Category</span>
-          </Sidelink>
-        </li>
-
-        <li>
-          <Sidelink
-            :href="route('admin.blogs.index')"
-            :active="route().current('admin.blogs*')"
-          >
-            <BlogList />
-            <span class="ml-3">Blog List</span>
-          </Sidelink>
+          <SideSubMenu label="Blogs" :area-expand="(route().current('admin.blog-category*') || route().current('admin.blogs*'))">
+            <template #menuIcon>
+              <BlogList />
+            </template>
+            <template #default>
+              <li>
+                <SideMenuLink link-name="Blog Category" :href="route('admin.blog-category.index')" :active="route().current('admin.blog-category*')" />
+              </li>
+              <li>
+                <SideMenuLink link-name="Blog List" :href="route('admin.blogs.index')" :active="route().current('admin.blogs*')" />
+              </li>
+            </template>
+          </SideSubMenu>
         </li>
 
         <li>
@@ -362,6 +340,8 @@ import Menu from "./Icons/Menu.vue";
 import Settings from "./Icons/Settings.vue";
 import BlogList from "./Icons/BlogList.vue";
 import Order from "./Icons/Order.vue";
+import SideSubMenu from "./SideSubMenu.vue";
+import SideMenuLink from "./SideMenuLink.vue";
 </script>
 
 <style lang="scss" scoped></style>

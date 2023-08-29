@@ -61,7 +61,7 @@ defineProps({
     
     <DashCard :card-link="route('admin.orders.index')" :card-header="`₦${(total_sales_today / 100).toLocaleString()}`" card-paragraph="Total Sales Today">
       <div class="flex h-12 w-12 items-center justify-center rounded-full border border-blue-100 bg-blue-50">
-        <DashWalletIcon />
+        <DashWalletIcon class="text-blue-400" />
       </div>
     </DashCard>
 
@@ -73,7 +73,7 @@ defineProps({
 
     <DashCard :card-link="route('admin.orders.index')" :card-header="`₦${(total_sales / 100).toLocaleString()}`" card-paragraph="Total Sales">
       <div class="flex h-12 w-12 items-center justify-center rounded-full border border-purple-100 bg-purple-50">
-        <DashWalletIcon />
+        <DashWalletIcon class="text-purple-400" />
       </div>
     </DashCard>
 
