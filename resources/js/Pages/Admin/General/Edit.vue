@@ -161,6 +161,6 @@ const submit = () => {
       </div>
     </Card>
 
-    <Logo class="mt-10" />
+    <Logo :general-id="item.id" class="mt-10" />
   </AuthenticatesLayout>
 </template>

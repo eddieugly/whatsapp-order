@@ -51,8 +51,6 @@ class GeneralController extends Controller
 
     public function logoUpdate(UpdateLogoRequest $request): RedirectResponse
     {
-
-        dd($request->generalID);
         
         if ($request->hasFile('company_logo_white')) {
             
@@ -62,7 +60,7 @@ class GeneralController extends Controller
                 if (!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                Image::make($file)->save($path . '/logo_white.' . $file->getClientOriginalExtension());
+                Image::make($file)->save($path . '/logo_white.png');
             } catch (\Exception $exp) {
                 $errorMessage = $exp->getMessage();                
                 return Redirect::back()->with('error', $errorMessage);
@@ -77,7 +75,7 @@ class GeneralController extends Controller
                 if (!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                Image::make($file)->save($path . '/logo_dark.' . $file->getClientOriginalExtension());
+                Image::make($file)->save($path . '/logo_dark.png');
             } catch (\Exception $exp) {
                 $errorMessage = $exp->getMessage();                
                 return Redirect::back()->with('error', $errorMessage);
@@ -91,13 +89,27 @@ class GeneralController extends Controller
                 if (!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                Image::make($file)->save($path . '/favicon.' . $file->getClientOriginalExtension());
+                Image::make($file)->save($path . '/favicon.png');
             } catch (\Exception $exp) {
                 $errorMessage = $exp->getMessage();                
                 return Redirect::back()->with('error', $errorMessage);
             }
         }
 
-        return Redirect::back()->with('success', 'Logo $ FavIcon Updated Successfully');
+        if ($request->hasFile('company_seo')) {
+            try {
+                $file = $request->company_seo;
+                $path = imagePath()['seo']['path'];
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
+                Image::make($file)->save($path . '/seo.png');
+            } catch (\Exception $exp) {
+                $errorMessage = $exp->getMessage();                
+                return Redirect::back()->with('error', $errorMessage);
+            }
+        }
+
+        return Redirect::back()->with('success', 'Image Updated Successfully');
     }
 }

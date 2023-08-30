@@ -7,7 +7,7 @@ export default function useAlerts() {
     const removeAlert = (id) => {
         setTimeout(() => {
             alerts.value = alerts.value.filter(alert => alert.id !== id);
-        }, 5000);
+        }, 4000);
     };
 
     const addAlert = (alert, type) => {

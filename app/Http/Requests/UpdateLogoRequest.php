@@ -28,6 +28,7 @@ class UpdateLogoRequest extends FormRequest
             'company_logo_white' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'company_logo_dark' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'company_favicon' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
+            'company_seo' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
         ];
     }
 }

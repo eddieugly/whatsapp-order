@@ -92,7 +92,7 @@ function imagePath()
     ];
     $data['categoryThumbnail'] = [
         'path' => 'assets/img/categoryThumbnail',
-        'size' => '500x500'
+        'size' => '500x375'
     ];
     $data['menuThumbnail'] = [
         'path' => 'assets/img/menuThumbnail',

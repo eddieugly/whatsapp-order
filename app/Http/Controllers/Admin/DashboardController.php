@@ -56,6 +56,6 @@ class DashboardController extends Controller
             'active_menus' => $active_menus,
             'registered_customers' => $registered_customers,
             'daily_orders' => $daily_orders,
-        ])->with('success', 'Is It Working?');
+        ]);
     }
 }

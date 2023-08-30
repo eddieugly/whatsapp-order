@@ -48,5 +48,10 @@ class AppServiceProvider extends ServiceProvider
             'general' => General::class,
             'order' => Order::class,
         ]);
+
+        view()->composer('*', function ($view) {
+            $general = General::latest('created_at')->first();
+            $view->with(['general' => $general]);
+        });
     }
 }
