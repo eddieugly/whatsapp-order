@@ -16,9 +16,7 @@
                         {{ item.created_at_formatted }}
                     </Td>
                     <Td class="flex items-center">
-                        <Actions @deleteClicked="showModal(item)"
-                            :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })"
-                            :modal-place="(items.lenght - 1)" />
+                        <Actions @deleteClicked="showModal(item)" :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" />
                     </Td>
                 </template>
             </Table>
@@ -49,7 +47,6 @@
 <script setup>
 import AuthenticatesLayout from '@/Layouts/AuthenticatesLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import Section from '@/Components/Section.vue';
 import Card from '@/Components/Card/Card.vue'
 import Table from '@/Components/Table/Table.vue';
 import Td from '@/Components/Table/Td.vue';

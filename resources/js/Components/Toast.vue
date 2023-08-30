@@ -10,6 +10,7 @@
         {{ toast.message }}
       </div>
     </div>
+    
   </template>
   
   <script setup>

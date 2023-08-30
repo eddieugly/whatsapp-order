@@ -26,74 +26,24 @@
           </Td>
           <Td> ₦{{ item.amount.toLocaleString() }} </Td>
           <Td>
-            <Badge
-              :type="
-                item.payment_status == 2
-                  ? 'green'
-                  : item.payment_status == 1
-                  ? 'yellow'
-                  : 'red'
-              "
-            >
-              {{
-                item.payment_status == 2
-                  ? "Paid"
-                  : item.payment_status == 1
-                  ? "Pending"
-                  : "Cancelled"
-              }}
+            <Badge :type=" item.payment_status == 2 ? 'green' : item.payment_status == 1 ? 'yellow' : 'red' " >
+              {{ item.payment_status == 2 ? "Paid" : item.payment_status == 1 ? "Pending" : "Cancelled" }}
             </Badge>
           </Td>
           <Td>
-            <Badge :type="item.payment_method == 1 ? 'pink' : 'dark'">
+            <Badge :type="item.payment_method == 1 ? 'pink' : 'dark'" class="dark:text-white">
               {{ item.payment_method == 1 ? "Pay Now" : "Pay on Pickup" }}
             </Badge>
           </Td>
           <Td>
-            <Badge
-              :type="
-                item.order_status == 3
-                  ? 'green'
-                  : item.order_status == 2
-                  ? 'purple'
-                  : item.order_status == 1
-                  ? 'yellow'
-                  : 'red'
-              "
-            >
-              {{
-                item.order_status == 3
-                  ? "Picked"
-                  : item.order_status == 2
-                  ? "Completed"
-                  : item.order_status == 1
-                  ? "Pending"
-                  : "Cancelled"
-              }}
+            <Badge :type=" item.order_status == 3 ? 'green' : item.order_status == 2 ? 'purple' : item.order_status == 1 ? 'yellow' : 'red' " >
+              {{ item.order_status == 3 ? "Picked" : item.order_status == 2 ? "Completed" : item.order_status == 1 ? "Pending" : "Cancelled" }}
             </Badge>
           </Td>
           <Td class="">
             <Button @click="iShowEditModal(item)" color="alternative">
               <template #prefix>
-                <svg
-                  class="w-[20px] h-[20px] text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 14"
-                >
-                  <g
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  >
-                    <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                    <path
-                      d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"
-                    />
-                  </g>
-                </svg>
+                <ViewOrder />
               </template>
               View
             </Button>
@@ -182,6 +132,7 @@ import Filters from "./Filters.vue";
 
 import useDeleteItem from "@/Composables/useDeleteItem";
 import useFilters from "@/Composables/useFilters";
+import ViewOrder from "@/Components/Icons/ViewOrder.vue";
 
 const props = defineProps({
   routeResourceName: {

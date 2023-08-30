@@ -5,6 +5,7 @@ import { onMounted } from "vue";
 import { initFlowbite } from "flowbite";
 import Alert from "@/Components/Alert.vue";
 import DashboardFooter from "@/Components/DashboardFooter.vue";
+import FlashMessage from "@/Components/FlashMessage.vue";
 
 onMounted(() => {
   initFlowbite();
@@ -28,7 +29,7 @@ onMounted(() => {
         <slot />
         <DashboardFooter />
       </main>
-      <Alert />
+      <FlashMessage />
     </div>
   </div>
 </template>

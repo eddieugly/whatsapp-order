@@ -246,7 +246,6 @@
 import { ref, computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import Dashboard from "./Icons/Dashboard.vue";
-import Search from "./Icons/Search.vue";
 import MyProfile from "./Icons/MyProfile.vue";
 import ProfileSettings from "./Icons/ProfileSettings.vue";
 import LogOut from "./Icons/LogOut.vue";

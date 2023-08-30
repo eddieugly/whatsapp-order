@@ -1,11 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { Link } from '@inertiajs/vue3';
 import SubMenuArrow from './Icons/SubMenuArrow.vue';
-import Roles from './Icons/Roles.vue';
-import Permissions from './Icons/Permissions.vue';
-import Users from './Icons/Users.vue';
-import Category from './Icons/Category.vue';
 
 
 const props = defineProps({

@@ -9,7 +9,7 @@
       <Footer />
     </main>
 
-    <Alert />
+    <FlashMessage />
   </div>
 </template>
 
@@ -20,6 +20,7 @@ import Footer from "@/Components/Frontend/Footer.vue";
 
 import LargeNavBar from "@/Components/Frontend/LargeNavBar.vue";
 import Alert from "@/Components/Frontend/Alert.vue";
+import FlashMessage from "@/Components/FlashMessage.vue";
 
 onMounted(() => {
   initFlowbite();

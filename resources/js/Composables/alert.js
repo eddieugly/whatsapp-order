@@ -7,15 +7,16 @@ export default function useAlerts() {
     const removeAlert = (id) => {
         setTimeout(() => {
             alerts.value = alerts.value.filter(alert => alert.id !== id);
-        }, 3000);
+        }, 5000);
     };
 
-    const addAlert = (alert) => {
+    const addAlert = (alert, type) => {
         const id = uuidv4();
 
         alerts.value.push({
             id: id,
-            ...alert
+            type: type,
+            message: alert,
         });
 
         removeAlert(id);

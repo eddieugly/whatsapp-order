@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Carbon\Carbon;
 use App\Models\Menu;
-use App\Models\Order;
 use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Order;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -32,7 +34,17 @@ class DashboardController extends Controller
         $active_menus = Menu::active()->count();
 
         $registered_customers = User::count();
-        
+
+        $daily_orders = Order::query()
+            ->selectRaw('(COUNT(*)) as order_count')
+            ->selectRaw('DAYNAME(created_at) as dayname')
+            ->selectRaw('SUM(amount) as total_amount')
+            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->whereYear('created_at', date('Y'))
+            ->groupBy('dayname')
+            ->get();
+
+
         return Inertia::render('Admin/AdminDashboard', [
             'title' => 'Admin Dashboard',
             'total_orders_today' => $total_orders_today,
@@ -43,6 +55,7 @@ class DashboardController extends Controller
             'active_categories' => $active_categories,
             'active_menus' => $active_menus,
             'registered_customers' => $registered_customers,
-        ]);
+            'daily_orders' => $daily_orders,
+        ])->with('success', 'Is It Working?');
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import DashOrderIcon from "@/Components/Icons/Dashboard/DashOrderIcon.vue";
 import DashPendingIcon from "@/Components/Icons/Dashboard/DashPendingIcon.vue";
 import DashWalletIcon from "@/Components/Icons/Dashboard/DashWalletIcon.vue";
@@ -6,8 +7,9 @@ import DashUsersIcon from "@/Components/Icons/Dashboard/DashUsersIcon.vue";
 import DashCategoryIcon from "@/Components/Icons/Dashboard/DashCategoryIcon.vue";
 import DashMenuIcon from "@/Components/Icons/Dashboard/DashMenuIcon.vue";
 import AuthenticatesLayout from "@/Layouts/AuthenticatesLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 import DashCard from "@/Components/DashCard.vue";
+import { Button } from 'flowbite-vue';
 
 defineProps({
   title: {
@@ -38,7 +40,22 @@ defineProps({
   registered_customers: {
     type: Number,
   },
+  daily_orders: {
+    type: Object,
+  },
 });
+
+const addNew = () => {
+  usePage().props.flash.success = "Menu Added To Cart";
+};
+
+
+
+function newAdd() {
+  let message = "Menu Added To Cart";
+  console.log('I got Here');
+  usePage().props.flash.error = "Menu Added To Cart";
+}
 </script>
 
 <template>
@@ -96,7 +113,9 @@ defineProps({
     </DashCard>
     
     </div>
-    <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"></div>
+    <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4">
+      <Button color="blue" @click="newAdd"> Add Flash </Button>
+    </div>
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
       <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>

@@ -32,12 +32,16 @@ const addToCart = (menu) => {
     quantity: 1,
     thumbnail: menu.thumbnail,
   });
-  usePage().props.flash.success = "Menu Added To Cart";
+  newAdd();
 };
 
 const isAlreadyInCart = (value) => {
   let res = cart.value.find((c) => c.id === value);
   if (res) return true;
   return false;
+};
+
+function newAdd() {
+  usePage().props.flash.success = "Menu Added To Cart";
 };
 </script>
