@@ -93,7 +93,7 @@ defineProps({
                 <li v-for="all_category in categories">
                   <Link :href="route('frontend.category.index', { id: all_category.slug })"
                     class="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ all_category.name }}
+                  {{ all_category.name }} ({{ all_category.menus_count }})
                   </Link>
                 </li>
               </ul>

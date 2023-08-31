@@ -33,7 +33,7 @@ class CategoryController extends Controller
             'status',
             'featured',
         ])
-        ->withCount('menus')
+        ->withCount(['menus' => fn (Builder $builder) => $builder->where('status', true)])
         ->when(Request::input('name'), fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
         ->when(
             Request::input('status') !== null, fn (Builder $builder) => $builder->when(
@@ -137,8 +137,6 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
-        dd($category);
         return Inertia::render('Admin/MenuCategory/Edit', [
             'title' => 'Edit Category',
             'item' => new CategoryResource($category),

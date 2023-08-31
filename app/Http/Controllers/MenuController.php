@@ -39,17 +39,18 @@ class MenuController extends Controller
             'description',
             'price',
             'thumbnail',
-        ])->active()
+        ])
+        ->active()
+        ->whereHas('category', fn (Builder $builder) => $builder->where('status', true))
         ->when(Request::input('category'), function (Builder $builder, $categories) {
             $builder->whereHas('category', function (Builder $builder) use ($categories) {
                 $builder->whereIn('categories.slug', $categories);
             });
-        })
-        ->get();
+        })->get();
 
         $all_categories = Category::select(['id', 'ulid', 'name', 'slug'])->whereHas('menus', function (Builder $query) {
             $query->where('status', true);
-        })->active()->get();
+        })->active()->withCount(['menus' => function (Builder $builder) {$builder->where('status', true);}])->get();
 
         return Inertia::render('Frontend/Menus', [
             'title' => 'Our Menu',

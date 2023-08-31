@@ -14,7 +14,7 @@
                         {{ item.name }}
                     </Td>
                     <Td>
-                        {{ item.price }}
+                        ₦{{ item.price.toLocaleString() }}
                     </Td>
                     <Td>
                         <Badge type="purple">

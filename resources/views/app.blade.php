@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{ asset(imagePath()['logoIcon']['path'] . '/favicon.png') }}" type="image/x-icon">
 
     <meta name="description" content="{{ $general->company_seo_description }}">
-    <meta name="keywords" content="{{ implode(',', $general->company_seo_keywords) }}">
+    <meta name="keywords" content="{{ implode(', ', $general->company_seo_keywords) }}">
 
     <!-- Apple Stuff -->
     <link rel="apple-touch-icon" href="{{ asset(imagePath()['logoIcon']['path'] . '/logo_white.png') }}">

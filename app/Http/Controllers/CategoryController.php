@@ -19,7 +19,7 @@ class CategoryController extends Controller
         $category->load(['menus' => fn ($query) => $query->where('status', true)]);
         $all_categories = Category::select(['id', 'ulid', 'name', 'slug'])->whereHas('menus', function (Builder $query) {
             $query->where('status', true);
-        })->active()->get();
+        })->active()->withCount(['menus' => fn (Builder $builder) => $builder->where('status', true)])->get();
 
         return Inertia::render('Frontend/Category', [
             'title' => $category?->name,

@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'description' => fake()->paragraphs(5, true),
+            'description' => fake()->sentence(),
             'status' => fake()->boolean(50),
             'featured' => fake()->boolean(50),
             'thumbnail' => fake()->imageUrl(500, 500, null, null, null, null, 'png'),

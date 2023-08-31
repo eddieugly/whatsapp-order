@@ -26,7 +26,7 @@
           </div>
         </Card>
       </div>
-      <SectionLoadMore :href="route('frontend.menus')" />
+      <SectionLoadMore v-if="loadMore" :href="route('frontend.menus')" />
     </div>
   </Section>
 </template>
@@ -43,6 +43,10 @@ defineProps({
   menus: {
     type: Object,
     default: () => ({}),
+  },
+  loadMore: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
