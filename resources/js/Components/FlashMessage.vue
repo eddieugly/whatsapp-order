@@ -27,8 +27,6 @@ watch(error, (newVal) => {
 
 watch(errorer, (newVal) => {
 
-  console.log(typeof newVal);
-
   const errs = [];
   for (const key in newVal) {
     if (newVal.hasOwnProperty(key)) {

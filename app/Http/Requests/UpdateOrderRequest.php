@@ -26,6 +26,7 @@ class UpdateOrderRequest extends FormRequest
             'customer_name' => ['bail', 'required', 'string', 'max:50'],
             'customer_email' => ['bail', 'required', 'string', 'max:50'],
             'customer_phone' => ['bail', 'required', 'string', 'max:50'],
+            'payment_status' => ['bail', 'required', 'integer', Rule::in(0, 1, 2)],
             'order_status' => ['bail', 'required', 'integer', Rule::in(0, 1, 2, 3)],
         ];
     }

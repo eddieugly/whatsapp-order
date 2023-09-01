@@ -3,9 +3,7 @@
 
   <AuthenticatesLayout>
     <Card>
-      <h5
-        class="p-5 text-2xl border-b-2 font-semibold tracking-tight text-gray-900 dark:text-white"
-      >
+      <h5 class="p-5 text-2xl border-b-2 font-semibold tracking-tight text-gray-900 dark:text-white">
         Order List
       </h5>
 
@@ -26,18 +24,20 @@
           </Td>
           <Td> ₦{{ item.amount.toLocaleString() }} </Td>
           <Td>
-            <Badge :type=" item.payment_status == 2 ? 'green' : item.payment_status == 1 ? 'yellow' : 'red' " >
+            <Badge :type="item.payment_status == 2 ? 'green' : item.payment_status == 1 ? 'yellow' : 'red'">
               {{ item.payment_status == 2 ? "Paid" : item.payment_status == 1 ? "Pending" : "Cancelled" }}
             </Badge>
           </Td>
           <Td>
             <Badge :type="item.payment_method == 1 ? 'pink' : 'dark'" class="dark:text-white">
-              {{ item.payment_method == 1 ? "Pay Now" : "Pay on Pickup" }}
+              {{ item.payment_method == 1 ? "Pay Now" : "Pickup Pay" }}
             </Badge>
           </Td>
           <Td>
-            <Badge :type=" item.order_status == 3 ? 'green' : item.order_status == 2 ? 'purple' : item.order_status == 1 ? 'yellow' : 'red' " >
-              {{ item.order_status == 3 ? "Picked" : item.order_status == 2 ? "Completed" : item.order_status == 1 ? "Pending" : "Cancelled" }}
+            <Badge
+              :type="item.order_status == 3 ? 'green' : item.order_status == 2 ? 'purple' : item.order_status == 1 ? 'yellow' : 'red'">
+              {{ item.order_status == 3 ? "Picked" : item.order_status == 2 ? "Completed" : item.order_status == 1 ?
+                "Pending" : "Cancelled" }}
             </Badge>
           </Td>
           <Td class="">
@@ -49,12 +49,9 @@
             </Button>
           </Td>
           <Td class="">
-            <Actions
-              @deleteClicked="showModal(item)"
-              :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })"
-              :show-delete="can.delete"
-              :show-edit="can.edit"
-            />
+            <Actions @deleteClicked="showModal(item)"
+              :edit-link="route(`admin.${routeResourceName}.edit`, { id: item.id })" :show-delete="can.delete"
+              :show-edit="can.edit" />
           </Td>
         </template>
       </Table>
@@ -62,25 +59,48 @@
 
     <Modal size="lg" v-if="ShowEditModal" @close="noShowEditModal">
       <template #header>
-        <div class="flex items-center text-lg">Order - {{ orderItems.id }}</div>
+        <div class="flex items-center text-lg text">Order Summary</div>
       </template>
       <template #body>
         <div>
+          <div>
+            <p class="text-gray-500 text-sm mb-2">#{{ orderItems.id }}</p>
+            <div class="flex justify-between space-x-2 mb-2">
+              <p class="text-gray-500 text-sm">Payment Status: </p>
+              <Badge :type="orderItems.payment_status == 2 ? 'green' : orderItems.payment_status == 1 ? 'yellow' : 'red'">
+                {{ orderItems.payment_status == 2 ? "Paid" : orderItems.payment_status == 1 ? "Pending" : "Cancelled" }}
+              </Badge>
+            </div>
+            <div class="flex justify-between space-x-2 ">
+              <p class="text-gray-500 text-sm">Order Status: </p>
+              <Badge
+                :type="orderItems.order_status == 3 ? 'green' : orderItems.order_status == 2 ? 'purple' : orderItems.order_status == 1 ? 'yellow' : 'red'">
+                {{ orderItems.order_status == 3 ? "Picked" : orderItems.order_status == 2 ? "Completed" :
+                  orderItems.order_status == 1 ? "Pending" : "Cancelled" }}
+              </Badge>
+            </div>
+          </div>
+          <div class="inline-flex items-center justify-center w-full">
+            <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+            <span class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">Order Items</span>
+          </div>
+
           <div class="flow-root">
             <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
               <li v-for="item in orderItems.cart" :key="item.id" class="py-3 sm:py-4">
                 <div class="flex items-center space-x-4">
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      {{ item.id }}
+                    <p class="text-base font-medium text-gray-900 truncate dark:text-white">
+                      {{ item.name }}
                     </p>
                     <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                       ₦{{ item.price.toLocaleString() }}
                     </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      <small>#{{ item.id }}</small>
+                    </p>
                   </div>
-                  <div
-                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
-                  >
+                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     x {{ item.quantity }}
                   </div>
                 </div>
@@ -92,6 +112,10 @@
       <template #footer>
         <div class="flex justify-between">
           <Button @click="noShowEditModal" color="red">Close</Button>
+          <Link :href="route(`admin.${routeResourceName}.edit`, { id: orderItems.id })"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Update Order
+          </Link>
         </div>
       </template>
     </Modal>
@@ -120,7 +144,7 @@
 <script setup>
 import { ref } from "vue";
 import AuthenticatesLayout from "@/Layouts/AuthenticatesLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import SearchAddButton from "@/Components/Table/SearchAddButton.vue";
 import Section from "@/Components/Section.vue";
 import Card from "@/Components/Card/Card.vue";

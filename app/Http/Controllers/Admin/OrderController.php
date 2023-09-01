@@ -142,7 +142,7 @@ class OrderController extends Controller
     public function update(UpdateOrderRequest $request, Order $order)
     {
 
-        $data = $request->safe()->only(['customer_name', 'customer_email', 'customer_phone', 'order_status']);
+        $data = $request->safe()->only(['customer_name', 'customer_email', 'customer_phone', 'payment_status', 'order_status']);
 
         $order->update($data);
 
