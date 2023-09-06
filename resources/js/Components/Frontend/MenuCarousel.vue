@@ -38,18 +38,18 @@ export default defineComponent({
     breakpoints: {
       // 700px and up
       700: {
-        itemsToShow: 1.95,
-        snapAlign: "center",
+        itemsToShow: 2,
+        snapAlign: "start",
       },
       // 1024 and up
       992: {
-        itemsToShow: 2.95,
-        snapAlign: "center",
+        itemsToShow: 3,
+        snapAlign: "start",
       },
       // 1024 and up
       1200: {
-        itemsToShow: 3.95,
-        snapAlign: "center",
+        itemsToShow: 4,
+        snapAlign: "start",
       },
     },
   }),
@@ -59,5 +59,22 @@ export default defineComponent({
 <style scoped>
 .carousel__slide {
   padding: 5px;
+}
+
+.carousel__prev,
+.carousel__next {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 20px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.carousel__prev:hover,
+.carousel__next:hover {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: whitesmoke;
+  border-radius: 100%;
 }
 </style>

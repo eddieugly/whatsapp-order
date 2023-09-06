@@ -20,13 +20,15 @@
               <Link :href="route('frontend.menu.index', { id: slider.slug })">
                 <img class="p-0 rounded-t-lg" :src="slider.thumbnail" alt="product image" />
                 <div class="p-5">
-                  <h5 class="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">{{ slider.name
-                  }}</h5>
+                  <h5 class="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">{{ slider.name }}</h5>
+                  <p class="font-normal text-start text-gray-700 dark:text-gray-400">
+                    {{ slider.description.substring(0, 55) }}...
+                  </p>
                 </div>
               </Link>
               <div class="px-5 pb-5">
                 <div class="flex items-center justify-between py-4">
-                  <span class="text-xl font-bold text-gray-900 dark:text-white">₦{{ slider.price.toLocaleString() }}</span>
+                  <span class="text-xl font-bold text-gray-900 dark:text-white">₦ {{ slider.price.toLocaleString() }}</span>
                   <AddToCartButton :menu="slider" />
                 </div>
               </div>
@@ -75,4 +77,22 @@ defineProps({
 <style scoped>
 .carousel__slide {
   padding: 5px;
-}</style>
+}
+
+.carousel__prev,
+.carousel__next {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 20px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.carousel__prev:hover,
+.carousel__next:hover {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: whitesmoke;
+  border-radius: 100%;
+}
+</style>

@@ -57,36 +57,34 @@
       </Table>
     </Card>
 
-    <Modal size="lg" v-if="ShowEditModal" @close="noShowEditModal">
+    <Modal size="lg" v-if="ShowEditModal" @close="noShowEditModal" class="checkAm">
       <template #header>
         <div class="flex items-center text-lg text">Order Summary</div>
       </template>
       <template #body>
-        <div>
+        <div class=" ">
           <div>
             <p class="text-gray-500 text-sm mb-2">#{{ orderItems.id }}</p>
             <div class="flex justify-between space-x-2 mb-2">
-              <p class="text-gray-500 text-sm">Payment Status: </p>
+              <p class="text-gray-500 text-sm dark:text-white">Payment Status: </p>
               <Badge :type="orderItems.payment_status == 2 ? 'green' : orderItems.payment_status == 1 ? 'yellow' : 'red'">
                 {{ orderItems.payment_status == 2 ? "Paid" : orderItems.payment_status == 1 ? "Pending" : "Cancelled" }}
               </Badge>
             </div>
             <div class="flex justify-between space-x-2 ">
-              <p class="text-gray-500 text-sm">Order Status: </p>
+              <p class="text-gray-500 text-sm dark:text-white">Order Status: </p>
               <Badge
                 :type="orderItems.order_status == 3 ? 'green' : orderItems.order_status == 2 ? 'purple' : orderItems.order_status == 1 ? 'yellow' : 'red'">
                 {{ orderItems.order_status == 3 ? "Picked" : orderItems.order_status == 2 ? "Completed" :
                   orderItems.order_status == 1 ? "Pending" : "Cancelled" }}
               </Badge>
             </div>
+            
           </div>
-          <div class="inline-flex items-center justify-center w-full">
-            <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
-            <span class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">Order Items</span>
-          </div>
+          <div class="my-5 border-b-2"><p class="text-gray-900 text-lg dark:text-white">Order Items</p></div>
 
-          <div class="flow-root">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <div class="flow-root ">
+            <ul role="list" class="overflow-y-auto h-52 divide-y divide-gray-200 dark:divide-gray-700">
               <li v-for="item in orderItems.cart" :key="item.id" class="py-3 sm:py-4">
                 <div class="flex items-center space-x-4">
                   <div class="flex-1 min-w-0">
@@ -210,3 +208,12 @@ const { filters } = useFilters({
   routeResourceName: props.routeResourceName,
 });
 </script>
+<style>
+.checkAm .relative {
+  height: calc(100%-1rem);
+  
+}
+.checkAm .relative .relative {
+  max-height: 100%;
+}
+</style>
