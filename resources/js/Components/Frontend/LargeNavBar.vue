@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="bg-transparent border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800">
+    <nav class="bg-transparent border-gray-200 px-4 lg:px-6 py-4 dark:bg-gray-800 z-10 relative">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
         <Link href="/" class="flex items-center">
         <Logo class="" />
