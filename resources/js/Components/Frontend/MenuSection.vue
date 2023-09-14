@@ -12,14 +12,14 @@
             class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39%
             OFF</span>
           <div class="p-5">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ menu.name }}</h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400 py-5">
+            <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ menu.name }}</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
               {{ menu.description.substring(0, 55) }}...
             </p>
           </div>
           </Link>
           <div class="px-5 pb-5">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col items-start space-y-3">
               <span class="text-3xl font-bold text-gray-900 dark:text-white">₦{{ menu.price.toLocaleString() }}</span>
               <AddToCartButton :menu="menu" />
             </div>

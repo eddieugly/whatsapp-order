@@ -21,7 +21,7 @@
     </table>
   </div>
   <div v-if="items.meta.links.length > 3" class="flex items-center justify-center text-center py-4">
-    <Pagination :links="items.meta.links" />
+    <Pagination :links="items.meta.links" :meta="items.meta" />
   </div>
 </template>
 

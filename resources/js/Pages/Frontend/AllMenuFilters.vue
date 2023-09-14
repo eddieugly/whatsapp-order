@@ -14,7 +14,7 @@
     <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefaultButton">
       <li v-for="(category, index) in categories" :key="index" class="flex items-center">
         <input v-model="selectedCategory" name="category" :id="category.slug" type="checkbox" v-bind:value="category.slug"
-          class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+          class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-yellow-600 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
           :checked="radioTrue(category.slug)">
         <label :for="category.slug" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">{{ category.name }}
           ({{ category.menus_count }})</label>

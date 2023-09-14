@@ -2,25 +2,17 @@
   <Section class="bg-white">
     <div v-if="!cart.length" class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-        <h2
-          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
-        >
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
           Your Cart Is Empty
         </h2>
       </div>
-      <div
-        class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
-      >
-        <div
-          class="mx-auto md:w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50"
-        >
+      <div class="mx-auto max-w-screen-xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+        <div class="mx-auto md:w-1/3 max-w-sm border border-orange-50 rounded-lg shadow dark:bg-orange-50 dark:border-orange-50" >
           <Link :href="route('frontend.menus')">
             <FolderSearch />
             <!-- <a href="https://storyset.com/online">Online illustrations by Storyset</a> -->
 
-            <button
-              class="w-full text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800"
-            >
+            <button class="w-full text-white inline-flex items-center justify-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-orange-800">
               <AddToCartIcon />
               Continue Shopping
             </button>
@@ -58,11 +50,7 @@
               </div>
               <div class="flex justify-between space-x-4">
                 <div class="flex items-center border-gray-100">
-                  <button
-                    :disabled="menu.quantity === 1"
-                    @click="minusQuantity(menu.id)"
-                    class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-yellow-700 hover:text-blue-50"
-                  >
+                  <button :disabled="menu.quantity === 1" @click="minusQuantity(menu.id)" class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-yellow-700 hover:text-blue-50" >
                     <span> - </span>
                   </button>
                   <input
@@ -71,10 +59,7 @@
                     :value="menu.quantity"
                     min="1"
                   />
-                  <button
-                    @click="addQuantity(menu.id)"
-                    class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-yellow-700 hover:text-blue-50"
-                  >
+                  <button @click="addQuantity(menu.id)" class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-yellow-700 hover:text-blue-50" >
                     <span> + </span>
                   </button>
                 </div>
@@ -84,10 +69,7 @@
                   </p>
                 </div>
                 <div class="flex items-center space-x-4">
-                  <button
-                    @click="removeFromCart(menu.id)"
-                    class="text-gray-800 dark:text-white cursor-pointer duration-150 hover:text-red-500"
-                  >
+                  <button @click="removeFromCart(menu.id)" class="text-gray-800 dark:text-white cursor-pointer duration-150 hover:text-red-500">
                     <CartDeleteIcon />
                   </button>
                 </div>
@@ -96,9 +78,7 @@
           </div>
         </div>
         <!-- Sub total -->
-        <div
-          class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-4/12"
-        >
+        <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-4/12">
           <div class="mb-2 flex justify-between">
             <p class="text-gray-700">Items</p>
             <p class="text-gray-700">{{ cart.length }}</p>

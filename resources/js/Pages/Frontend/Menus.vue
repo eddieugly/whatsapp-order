@@ -30,7 +30,7 @@
                 </div>
               </Link>
               <div class="px-5 pb-5">
-                <div class="flex items-center justify-between py-4">
+                <div class="flex flex-col items-start space-y-3">
                   <span class="text-xl font-bold text-gray-900 dark:text-white">₦{{ slider.price.toLocaleString() }}</span>
                   <AddToCartButton :menu="slider" />
                 </div>

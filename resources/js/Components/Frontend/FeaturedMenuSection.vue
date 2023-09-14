@@ -12,9 +12,7 @@
               <Link :href="route('frontend.menu.index', { id: slider.slug })">
               <div class="p-5 relative">
                 <img class="rounded-t-lg w-full" :src="slider.thumbnail" :alt="slider.name" />
-                <span
-                  class="absolute top-5 left-5 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39%
-                  OFF</span>
+                <span class="absolute top-5 left-5 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
                 <h5 class="my-2 text-2xl text-start font-bold tracking-tight text-gray-900 dark:text-white">{{ slider.name }}</h5>
                 <p class="font-normal text-start text-gray-700 dark:text-gray-400">
                   {{ slider.description.substring(0, 55) }}...

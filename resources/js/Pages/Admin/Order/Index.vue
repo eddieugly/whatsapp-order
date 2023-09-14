@@ -57,66 +57,9 @@
       </Table>
     </Card>
 
-    <Modal size="lg" v-if="ShowEditModal" @close="noShowEditModal" class="checkAm">
-      <template #header>
-        <div class="flex items-center text-lg text">Order Summary</div>
-      </template>
-      <template #body>
-        <div class=" ">
-          <div>
-            <p class="text-gray-500 text-sm mb-2">#{{ orderItems.id }}</p>
-            <div class="flex justify-between space-x-2 mb-2">
-              <p class="text-gray-500 text-sm dark:text-white">Payment Status: </p>
-              <Badge :type="orderItems.payment_status == 2 ? 'green' : orderItems.payment_status == 1 ? 'yellow' : 'red'">
-                {{ orderItems.payment_status == 2 ? "Paid" : orderItems.payment_status == 1 ? "Pending" : "Cancelled" }}
-              </Badge>
-            </div>
-            <div class="flex justify-between space-x-2 ">
-              <p class="text-gray-500 text-sm dark:text-white">Order Status: </p>
-              <Badge
-                :type="orderItems.order_status == 3 ? 'green' : orderItems.order_status == 2 ? 'purple' : orderItems.order_status == 1 ? 'yellow' : 'red'">
-                {{ orderItems.order_status == 3 ? "Picked" : orderItems.order_status == 2 ? "Completed" :
-                  orderItems.order_status == 1 ? "Pending" : "Cancelled" }}
-              </Badge>
-            </div>
-            
-          </div>
-          <div class="my-5 border-b-2"><p class="text-gray-900 text-lg dark:text-white">Order Items</p></div>
+    
 
-          <div class="flow-root ">
-            <ul role="list" class="overflow-y-auto h-52 divide-y divide-gray-200 dark:divide-gray-700">
-              <li v-for="item in orderItems.cart" :key="item.id" class="py-3 sm:py-4">
-                <div class="flex items-center space-x-4">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-base font-medium text-gray-900 truncate dark:text-white">
-                      {{ item.name }}
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      ₦{{ item.price.toLocaleString() }}
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      <small>#{{ item.id }}</small>
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    x {{ item.quantity }}
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </template>
-      <template #footer>
-        <div class="flex justify-between">
-          <Button @click="noShowEditModal" color="red">Close</Button>
-          <Link :href="route(`admin.${routeResourceName}.edit`, { id: orderItems.id })"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          Update Order
-          </Link>
-        </div>
-      </template>
-    </Modal>
+    
 
     <Modal size="lg" v-if="isShowModal" @close="closeModal">
       <template #header>
@@ -138,6 +81,67 @@
       </template>
     </Modal>
   </AuthenticatesLayout>
+
+  <div class="mt-8">
+      <Modal v-if="ShowEditModal" @close="noShowEditModal" class="checkAm h-5/6" persistent size="4xl">
+        <template #header>
+          <div class="flex items-center text-lg text">Order Summary</div>
+        </template>
+        <template #body>
+          <div class=" ">
+            <div>
+              <p class="text-gray-500 text-sm mb-2">#{{ orderItems.id }}</p>
+              <div class="flex justify-between space-x-2 mb-2">
+                <p class="text-gray-500 text-sm dark:text-white">Payment Status: </p>
+                <Badge :type="orderItems.payment_status == 2 ? 'green' : orderItems.payment_status == 1 ? 'yellow' : 'red'">
+                  {{ orderItems.payment_status == 2 ? "Paid" : orderItems.payment_status == 1 ? "Pending" : "Cancelled" }}
+                </Badge>
+              </div>
+              <div class="flex justify-between space-x-2 ">
+                <p class="text-gray-500 text-sm dark:text-white">Order Status: </p>
+                <Badge :type="orderItems.order_status == 3 ? 'green' : orderItems.order_status == 2 ? 'purple' : orderItems.order_status == 1 ? 'yellow' : 'red'">
+                  {{ orderItems.order_status == 3 ? "Picked" : orderItems.order_status == 2 ? "Completed" : orderItems.order_status == 1 ? "Pending" : "Cancelled" }}
+                </Badge>
+              </div>
+              
+            </div>
+            <div class="my-5 border-b-2"><p class="text-gray-900 text-lg dark:text-white">Order Items</p></div>
+
+            <div class="flow-root ">
+              <ul role="list" class=" divide-y divide-gray-200 dark:divide-gray-700">
+                <li v-for="item in orderItems.cart" :key="item.id" class="py-3 sm:py-4">
+                  <div class="flex items-center space-x-4">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-base font-medium text-gray-900 truncate dark:text-white">
+                        {{ item.name }}
+                      </p>
+                      <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                        ₦{{ item.price.toLocaleString() }}
+                      </p>
+                      <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                        <small>#{{ item.id }}</small>
+                      </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                      x {{ item.quantity }}
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
+        <template #footer>
+          <div class="flex justify-between">
+            <Button @click="noShowEditModal" color="red">Close</Button>
+            <Link :href="route(`admin.${routeResourceName}.edit`, { id: orderItems.id })"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Update Order
+            </Link>
+          </div>
+        </template>
+      </Modal>
+    </div>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -207,13 +211,16 @@ const { filters } = useFilters({
   filters: props.filters,
   routeResourceName: props.routeResourceName,
 });
+
+const plaine = document.querySelector(".max-w-4xl");
+console.log(plaine)
 </script>
 <style>
-.checkAm .relative {
-  height: calc(100%-1rem);
-  
+.checkAm .overflow-y-auto {
+  height: auto;
 }
-.checkAm .relative .relative {
+
+.checkAm .relative {
   max-height: 100%;
 }
 </style>
