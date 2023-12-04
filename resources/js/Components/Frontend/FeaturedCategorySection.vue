@@ -1,5 +1,7 @@
 <template>
+
   <Section class="bg-gray-50">
+
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
 
       <SectionHeader header="Featured Categories" description="Browse our featured menu categories and find the perfect meal for you. Click on any of the category to see all associated food menus." />
@@ -7,43 +9,57 @@
       <CategoryCarousel v-if="(categories.length >= 3)">
 
         <Slide v-for="category in categories" :key="category.id">
+
           <div class="carousel__item">
+
             <CategoryCard  :background="category.thumbnail">
 
               <Link :href="route('frontend.category.index', { id: category.slug })">
 
                 <div class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
+
                   <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
                     {{ category.name }}
                   </h1>
+
                   <div class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300"></div>
+
                   <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
                     {{ category.description.substring(0, 55) }}...
                   </p>
+
                 </div>
 
               </Link>
 
             </CategoryCard>
+
           </div>
+
         </Slide>
       
       </CategoryCarousel>
 
-      <div v-if="(categories.length < 3)" class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2" :class="{ 'lg:col-start-2': categories.length == 1 }">
+      <div v-if="(categories.length < 3)" 
+        class="grid gap-8 mb-6 lg:mb-16 lg:grid-cols-3 md:grid-cols-2"
+        :class="{ 'lg:col-start-2': categories.length == 1 }">
 
         <CategoryCard v-for="category in categories" :key="category.id" :background="category.thumbnail">
 
           <Link :href="route('frontend.category.index', { id: category.slug })">
 
             <div class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-52 hover:bg-opacity-75 transform duration-300">
+
               <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
                 {{ category.name }}
               </h1>
+
               <div class="w-16 h-2 bg-yellow-700 rounded-full mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300"></div>
+
               <p class="opacity-0 text-white mb-5 text-xl group-hover:opacity-80 transform duration-500">
                 {{ category.description.substring(0, 55) }}...
               </p>
+
             </div>
 
           </Link>
@@ -55,7 +71,9 @@
       <SectionLoadMore :href="route('frontend.categories')" />
 
     </div>
+
   </Section>
+  
 </template>
 
 <script setup>

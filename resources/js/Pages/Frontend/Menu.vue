@@ -1,5 +1,7 @@
 <template>
+
   <Head :title="title" />
+
   <FrontEndLayout>
 
     <Breadcrumbs
@@ -14,30 +16,54 @@
     <MapSection />
     
     <SliderMenuSection>
+
       <MenuCarousel>
+
         <Slide v-for="slider in $page.props.slider_menues" :key="slider.id">
+
           <div class="carousel__item">
+
             <Card>
+
               <Link :href="route('frontend.menu.index', { id: slider.slug })">
+
                 <img class="p-0 rounded-t-lg" :src="slider.thumbnail" alt="product image" />
+
                 <div class="p-5">
-                  <h5 class="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">{{ slider.name
-                  }}</h5>
+                  <h5 class="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">
+                    {{ slider.name }}
+                  </h5>
+
                 </div>
+
               </Link>
+
               <div class="px-5 pb-5">
+
                 <div class="flex flex-col items-start space-y-3">
-                  <span class="text-xl font-bold text-gray-900 dark:text-white">₦{{ slider.price.toLocaleString() }}</span>
+
+                  <span class="text-xl font-bold text-gray-900 dark:text-white">
+                    ₦{{ slider.price.toLocaleString() }}
+                  </span>
+
                   <AddToCartButton :menu="slider" />
+
                 </div>
+
               </div>
               
             </Card>
+
           </div>
+
         </Slide>
+
       </MenuCarousel>
+
     </SliderMenuSection>
+
   </FrontEndLayout>
+
 </template>
 
 <script setup>
@@ -72,23 +98,6 @@ const props = defineProps({
 });
 
 const menu = toRef(props.menu);
-
-const addToCart = (menu) => {
-  cart.value.push({
-    id: menu.id,
-    slug: menu.slug,
-    name: menu.name,
-    price: menu.price,
-    quantity: 1,
-    thumbnail: menu.thumbnail,
-  });
-};
-
-const isAlreadyInCart = (value) => {
-  let res = cart.value.find(c => c.id === value);
-  if (res) return true;
-  return false
-};
 
 </script>
 

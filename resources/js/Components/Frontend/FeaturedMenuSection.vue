@@ -1,40 +1,71 @@
 <template>
-  <Section class="bg-orange-50">
+  
+  <Section class="bg-blue-50">
+
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
       <SectionHeader header="Featured Menu"
         description="Take a quick peek at our featured 0food menus. Add all food menu of your choice to cart and proceed." />
 
       <MenuCarousel>
+      
         <Slide v-for="slider in menus" :key="slider.id">
+
           <div class="carousel__item">
+
             <Card>
+
               <Link :href="route('frontend.menu.index', { id: slider.slug })">
-              <div class="p-5 relative">
-                <img class="rounded-t-lg w-full" :src="slider.thumbnail" :alt="slider.name" />
-                <span class="absolute top-5 left-5 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
-                <h5 class="my-2 text-2xl text-start font-bold tracking-tight text-gray-900 dark:text-white">{{ slider.name }}</h5>
-                <p class="font-normal text-start text-gray-700 dark:text-gray-400">
-                  {{ slider.description.substring(0, 55) }}...
-                </p>
-              </div>
-              </Link>
-              <div class="px-5 pb-5">
-                <div class="flex flex-col items-start space-y-3">
-                  <span class="text-2xl font-bold text-gray-900 dark:text-white">₦ {{ slider.price.toLocaleString()
-                  }}</span>
-                  <AddToCartButton :menu="slider" />
+
+                <div class="p-5 relative">
+
+                  <img class="rounded-t-lg w-full" :src="slider.thumbnail" :alt="slider.name" />
+
+                  <span class="absolute top-5 left-5 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+                    39% OFF
+                  </span>
+
+                  <h5 class="my-2 text-2xl text-start font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ slider.name }}
+                  </h5>
+
+                  <p class="font-normal text-start text-gray-700 dark:text-gray-400">
+                    {{ slider.description.substring(0, 55) }}...
+                  </p>
+
                 </div>
+
+              </Link>
+
+              <div class="px-5 pb-5">
+
+                <div class="flex flex-col items-start space-y-3">
+
+                  <span class="text-2xl font-bold text-blue-900 dark:text-white">
+                    ₦ {{ slider.price.toLocaleString() }}
+                  </span>
+
+                  <AddToCartButton :menu="slider" />
+
+                </div>
+
               </div>
+
             </Card>
+
           </div>
+
         </Slide>
+
       </MenuCarousel>
 
 
       <SectionLoadMore :href="route('frontend.menus')" />
+
     </div>
+
   </Section>
+
 </template>
 
 <script setup>

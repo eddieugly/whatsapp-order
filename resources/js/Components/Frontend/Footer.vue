@@ -1,17 +1,18 @@
 <template>
-  <footer class="p-4 bg-orange-100 pb-6 sm:p-6 dark:bg-gray-800">
+  <footer class="p-4 bg-blue-950 pb-6 sm:p-6 dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl my-10">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
                 <Link href="/" class="flex items-center">
-                    <Logo class="" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ $page.props.general.company_name }}</span>
+                    <span class="self-center text-2xl font-semibold text-yellow-600 whitespace-nowrap dark:text-white">
+                        {{ $page.props.general.company_name }}
+                    </span>
                 </Link>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
-                    <ul class="text-gray-600 dark:text-gray-400">
+                    <h2 class="mb-6 text-sm font-semibold text-yellow-600 uppercase dark:text-white">Resources</h2>
+                    <ul class="text-gray-400 dark:text-gray-400">
                         <li class="mb-4">
                             <Link :href="route('frontend.menus')" class="hover:underline">Menu</Link>
                         </li>
@@ -21,8 +22,8 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
-                    <ul class="text-gray-600 dark:text-gray-400">
+                    <h2 class="mb-6 text-sm font-semibold text-yellow-600 uppercase dark:text-white">Follow us</h2>
+                    <ul class="text-gray-400 dark:text-gray-400">
                         <li class="mb-4">
                             <a href="#" class="hover:underline ">Github</a>
                         </li>
@@ -32,8 +33,8 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                    <ul class="text-gray-600 dark:text-gray-400">
+                    <h2 class="mb-6 text-sm font-semibold text-yellow-600 uppercase dark:text-white">Legal</h2>
+                    <ul class="text-gray-400 dark:text-gray-400">
                         <li class="mb-4">
                             <a href="#" class="hover:underline">Privacy Policy</a>
                         </li>
@@ -44,18 +45,27 @@
                 </div>
             </div>
         </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+
+        <hr class="my-6 border-gray-400 sm:mx-auto dark:border-gray-700 lg:my-8" />
+
         <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-800 sm:text-center dark:text-white">&copy; {{ new Date().getFullYear() }} <Link href="/" class="font-bold hover:underline">{{ $page.props.general.company_name }}™</Link>. All Rights Reserved.
+
+            <span class="text-sm text-gray-400 sm:text-center dark:text-white">
+                &copy; {{ new Date().getFullYear() }} 
+                <Link href="/" class="font-bold hover:underline text-yellow-600">
+                    {{ $page.props.general.company_name }}™
+                </Link>
+                . All Rights Reserved.
             </span>
+
             <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-                <Link :href="$page.props.general.facebook" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                <Link :href="$page.props.general.facebook" class="text-gray-500 hover:text-yellow-700 dark:hover:text-white">
                     <FacebookFooterIcon />
                 </Link>
-                <Link :href="$page.props.general.instagram" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                <Link :href="$page.props.general.instagram" class="text-gray-500 hover:text-yellow-700 dark:hover:text-white">
                     <InstagramFooterIcon />
                 </Link>
-                <Link :href="$page.props.general.twitter" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                <Link :href="$page.props.general.twitter" class="text-gray-500 hover:text-yellow-700 dark:hover:text-white">
                     <TwitterFooterIcon />
                 </Link>
             </div>

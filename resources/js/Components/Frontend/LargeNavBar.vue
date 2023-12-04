@@ -28,7 +28,7 @@
 
           <!-- Cart Link -->
           <Link :href="route('frontend.cart.index')"
-            class="relative hidden lg:inline-flex hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-blue-900 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+            class="relative hidden lg:inline-flex hover:bg-orange-200 focus:ring-4 focus:ring-gray-300 text-blue-900 dark:text-white hover:text-yellow-700 font-medium rounded-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" :class="{ 'bg-orange-200 active:text-yellow-700': $page.url === '/cart' }">
 
             <!-- Cart Icon -->
             <CartIcon class="w-6 h-6" />
@@ -105,7 +105,7 @@ const { x, y } = useWindowScroll();
 
 const stickyHeaderClasses = computed(() => {
   if (y.value > 0) {
-    return 'fixed top-0 left-0 z-50 w-full bg-white';
+    return 'fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-200';
   } else {
     return 'z-10 relative bg-transparent';
   }
