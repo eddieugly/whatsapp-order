@@ -25,6 +25,8 @@ class HomeControler extends Controller
         ->limit(3)->get();
 
         $featured_menus = Menu::active()->featured()->inRandomOrder()->limit(6)->get();
+
+
         
         return Inertia::render('Frontend/Home', [
             'title' => 'Home',

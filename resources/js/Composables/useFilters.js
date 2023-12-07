@@ -20,6 +20,7 @@ export default function (params) {
       ...filters.value
     }, {
       preserveScroll: true,
+      preserveState: true,
       replace: true,
     });
   }

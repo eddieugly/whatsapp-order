@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExtraOption extends Model
 {
@@ -24,5 +25,10 @@ class ExtraOption extends Model
         static::creating(function ($extra_option) {
             $extra_option->ulid = (string) Str::ulid();
         });
+    }
+
+    public function extras() : BelongsTo
+    {
+        return $this->belongsTo(Extra::class);
     }
 }

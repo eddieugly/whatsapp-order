@@ -60,6 +60,19 @@
         </li>
 
         <li>
+          <SideSubMenu label="Extras" :area-expand="(route().current('admin.extras*') || route().current('admin.extras*'))">
+            <template #menuIcon>
+              <Menu />
+            </template>
+            <template #default>
+              <li>
+                <SideMenuLink link-name="Extras" :href="route('admin.extras.index')" :active="route().current('admin.extras*')" />
+              </li>
+            </template>
+          </SideSubMenu>
+        </li>
+
+        <li>
           <SideSubMenu label="Blogs" :area-expand="(route().current('admin.blog-category*') || route().current('admin.blogs*'))">
             <template #menuIcon>
               <BlogList />

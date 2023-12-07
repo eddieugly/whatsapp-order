@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\UploadImagesController as AdminUploadImagesContro
 use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPermissionToRoleController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
+use App\Http\Controllers\Admin\ExtrasController as AdminExtrasController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*
@@ -28,39 +29,40 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 */
 
 // Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-        Route::resource('roles', AdminRoleController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-        Route::post('roles/attach-permission', AdminAttachPermissionToRoleController::class)->name('roles.attach-permission');
+    Route::resource('roles', AdminRoleController::class);
 
-        Route::post('roles/detach-permission', AdminDetachPermissionFromRoleController::class)->name('roles.detach-permission');
+    Route::post('roles/attach-permission', AdminAttachPermissionToRoleController::class)->name('roles.attach-permission');
 
-        Route::resource('category', AdminCategoryController::class);
+    Route::post('roles/detach-permission', AdminDetachPermissionFromRoleController::class)->name('roles.detach-permission');
 
-        Route::resource('permissions', AdminPermissionsController::class);
+    Route::resource('category', AdminCategoryController::class);
 
-        Route::resource('users', AdminUserController::class);
+    Route::resource('permissions', AdminPermissionsController::class);
 
-        Route::resource('menu', AdminMenuController::class);
+    Route::resource('users', AdminUserController::class);
 
-        Route::post('upload-images', AdminUploadImagesController::class)->name('images.store');
+    Route::resource('menu', AdminMenuController::class);
 
-        Route::post('delete-images', AdminDeleteImageController::class)->name('images.destroy');
+    Route::resource('extras', AdminExtrasController::class);
 
-        Route::resource('blog-category', AdminBlogcategoryController::class);
+    Route::post('upload-images', AdminUploadImagesController::class)->name('images.store');
 
-        Route::resource('blogs', AdminBlogController::class);
+    Route::post('delete-images', AdminDeleteImageController::class)->name('images.destroy');
 
-        Route::get('general-settings', [AdminGeneralController::class, 'general'])->name('settings.index');
+    Route::resource('blog-category', AdminBlogcategoryController::class);
 
-        Route::post('general-settings', [AdminGeneralController::class, 'updateGeneral'])->name('settings.update');
+    Route::resource('blogs', AdminBlogController::class);
 
-        Route::post('general-settings-logo', [AdminGeneralController::class, 'logoUpdate'])->name('settings.update.logo');
+    Route::get('general-settings', [AdminGeneralController::class, 'general'])->name('settings.index');
 
-        Route::resource('orders', AdminOrderController::class);
-    });
+    Route::post('general-settings', [AdminGeneralController::class, 'updateGeneral'])->name('settings.update');
+
+    Route::post('general-settings-logo', [AdminGeneralController::class, 'logoUpdate'])->name('settings.update.logo');
+
+    Route::resource('orders', AdminOrderController::class);
 });
