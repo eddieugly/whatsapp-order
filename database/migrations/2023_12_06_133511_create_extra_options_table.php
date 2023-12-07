@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('extras', function (Blueprint $table) {
+        Schema::create('extra_options', function (Blueprint $table) {
             $table->id();
             $table->ulid('ulid')->unique();
+            $table->unsignedBigInteger('extra_id');
             $table->string('name');
-            $table->boolean('is_required')->default(false);
             $table->timestamps();
+
+            $table->foreign('extra_id')->references('id')->on('extras')->onDelete('cascade');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('extras');
+        Schema::dropIfExists('extra_options');
     }
 };

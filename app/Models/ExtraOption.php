@@ -4,29 +4,25 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Extra extends Model
+class ExtraOption extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'is_required' => 'boolean',
-    ];
-
     protected $fillable = [
         'ulid',
+        'extra_id',
         'name',
-        'is_required',
+        'price',
     ];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($extra) {
-            $extra->ulid = (string) Str::ulid();
+        static::creating(function ($extra_option) {
+            $extra_option->ulid = (string) Str::ulid();
         });
     }
 }
