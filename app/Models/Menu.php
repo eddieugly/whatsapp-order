@@ -19,6 +19,7 @@ class Menu extends Model implements HasMedia
         'status' => 'boolean',
         'featured' => 'boolean',
         'slider' => 'boolean',
+        'has_extras' => 'boolean',
         'description' => PurifyHtml::class,
     ];
 

@@ -23,6 +23,7 @@ class MenuResource extends JsonResource
             'status' => $this->when($request->user()?->can('edit menu'), $this->status),
             'featured' => $this->when($request->user()?->can('edit menu'), $this->featured),
             'slider' => $this->when($request->user()?->can('edit menu'), $this->slider),
+            'has_extras' => $this->has_extras,
             'thumbnail' => $this->whenNotNull($this->thumbnail),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'images' => $this->whenLoaded(

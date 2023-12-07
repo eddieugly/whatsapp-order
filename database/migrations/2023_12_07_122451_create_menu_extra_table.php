@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('extra_options', function (Blueprint $table) {
+        Schema::create('menu_extra', function (Blueprint $table) {
             $table->id();
-            $table->ulid('ulid')->unique();
+            $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('extra_id');
-            $table->string('name');
-            $table->bigInteger('price')->unsigned();
             $table->timestamps();
 
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->foreign('extra_id')->references('id')->on('extras')->onDelete('cascade');
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('extra_options');
+        Schema::dropIfExists('menu_extra');
     }
 };

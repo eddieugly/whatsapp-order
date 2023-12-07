@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('status')->default(false);
             $table->boolean('featured')->default(false);
             $table->boolean('slider')->default(false);
+            $table->boolean('has_extras')->default(false);
             $table->string('thumbnail')->nullable();
             $table->timestamps();
         });

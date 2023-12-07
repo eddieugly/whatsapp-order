@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 class MenuController extends Controller
 {
     /**
-     * Display a listing of the single category resource.
+     * Display a listing of the single menu resource.
      */
     public function index(Menu $menu)
     {
@@ -27,7 +27,7 @@ class MenuController extends Controller
 
 
     /**
-     * Display a listing of the all Active Menu resource with multi category search query.
+     * Display a listing of the all Active Menu resource with multi menu search query.
      */
     public function general()
     {
