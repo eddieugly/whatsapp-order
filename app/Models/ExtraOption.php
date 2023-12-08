@@ -27,8 +27,13 @@ class ExtraOption extends Model
         });
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'ulid';
+    }
+
     public function extras() : BelongsTo
     {
-        return $this->belongsTo(Extra::class);
+        return $this->belongsTo(Extra::class, 'extra_id');
     }
 }

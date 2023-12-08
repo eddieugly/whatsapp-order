@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AttachPermissionToRoleController as AdminAttachPe
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DetachPermissionFromRoleController as AdminDetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\ExtrasController as AdminExtrasController;
+use App\Http\Controllers\Admin\ExtrasOptionsController as AdminExtrasOptionsController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('menu', AdminMenuController::class);
 
     Route::resource('extras', AdminExtrasController::class);
+
+    Route::resource('extra-options', AdminExtrasOptionsController::class);
 
     Route::post('upload-images', AdminUploadImagesController::class)->name('images.store');
 

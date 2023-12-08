@@ -60,16 +60,28 @@
         </li>
 
         <li>
-          <SideSubMenu label="Extras" :area-expand="(route().current('admin.extras*') || route().current('admin.extras*'))">
+          <SideSubMenu label="Extras & Options" :area-expand="(route().current('admin.extras*') || route().current('admin.extras*'))">
+
             <template #menuIcon>
               <Menu />
             </template>
+
             <template #default>
+
               <li>
                 <SideMenuLink link-name="Extras" :href="route('admin.extras.index')" :active="route().current('admin.extras*')" />
               </li>
+
+              <li>
+                <SideMenuLink link-name="Extra Option"
+                :href="route('admin.extra-options.index')"
+                :active="route().current('admin.extra-options*')" />
+              </li>
+
             </template>
+
           </SideSubMenu>
+
         </li>
 
         <li>

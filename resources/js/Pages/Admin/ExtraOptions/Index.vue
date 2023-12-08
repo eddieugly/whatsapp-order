@@ -15,9 +15,7 @@
                         {{ item.name }}
                     </Td>
                     <Td>
-                        <Badge class="max-w-xs" :type="item.required ? 'green' : 'red'">
-                            {{ item.required ? 'Yes' : 'No' }}
-                        </Badge>
+                        {{ item.price }}
                     </Td>
                     <Td class="flex items-center">
                         <Actions v-if="can.edit || can.delete" @deleteClicked="showModal(item)"
