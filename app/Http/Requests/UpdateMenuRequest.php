@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Category;
+use App\Models\Extra;
 use App\Models\Menu;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,7 +34,10 @@ class UpdateMenuRequest extends FormRequest
             'status' => ['bail', 'sometimes', 'boolean'],
             'featured' => ['bail', 'sometimes', 'boolean'],
             'slider' => ['bail', 'sometimes', 'boolean'],
+            'has_extras' => ['bail', 'sometimes', 'boolean'],
             'thumbnail' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'extras' => ['bail', 'required_if:has_extras,true', 'array'],
+            'extras.*' => [Rule::exists(Extra::class, 'ulid')],
         ];
     }
 }

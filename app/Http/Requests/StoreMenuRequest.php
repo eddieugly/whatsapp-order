@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Category;
 use App\Models\Menu;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Extra;
+use App\Models\Category;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMenuRequest extends FormRequest
 {
@@ -33,7 +34,10 @@ class StoreMenuRequest extends FormRequest
             'status' => ['bail', 'sometimes', 'boolean'],
             'featured' => ['bail', 'sometimes', 'boolean'],
             'slider' => ['bail', 'sometimes', 'boolean'],
+            'has_extras' => ['bail', 'sometimes', 'boolean'],
             'thumbnail' => ['bail', 'nullable', 'image', 'mimes:png,jpg,jpeg,webp'],
+            'extras' => ['bail', 'required_if:has_extras,1', 'array'],
+            'extras.*' => [Rule::exists(Extra::class, 'ulid')],
         ];
     }
 }

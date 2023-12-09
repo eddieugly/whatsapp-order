@@ -13,6 +13,7 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import Select2 from '@/Components/Select2.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -28,6 +29,7 @@ let props = defineProps({
         default: false,
     },
     categories: Array,
+    extras: Array,
 })
 
 const form = useForm({
@@ -41,6 +43,9 @@ const form = useForm({
     status: false,
     featured: false,
     slider: false,
+    has_extras: false,
+    extras: [],
+
 });
 
 watch(() => form.name, (name) => {
@@ -78,8 +83,8 @@ const submit = () => {
                             </Input>
                         </div>
                         <div class="mb-4">
-                            <Input v-model="form.price" name="price" id="price" type="numeric" pattern="[0-9]*" placeholder="Enter Menu Price" 
-                                label="Menu Price">
+                            <Input v-model="form.price" name="price" id="price" type="numeric" pattern="[0-9]*"
+                                placeholder="Enter Menu Price" label="Menu Price">
                             <template #helper v-if="form.errors.price">
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.price }}</p>
                             </template>
@@ -98,8 +103,10 @@ const submit = () => {
                             <Input @input="form.thumbnail = $event.target.files[0]" type="file" name="thumbnail"
                                 id="thumbnail" label="Menu Thumbnail">
                             <template #helper class="text-red-500">
-                                <small>Image will be resized into 500x375 px. Supported Files: .jpg, .png, .jpeg, .webp</small>
-                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form.errors.thumbnail }}</p>
+                                <small>Image will be resized into 500x375 px. Supported Files: .jpg, .png, .jpeg,
+                                    .webp</small>
+                                <p v-if="form.errors.thumbnail" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                                    form.errors.thumbnail }}</p>
                             </template>
                             </Input>
                         </div>
@@ -114,6 +121,18 @@ const submit = () => {
                             <ToogleGroup label="Show On Slider" v-model:checked="form.slider"
                                 :error-message="form.errors.slider" />
                         </div>
+                        <div class="mb-4">
+                            <ToogleGroup label="Has Extras?" v-model:checked="form.has_extras"
+                                :error-message="form.errors.has_extras" />
+                        </div>
+                        <div v-show="form.has_extras" class="mb-4 sm:col-span-2">
+                            <InputLabel class="mb-2" value="Select Extras" />
+                            <Select2 tokenizer="tokenizer" v-model="form.extras"
+                                :options="extras"
+                                :settings="{ data: extras, multiple: true }" />
+                            <InputError v-if="form.errors.extras"
+                                :message="form.errors.extras" />
+                        </div>
                     </div>
 
                     <div class="my-5">
@@ -121,6 +140,5 @@ const submit = () => {
                     </div>
                 </form>
             </div>
-        </Card>
-    </AuthenticatesLayout>
-</template>
+    </Card>
+</AuthenticatesLayout></template>

@@ -15,6 +15,7 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import Select2 from '@/Components/Select2.vue';
 
 let props = defineProps({
     routeResourceName: {
@@ -29,7 +30,12 @@ let props = defineProps({
         type: Object,
     },
     categories: Array,
+    extras: Object,
 });
+
+const filteredData = props.item.extras.map((item) => item.id);
+
+console.log(filteredData);
 
 const form = useForm({
     _method: 'PATCH',
@@ -42,6 +48,8 @@ const form = useForm({
     status: props.item.status,
     featured: props.item.featured,
     slider: props.item.slider,
+    has_extras: props.item.has_extras,
+    extras: filteredData,
 });
 
 watch(() => form.name, (name) => {
@@ -140,6 +148,18 @@ const maxUploadImageCount = 4;
                         <div class="mb-4">
                             <ToogleGroup label="Show On Slider" v-model:checked="form.slider"
                                 :error-message="form.errors.slider" />
+                        </div>
+                        <div class="mb-4">
+                            <ToogleGroup label="Has Extras?" v-model:checked="form.has_extras"
+                                :error-message="form.errors.has_extras" />
+                        </div>
+                        <div v-show="form.has_extras" class="mb-4 sm:col-span-2">
+                            <InputLabel class="mb-2" value="Select Extras" />
+                            <Select2 class=" w-full" tokenizer="tokenizer" v-model="form.extras"
+                                :options="extras"
+                                :settings="{ data: item.extras, multiple: true }" />
+                            <InputError v-if="form.errors.extras"
+                                :message="form.errors.extras" />
                         </div>
                     </div>
 

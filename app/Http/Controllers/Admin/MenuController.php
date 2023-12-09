@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
 use Inertia\Inertia;
+use App\Models\Extra;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MenuResource;
+use App\Http\Resources\ExtraResource;
 use App\Http\Requests\StoreMenuRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateMenuRequest;
@@ -128,6 +130,7 @@ class MenuController extends Controller
             'title' => 'Add Menu',
             'routeResourceName' => $this->routeResourceName,
             'categories' => CategoryResource::collection(Category::get(['id', 'ulid', 'name'])),
+            'extras' => ExtraResource::collection(Extra::get(['ulid', 'name'])),
         ]);
     }
 
@@ -149,14 +152,21 @@ class MenuController extends Controller
             }
         }
 
-        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider', 'has_extras']);
 
         $categoryId = Category::where('ulid', $request->category_id)->first();
+
+        if ($request->extras) {
+            $extras = Extra::whereIn('ulid', $request->extras)->get();
+        }
+        
 
         $data['category_id'] = $categoryId->id;
         $data['thumbnail'] = $filename;
 
-        Menu::create($data);
+        $menu = Menu::create($data);
+
+        $menu->extras()->sync($extras);
 
         return Redirect::route('admin.menu.index')->with('success', 'Menu Added Successfully');
     }
@@ -174,12 +184,14 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        $menu->load(['category', 'media']);
+        $menu->load(['category', 'media', 'extras']);
+        
         return Inertia::render('Admin/Menu/Edit', [
             'title' => 'Edit Menu',
             'item' => new MenuResource($menu),
             'routeResourceName' => $this->routeResourceName,
             'categories' => CategoryResource::collection(Category::get(['ulid', 'name'])),
+            'extras' => ExtraResource::collection(Extra::get(['ulid', 'name'])),
         ]);
     }
 
@@ -188,6 +200,8 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
+        
+        
 
         $filename = $menu->thumbnail;
         $path = imagePath()['menuThumbnail']['path'];
@@ -201,9 +215,13 @@ class MenuController extends Controller
                 return Redirect::back()->with('error', $errorMessage);
             }
         }
-        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider']);
+        $data = $request->safe()->only(['name', 'slug', 'description', 'price', 'status', 'featured', 'slider', 'has_extras']);
 
         $categoryId = Category::where('ulid', $request->category_id)->first();
+        $extras = Extra::whereIn('ulid', $request->extras)->get();
+
+        $menu->extras()->sync($extras);
+        
 
         $data['category_id'] = $categoryId->id;
         $data['thumbnail'] = $filename;

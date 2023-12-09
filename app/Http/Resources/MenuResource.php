@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ExtraResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MenuResource extends JsonResource
@@ -26,6 +27,7 @@ class MenuResource extends JsonResource
             'has_extras' => $this->has_extras,
             'thumbnail' => $this->whenNotNull($this->thumbnail),
             'category' => new CategoryResource($this->whenLoaded('category')),
+            'extras' => ExtraResource::collection($this->whenLoaded('extras')),
             'images' => $this->whenLoaded(
                 'media',
                 fn () => $this->getMedia()->map(

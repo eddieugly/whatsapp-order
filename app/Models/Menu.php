@@ -35,6 +35,7 @@ class Menu extends Model implements HasMedia
         'status',
         'featured',
         'slider',
+        'has_extras',
         'thumbnail'
     ];
 
